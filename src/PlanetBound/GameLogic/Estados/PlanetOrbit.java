@@ -15,9 +15,6 @@ public class PlanetOrbit extends EstadosAdapter {
     @Override
     public IEstados enterOrbit () {
 
-
-
-
         return this;
     }
 }

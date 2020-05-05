@@ -1,12 +1,10 @@
 package PlanetBound.GameLogic.Dados.Resources;
 
-import java.util.Objects;
-
 public class Resources {
 
     private int n;
     private String cor;
-    private int resource;
+    private int resourceValue;
 
 
     public Resources (String cor) {
@@ -16,11 +14,11 @@ public class Resources {
 
     public Resources (String cor, int val) {
         this(cor);
-        this.resource = val;
+        this.resourceValue = val;
     }
 
     public int getNum() {
-        return resource;
+        return resourceValue;
     }
 
     public String getCor() {
@@ -28,11 +26,19 @@ public class Resources {
     }
 
     public void addResource(int resource) {
-        this.resource += resource;
+        this.resourceValue += resource;
+    }
+
+    public void setResourceVal (int resource) {
+        this.resourceValue = resource;
+    }
+
+    public int getResourceVal () {
+        return resourceValue;
     }
 
     public void addMaxResource (int maxR) {
-        this.resource = maxR;
+        this.resourceValue = maxR;
     }
 
     @Override
@@ -53,7 +59,7 @@ public class Resources {
 
     @Override
     public String toString() {
-        return cor + " resource: " + resource;
+        return cor + " resource: " + resourceValue;
     }
 
     // public abstract String getResourceInfo();

@@ -1,8 +1,6 @@
 package PlanetBound.GameLogic.Dados.Nave;
 
-import java.util.ArrayList;
-import java.util.EnumSet;
-import java.util.List;
+import PlanetBound.GameLogic.Dados.Resources.Resources;
 
 /*enum Officers {
     Captian(1),
@@ -33,7 +31,7 @@ import java.util.List;
 public abstract class Nave {
 
 
-    private int _combustivel; // nr fuel
+    private int combustivel; // nr fuel
 
     private int shields;
 
@@ -49,7 +47,7 @@ public abstract class Nave {
     }
 
     public Nave (int fuel, int shield, int weapon, CargoHold carga) {
-        this._combustivel = fuel;
+        this.combustivel = fuel;
         this.shields = shield;
         this.weapon = weapon;
         this.carga = carga;
@@ -63,8 +61,17 @@ public abstract class Nave {
 
     public abstract void setWeaponMax();
 
+
+    public abstract int getCombustivelMax();
+
+    public abstract int getshieldsMax ();
+
+    public abstract int getWeaponMax();
+
+
+
     public void setCombustivel(int combustivel) {
-        this._combustivel = combustivel;
+        this.combustivel = combustivel;
     }
 
     public void setShields(int shields) {
@@ -77,7 +84,7 @@ public abstract class Nave {
 
     @Override
     public String toString () {
-        return "combustivel=" + _combustivel +
+        return "combustivel=" + combustivel +
                 ", shields=" + shields +
                 ", weapon=" + weapon +
                 ", carga=" + carga.toString();
@@ -100,7 +107,7 @@ public abstract class Nave {
     }
 
 
-    public void convertResources() {
+    public boolean convertResources() {
 
         // ask if we have Cargo Holder office
 
@@ -108,7 +115,7 @@ public abstract class Nave {
 
 
         //No - CANNOT Convert
-
+        return false;
     }
 
 
@@ -120,17 +127,66 @@ public abstract class Nave {
 
 
     // Convert resources into fuel
-    public void convertIntoFuel (){
+    public boolean convertIntoFuel (){
         // black + red + green
+        Resources black = getCarga().getResource("black");
+        Resources red = getCarga().getResource("red");
+        Resources green = getCarga().getResource("green");
+
+        if (black.getResourceVal() > 0 && red.getResourceVal() > 0 && green.getResourceVal() > 0)
+        {
+            if (getCombustivelMax() > combustivel){
+                setCombustivel(combustivel+1);
+
+                black.setResourceVal(black.getResourceVal()-1);
+                red.setResourceVal(red.getResourceVal()-1);
+                green.setResourceVal(green.getResourceVal()-1);
+
+                return true;
+            }
+        }
+        return false;
     }
 
 
-    public void convertIntoShield (){
+    public boolean convertIntoShield (){
         // black + green + blue
+        Resources black = getCarga().getResource("black");
+        Resources blue = getCarga().getResource("blue");
+        Resources green = getCarga().getResource("green");
+
+        if (black.getResourceVal() > 0 && blue.getResourceVal() > 0 && green.getResourceVal() > 0)
+        {
+            if (getshieldsMax() > shields){
+                setShields(shields+1);
+
+                black.setResourceVal(black.getResourceVal()-1);
+                blue.setResourceVal(blue.getResourceVal()-1);
+                green.setResourceVal(green.getResourceVal()-1);
+
+                return true;
+            }
+        }
+        return false;
+
     }
 
-    public void convertIntoAMMO (){
+    public boolean convertIntoAMMO (){
         // black + blue
+        Resources black = getCarga().getResource("black");
+        Resources blue = getCarga().getResource("blue");
+
+        if (black.getResourceVal() > 0 && blue.getResourceVal() > 0)
+        {
+            if (getWeaponMax() > weapon){
+                setWeapon(weapon+1);
+
+                black.setResourceVal(black.getResourceVal()-1);
+                blue.setResourceVal(blue.getResourceVal()-1);
+                return true;
+            }
+        }
+        return false;
     }
 
 

@@ -12,15 +12,17 @@ public class Planet {
     private List<Resources> recursos;
 
 
+    public Planet (List<Resources> recursos) {
+        setPlanetSector();
+        this.recursos = recursos;
+    }
 
-
-
-
-
-
+    public void setRecursos (List<Resources> recursos) {
+        this.recursos = recursos;
+    }
 
     public void setPlanetSector () {
-        this.planetSector  = Util.PlanetSector();
+        this.planetSector = Util.PlanetSector();
     }
 
     public String getPlanetSector () {

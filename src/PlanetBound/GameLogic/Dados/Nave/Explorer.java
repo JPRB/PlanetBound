@@ -2,6 +2,11 @@ package PlanetBound.GameLogic.Dados.Nave;
 
 public class Explorer extends Nave {
 
+    private final int CombustivelMax = 53;
+    private final int shieldsMax = 18;
+    private final int WeaponMax = 9;
+
+
     public Explorer () {
         super();
         setCombustivelMax();
@@ -12,19 +17,34 @@ public class Explorer extends Nave {
 
     @Override
     public void setCombustivelMax() {
-        setCombustivel(53);
+        setCombustivel(getCombustivelMax());
+    }
+
+    @Override
+    public int getCombustivelMax() {
+        return 53;
     }
 
     @Override
     public void setShieldsMax() {
-        setShields(18);
+        setShields(getshieldsMax());
+    }
+
+
+    @Override
+    public int getshieldsMax () {
+        return 18;
     }
 
     @Override
     public void setWeaponMax() {
-        setWeapon(9);
+        setWeapon(getWeaponMax());
     }
 
+    @Override
+    public int getWeaponMax() {
+        return 9;
+    }
 
     // Explorer tem 3 niveis de upgrate
     // Validar se já está no max Cargo

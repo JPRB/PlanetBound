@@ -4,7 +4,6 @@ import PlanetBound.GameLogic.Dados.Resources.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class CargoHold {
 
@@ -23,7 +22,7 @@ public class CargoHold {
         resources.add(new Resources("blue", 1));
         resources.add(new Resources("green", 1));
         resources.add(new Resources("black", 1));
-        resources.add(new Resources("purple", 0));
+        resources.add(new Resources("artifact", 0));
     }
 
     // False: Cannot add Resource
@@ -46,6 +45,28 @@ public class CargoHold {
         return false;
     }
 
+
+    public Resources getResource (String name) {
+        return resources.stream()
+                .filter(resource -> resource.getCor().equals(name))
+                .findFirst()
+                .orElse(null);
+    }
+
+    public boolean setResource (String name) {
+        Resources recurso =  resources.stream()
+                            .filter(resource -> resource.getCor().equals(name))
+                            .findFirst()
+                            .orElse(null);
+
+        if (recurso != null){
+            recurso.addResource(recurso.getResourceVal()-1);
+            return true;
+        }
+
+        return false;
+
+    }
 
     // Upgrate lvl carga and maxElementos
     public boolean setUpgrate() {
