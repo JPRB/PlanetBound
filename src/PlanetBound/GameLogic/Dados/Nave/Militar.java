@@ -12,19 +12,37 @@ public class Militar extends Nave {
 
 
     @Override
-    public void setCombustivelMax() {
-        setCombustivel(35);
+    public void setCombustivelMax()
+    {
+        setCombustivel(getCombustivelMax());
+    }
+
+    @Override
+    public int getCombustivelMax() {
+        return 35;
     }
 
     @Override
     public void setShieldsMax() {
-        setShields(9);
+        setShields(getshieldsMax());
+    }
+
+
+    @Override
+    public int getshieldsMax () {
+        return 9;
     }
 
     @Override
     public void setWeaponMax() {
-        setWeapon(9);
+        setWeapon(getWeaponMax());
     }
+
+    @Override
+    public int getWeaponMax() {
+        return 9;
+    }
+
 
     // Militar tem 2 niveis de upgrate
     // Validar se já está no max Cargo

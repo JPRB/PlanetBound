@@ -128,29 +128,6 @@ public class TextUserInterface {
     }*/
 
 
-    private void getUserInputDecisionPlanetOrbit()
-    {
-        int value;
-
-        // game.getState().;
-        System.out.println("1-Play again");
-        System.out.println("2-Exit");
-        System.out.print("> ");
-
-        while(!s.hasNextInt()) s.next();
-
-        value=s.nextInt();
-
-        if(value==1){
-            game.start();
-        }else if(value == 2){
-            exit = true;
-        }
-    }
-
-    private void getUserInputExplorer () {
-
-    }
 
 
     private void getUserInputShipSelection ()
@@ -166,6 +143,49 @@ public class TextUserInterface {
             game.chooseShip(value);
     }
 
+    private void getUserInputDecisionPlanetOrbit()
+    {
+        int value;
+
+        System.out.println("Neste planeta existem estes recursos: " + game.getPlanetResources());
+
+        System.out.println("Escolha uma Opção: ");
+
+        List<String> MenuPlanetOrbit = Arrays.asList("Explorar Recursos", "Ir para outro planeta");
+
+        if (game.haveStationShip()) MenuPlanetOrbit.add("Ir para a Estação Espacial");
+
+        // Se Houver estação espacial, pode ir lá
+        //value = Menu(MenuPlanetOrbit);
+
+        switch (Menu(MenuPlanetOrbit)){
+            case 1:
+                break;
+            case 2:
+                game.moveToNewPlanet();
+                break;
+            case 3:
+                if (MenuPlanetOrbit.size() == 3)
+                    game.moveToStationShip();
+            default:
+                System.out.println("Opção inexistente");
+
+        }
+
+        // Decidir explorar planeta depois
+
+        // Avançar para próximo planeta
+    }
+
+
+
+
+    private void getUserInputDecisionSpaceShip()
+    {
+        int value;
+
+    }
+
 
 
     public void run () {
@@ -178,7 +198,7 @@ public class TextUserInterface {
 
                 game.getMsgLog().forEach((msg) -> System.out.println("---> " + msg));
 
-                //game.clearMsgLog();
+                game.clearMsgLog();
 
             }
 

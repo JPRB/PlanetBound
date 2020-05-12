@@ -2,6 +2,11 @@ package PlanetBound.GameLogic.Dados.Nave;
 
 import PlanetBound.GameLogic.Dados.Resources.Resources;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /*enum Officers {
     Captian(1),
     Navigation,
@@ -30,6 +35,8 @@ import PlanetBound.GameLogic.Dados.Resources.Resources;
 
 public abstract class Nave {
 
+    private final static List<String>  CrewMember =
+            Arrays.asList("Captain", "Navigation", "Landing Party", "Shields", "Weapons", "Cargo hold");
 
     private int combustivel; // nr fuel
 
@@ -40,7 +47,7 @@ public abstract class Nave {
     private CargoHold carga;
 
     // Enum de officers [6]
-    //List<CrewMember> officers = new ArrayList<>();
+    List<CrewMember> officers = new ArrayList<>();
 
     public Nave () {
         carga = new CargoHold();
@@ -55,27 +62,37 @@ public abstract class Nave {
 
     public abstract boolean upgrateCarga (int val);
 
+    public abstract int getCombustivelMax();
+
     public abstract void setCombustivelMax();
 
+    public abstract int getshieldsMax ();
+
     public abstract void setShieldsMax();
+
+    public abstract int getWeaponMax();
 
     public abstract void setWeaponMax();
 
 
-    public abstract int getCombustivelMax();
-
-    public abstract int getshieldsMax ();
-
-    public abstract int getWeaponMax();
-
-
+    public int getCombustivel () {
+        return combustivel;
+    }
 
     public void setCombustivel(int combustivel) {
         this.combustivel = combustivel;
     }
 
+    public int getShields () {
+        return shields;
+    }
+
     public void setShields(int shields) {
         this.shields = shields;
+    }
+
+    public int getWeapon () {
+        return weapon;
     }
 
     public void setWeapon(int weapon) {
@@ -91,7 +108,7 @@ public abstract class Nave {
     }
 
     public void wasteFuel(int val){
-        setCombustivel(-val);
+        setCombustivel(getCombustivel()-val);
     }
 
     public CargoHold getCarga() {
@@ -188,8 +205,5 @@ public abstract class Nave {
         }
         return false;
     }
-
-
-
 
 }

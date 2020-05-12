@@ -14,7 +14,9 @@ public class AwaitShipSelection extends EstadosAdapter {
 
         getGameData().chooseShip(nave);
 
-        //System.out.println(getGameData().getNave());
+        // System.out.println(getGameData().getNave());
+        // Criar 1º planeta, e ver se tem estação..
+        getGameData().setSetor();
 
         return new PlanetOrbit(getGameData());
     }

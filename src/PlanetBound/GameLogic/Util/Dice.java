@@ -1,12 +1,12 @@
-package PlanetBound.Util;
+package PlanetBound.GameLogic.Util;
 
-public class Dice {
+public final class Dice {
 
-    public int rollD3 () {
+    public static int rollD3 () {
         return Util.probability(3);
     }
 
-    public int rollD6 () {
+    public static int rollD6 () {
         return Util.probability(6);
     }
 

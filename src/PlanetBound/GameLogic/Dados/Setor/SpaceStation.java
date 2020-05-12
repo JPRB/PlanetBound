@@ -1,14 +1,18 @@
-package PlanetBound.GameLogic;
+package PlanetBound.GameLogic.Dados.Setor;
 
 public class SpaceStation {
 
 
+
+
     // visitar a estação = 2 recursos de cada [red, black, green and blue]
+    public SpaceStation () {
+
+    }
 
 
 
-
-    public void convertResources() {
+    public void convertResources () {
 
         // Convert one resource in other
         // Ex.: 1 green -> black
@@ -16,13 +20,13 @@ public class SpaceStation {
     }
 
 
-    public void buyDrone()
+    public void buyDrone ()
     {
         // Buy a new drone for (2 or 3)? of each resource [red, black, green and blue]
 
     }
 
-    public void hireNewCrew()
+    public void hireNewCrew ()
     {
         // verify if we need anyone
 

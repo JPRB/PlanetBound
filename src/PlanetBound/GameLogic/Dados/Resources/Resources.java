@@ -1,5 +1,9 @@
 package PlanetBound.GameLogic.Dados.Resources;
 
+import PlanetBound.GameLogic.Dados.Setor.Planetas.*;
+import PlanetBound.GameLogic.Util.Dice;
+import PlanetBound.GameLogic.Util.Util;
+
 public class Resources {
 
     private int n;
@@ -17,29 +21,33 @@ public class Resources {
         this.resourceValue = val;
     }
 
-    public int getNum() {
-        return resourceValue;
-    }
-
     public String getCor() {
         return cor;
     }
 
-    public void addResource(int resource) {
-        this.resourceValue += resource;
-    }
 
-    public void setResourceVal (int resource) {
-        this.resourceValue = resource;
+
+    public void addResource(int resource) {
+        setResourceVal(getResourceVal()+resource);
     }
 
     public int getResourceVal () {
         return resourceValue;
     }
 
+    public void setResourceVal (int resource) {
+        this.resourceValue = resource;
+    }
+
+    public void removeResourceVal(int resource) {
+        setResourceVal(getResourceVal()-resource);
+    }
+
     public void addMaxResource (int maxR) {
         this.resourceValue = maxR;
     }
+
+
 
     @Override
     public boolean equals(Object o) {
@@ -59,8 +67,25 @@ public class Resources {
 
     @Override
     public String toString() {
-        return cor + " resource: " + resourceValue;
+        String ret = cor;
+
+        if (resourceValue > 0)
+            ret += " resource: " + resourceValue;
+
+        return ret;
     }
+
+    public static Resources randomResource (int val) {
+
+        switch (Util.probability(4)){
+            case 1: return new Resources("Black", val);
+            case 2: return new Resources("Blue", val);
+            case 3: return new Resources("Red", val);
+            case 4: return new Resources("Green", val);
+            default: return null;
+        }
+    }
+
 
     // public abstract String getResourceInfo();
 }

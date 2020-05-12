@@ -1,4 +1,12 @@
 package PlanetBound.GameLogic.Estados;
 
-public class GameOver {
+import PlanetBound.GameLogic.Dados.GameData;
+
+public class GameOver extends EstadosAdapter{
+
+    public GameOver (GameData data) {
+        super(data);
+    }
+
+
 }

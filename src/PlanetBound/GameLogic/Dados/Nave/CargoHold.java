@@ -1,6 +1,7 @@
 package PlanetBound.GameLogic.Dados.Nave;
 
 import PlanetBound.GameLogic.Dados.Resources.*;
+import PlanetBound.GameLogic.Util.Enums;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,32 +19,20 @@ public class CargoHold {
 
     public void cargaInitial ()
     {
-        resources.add(new Resources("red", 1));
-        resources.add(new Resources("blue", 1));
-        resources.add(new Resources("green", 1));
-        resources.add(new Resources("black", 1));
-        resources.add(new Resources("artifact", 0));
+        resources.add(new Resources(Enums.PlanetResources.red.name(), 1));
+        resources.add(new Resources(Enums.PlanetResources.blue.name(), 1));
+        resources.add(new Resources(Enums.PlanetResources.green.name(), 1));
+        resources.add(new Resources(Enums.PlanetResources.black.name(), 1));
+        resources.add(new Resources(Enums.PlanetResources.artifact.name(), 0));
     }
 
-    // False: Cannot add Resource
-    public boolean addResource(String name, int value) {
-        Resources x = resources.stream()
-                .filter(resource -> resource.getCor().equals(name))
-                .findFirst()
-                .orElse(null);
 
-        // Se encontrou o recurso e se não excedeu a capacidade
-        if (x != null){
-            if (x.getNum()+value <= getMaxCargo())
-                x.addResource(value);
-            else
-                x.addMaxResource(getMaxCargo());
 
-            return true;
-        }
-
-        return false;
-    }
+     /*
+    ################## Begin #################
+    ############# Resources Methods ##########
+    ##########################################
+    */
 
 
     public Resources getResource (String name) {
@@ -53,19 +42,54 @@ public class CargoHold {
                 .orElse(null);
     }
 
-    public boolean setResource (String name) {
-        Resources recurso =  resources.stream()
-                            .filter(resource -> resource.getCor().equals(name))
-                            .findFirst()
-                            .orElse(null);
+    // False: Cannot add Resource
+    public boolean addResource(String name, int value) {
+        Resources x = getResource(name);
+
+
+        try {
+            // Se encontrou o recurso e se não excedeu a capacidade
+            if ((x.getResourceVal() + value) <= getMaxCargo() && (x.getResourceVal() + value) >= 0)
+                x.addResource(value);
+            else
+                x.addMaxResource(getMaxCargo());
+            return true;
+        }
+        catch(NullPointerException e){
+            return false;
+        }
+    }
+
+    public boolean addResource(Resources r){
+
+        return addResource(r.getCor(), r.getResourceVal());
+    }
+
+    public boolean removeResources (String name, int value) {
+        Resources recurso = getResource(name);
 
         if (recurso != null){
-            recurso.addResource(recurso.getResourceVal()-1);
+            recurso.removeResourceVal(value);
             return true;
         }
 
         return false;
+    }
 
+    public boolean removeResources(Resources r){
+        return removeResources(r.getCor(), r.getResourceVal());
+    }
+
+
+     /*
+    ################## Begin #################
+    ############## Upgrade Methods ###########
+    ##########################################
+    */
+
+
+    public int getUpgrade() {
+        return upgrade;
     }
 
     // Upgrate lvl carga and maxElementos
@@ -75,17 +99,20 @@ public class CargoHold {
         return true;
     }
 
-    public int getUpgrade() {
-        return upgrade;
+    /*
+    ################## Begin #################
+    ############# MaxCarga Methods ###########
+    ##########################################
+    */
+
+    public int getMaxCargo() {
+        return maxCargo;
     }
 
     private void setMaxCargo(int maxCargo) {
         this.maxCargo += maxCargo;
     }
 
-    public int getMaxCargo() {
-        return maxCargo;
-    }
 
     @Override
     public String toString () {

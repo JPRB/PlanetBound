@@ -4,6 +4,7 @@ import PlanetBound.GameLogic.Dados.GameData;
 import PlanetBound.GameLogic.Estados.AwaitBeginning;
 import PlanetBound.GameLogic.Estados.IEstados;
 
+
 import java.util.List;
 
 public class Game {
@@ -15,22 +16,22 @@ public class Game {
     public Game () {
         data = new GameData();
         // Definir o estado inicial
-        setEstados(new AwaitBeginning(data));
+        setEstado(new AwaitBeginning(data));
         // estado = new ...
     }
 
-    public GameData getGameData () {
+    /*public GameData getGameData () {
         return data;
-    }
-
-
+    }*/
 
     //	@return the state
     public IEstados getState() {
         return estado;
     }
 
-    public void setEstados(IEstados estado) {
+
+
+    private void setEstado (IEstados estado) {
         this.estado = estado;
     }
 
@@ -43,20 +44,47 @@ public class Game {
         return data.getMsgLog();
     }
 
-
-    // TODO : Methods State Machine
-
-    public void chooseShip (int value){
-        setEstados(getState().selectShip(value));
+    public void clearMsgLog () {
+        this.data.clearMsgLog();
     }
 
+    public String getPlanetResources () {
+        return data.getSetor().getPlaneta().getRecursos().toString();
+    }
+
+    public boolean haveStationShip () {
+        return data.getSetor().getSpaceStation() != null;
+    }
+
+
+
+
+
+    /*
+        TODO : Methods State Machine
+    */
     public void start () {
-        setEstados(getState().start());
+        setEstado(getState().start());
     }
+
+    public void chooseShip (int value) {
+        setEstado(getState().selectShip(value));
+    }
+
+    public void Orbit () {
+        setEstado(getState().Orbit());
+    }
+
+    public void moveToNewPlanet() {
+        setEstado(getState().moveToAnotherPlanet());
+    }
+
 
     public void finish (){
-        setEstados(getState().finish());
+        setEstado(getState().finish());
     }
 
-
+    public void moveToStationShip () {
+        setEstado(getState().moveToStationShip());
+    }
 }

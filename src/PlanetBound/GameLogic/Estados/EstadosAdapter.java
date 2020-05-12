@@ -4,8 +4,6 @@ import PlanetBound.GameLogic.Dados.GameData;
 
 public abstract class EstadosAdapter implements IEstados {
 
-
-
     // Reference to GameData (Class which manipulate data)
 
     private GameData data;
@@ -38,9 +36,30 @@ public abstract class EstadosAdapter implements IEstados {
     }
 
     @Override
+    public IEstados Orbit () {
+        return this;
+    }
+
+    @Override
+    public IEstados moveToAnotherPlanet () { return this; }
+
+    @Override
+    public IEstados LandingPlanet () {
+        return this;
+    }
+
+    @Override
     public IEstados finish () {
         return this;
     }
 
-    public IEstados enterOrbit () { return this; }
+    @Override
+    public IEstados collectResource () {
+        return this;
+    }
+
+    @Override
+    public IEstados moveToStationShip () {
+        return this;
+    }
 }
