@@ -1,6 +1,7 @@
 package PlanetBound.GameLogic;
 
 import PlanetBound.GameLogic.Dados.GameData;
+import PlanetBound.GameLogic.Dados.Setor.Setor;
 import PlanetBound.GameLogic.Estados.AwaitBeginning;
 import PlanetBound.GameLogic.Estados.IEstados;
 
@@ -20,27 +21,21 @@ public class Game {
         // estado = new ...
     }
 
-    /*public GameData getGameData () {
-        return data;
-    }*/
-
     //	@return the state
-    public IEstados getState() {
+    public IEstados getState () {
         return estado;
     }
-
-
 
     private void setEstado (IEstados estado) {
         this.estado = estado;
     }
 
     @Override
-    public String toString() {
+    public String toString () {
         return data.toString();
     }
 
-    public List<String> getMsgLog() {
+    public List<String> getMsgLog () {
         return data.getMsgLog();
     }
 
@@ -57,12 +52,13 @@ public class Game {
     }
 
 
-
-
+    public String getNave () {
+        return data.getNaveToString();
+    }
 
     /*
-        TODO : Methods State Machine
-    */
+            TODO : Methods State Machine
+        */
     public void start () {
         setEstado(getState().start());
     }
@@ -71,20 +67,28 @@ public class Game {
         setEstado(getState().selectShip(value));
     }
 
-    public void Orbit () {
-        setEstado(getState().Orbit());
+    // New or not
+    public void moveToPlanet () {
+        setEstado(getState().moveToPlanet());
     }
 
-    public void moveToNewPlanet() {
-        setEstado(getState().moveToAnotherPlanet());
+    public void moveToSpaceStation () {
+        setEstado(getState().moveToSpaceStation());
     }
 
-
-    public void finish (){
-        setEstado(getState().finish());
+    public void getItemsSpaceStations (int item) {
+        setEstado(getState().getItemsSpaceStations(item));
     }
 
-    public void moveToStationShip () {
-        setEstado(getState().moveToStationShip());
+    public void playAgain () {
+        setEstado(getState().playAgain());
+    }
+
+    public void explorePlanet () {
+        setEstado(getState().explore());
+    }
+
+    public void moveDrone (int value) {
+        setEstado(getState().moveDrone(value));
     }
 }

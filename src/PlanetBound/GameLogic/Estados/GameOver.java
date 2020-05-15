@@ -9,4 +9,8 @@ public class GameOver extends EstadosAdapter{
     }
 
 
+    @Override
+    public IEstados playAgain () {
+        return new AwaitShipSelection(getGameData());
+    }
 }

@@ -2,17 +2,22 @@ package PlanetBound.GameLogic.Dados.Nave;
 
 public class Explorer extends Nave {
 
-    private final int CombustivelMax = 53;
-    private final int shieldsMax = 18;
-    private final int WeaponMax = 9;
+    private final static int CombustivelMax = 53;
+    private final static int shieldsMax = 18;
+    private final static int WeaponMax = 9;
 
 
     public Explorer () {
         super();
+        initialize();
+    }
+
+    public void initialize(){
         setCombustivelMax();
         setShieldsMax();
         setWeaponMax();
     }
+
 
 
     @Override
@@ -22,7 +27,7 @@ public class Explorer extends Nave {
 
     @Override
     public int getCombustivelMax() {
-        return 53;
+        return CombustivelMax;
     }
 
     @Override
@@ -33,7 +38,7 @@ public class Explorer extends Nave {
 
     @Override
     public int getshieldsMax () {
-        return 18;
+        return shieldsMax;
     }
 
     @Override
@@ -43,19 +48,24 @@ public class Explorer extends Nave {
 
     @Override
     public int getWeaponMax() {
-        return 9;
+        return WeaponMax;
     }
 
     // Explorer tem 3 niveis de upgrate
     // Validar se já está no max Cargo
     // Upgrate carga
-    public boolean upgrateCarga (int val) {
-        /*Boolean officerAlive = officers.stream().filter(officer -> officer.name()
-                .equals("Cargo_hold")).findFirst().orElse(null).isAlive();*/
+    public boolean upgrateCarga () throws Exception {
 
-        if (getCarga().getUpgrade() <= 3 /*&& officerAlive*/)
+        if (getOfficers() < 4)
+            throw new Exception("Esta Secção não possui officer");
+
+        if (getCarga().getUpgrade() <= 3)
             return getCarga().setUpgrate();
         return false;
     }
 
+    @Override
+    public void reset () {
+
+    }
 }

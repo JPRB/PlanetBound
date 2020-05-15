@@ -1,8 +1,7 @@
 package PlanetBound.GameLogic.Dados.Resources;
 
-import PlanetBound.GameLogic.Dados.Setor.Planetas.*;
-import PlanetBound.GameLogic.Util.Dice;
-import PlanetBound.GameLogic.Util.Util;
+import PlanetBound.GameLogic.Utils.Enums;
+import PlanetBound.GameLogic.Utils.Util;
 
 public class Resources {
 
@@ -55,9 +54,9 @@ public class Resources {
 
         if (o == null || getClass() != o.getClass()) return false;
 
-        Resources resources = (Resources) o;
+        Resources resource = (Resources) o;
 
-        return cor.equals(resources.cor);
+        return cor.equals(resource.cor);
     }
 
     @Override
@@ -78,10 +77,10 @@ public class Resources {
     public static Resources randomResource (int val) {
 
         switch (Util.probability(4)){
-            case 1: return new Resources("Black", val);
-            case 2: return new Resources("Blue", val);
-            case 3: return new Resources("Red", val);
-            case 4: return new Resources("Green", val);
+            case 1: return new Resources(Enums.PlanetResources.black.name(), val);
+            case 2: return new Resources(Enums.PlanetResources.blue.name(), val);
+            case 3: return new Resources(Enums.PlanetResources.red.name(), val);
+            case 4: return new Resources(Enums.PlanetResources.green.name(), val);
             default: return null;
         }
     }

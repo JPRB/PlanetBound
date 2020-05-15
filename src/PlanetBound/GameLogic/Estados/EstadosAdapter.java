@@ -31,35 +31,43 @@ public abstract class EstadosAdapter implements IEstados {
     }
 
     @Override
+    public IEstados finish () {
+        return this;
+    }
+
+
+    @Override
     public IEstados selectShip (int value) {
         return this;
     }
 
     @Override
-    public IEstados Orbit () {
+    public IEstados moveToPlanet () { return this; }
+
+
+    @Override
+    public IEstados moveToSpaceStation () {
         return this;
     }
 
     @Override
-    public IEstados moveToAnotherPlanet () { return this; }
-
-    @Override
-    public IEstados LandingPlanet () {
+    public IEstados getItemsSpaceStations (int item) {
         return this;
     }
 
     @Override
-    public IEstados finish () {
+    public IEstados playAgain () {
         return this;
     }
 
     @Override
-    public IEstados collectResource () {
+    public IEstados explore () {
         return this;
     }
 
     @Override
-    public IEstados moveToStationShip () {
+    public IEstados moveDrone (int value) {
         return this;
     }
+
 }

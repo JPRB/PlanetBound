@@ -2,9 +2,17 @@ package PlanetBound.GameLogic.Dados.Nave;
 
 public class Militar extends Nave {
 
+    private final static int CombustivelMax = 35;
+    private final static int shieldsMax = 9;
+    private final static int WeaponMax = 9;
+
 
     public Militar () {
         super();
+        initialize();
+    }
+
+    public void initialize(){
         setCombustivelMax();
         setShieldsMax();
         setWeaponMax();
@@ -19,7 +27,7 @@ public class Militar extends Nave {
 
     @Override
     public int getCombustivelMax() {
-        return 35;
+        return CombustivelMax;
     }
 
     @Override
@@ -30,7 +38,7 @@ public class Militar extends Nave {
 
     @Override
     public int getshieldsMax () {
-        return 9;
+        return shieldsMax;
     }
 
     @Override
@@ -40,16 +48,25 @@ public class Militar extends Nave {
 
     @Override
     public int getWeaponMax() {
-        return 9;
+        return WeaponMax;
     }
 
 
     // Militar tem 2 niveis de upgrate
     // Validar se já está no max Cargo
     // Upgrate carga
-    public boolean upgrateCarga (int val) {
+    public boolean upgrateCarga () throws Exception {
+
+        if (getOfficers() < 4)
+            throw new Exception("Esta Secção não possui officer");
+
         if (getCarga().getUpgrade() <= 1)
            return getCarga().setUpgrate();
         return false;
+    }
+
+    @Override
+    public void reset () {
+
     }
 }

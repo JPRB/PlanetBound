@@ -1,7 +1,7 @@
 package PlanetBound.GameLogic.Dados.Nave;
 
 import PlanetBound.GameLogic.Dados.Resources.*;
-import PlanetBound.GameLogic.Util.Enums;
+import PlanetBound.GameLogic.Utils.Enums;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,12 +17,11 @@ public class CargoHold {
         cargaInitial();
     }
 
-    public void cargaInitial ()
-    {
-        resources.add(new Resources(Enums.PlanetResources.red.name(), 1));
-        resources.add(new Resources(Enums.PlanetResources.blue.name(), 1));
-        resources.add(new Resources(Enums.PlanetResources.green.name(), 1));
-        resources.add(new Resources(Enums.PlanetResources.black.name(), 1));
+    private void cargaInitial () {
+        resources.add(new Resources(Enums.PlanetResources.red.name(), 0));
+        resources.add(new Resources(Enums.PlanetResources.blue.name(), 0));
+        resources.add(new Resources(Enums.PlanetResources.green.name(), 0));
+        resources.add(new Resources(Enums.PlanetResources.black.name(), 0));
         resources.add(new Resources(Enums.PlanetResources.artifact.name(), 0));
     }
 
@@ -38,37 +37,38 @@ public class CargoHold {
     public Resources getResource (String name) {
         return resources.stream()
                 .filter(resource -> resource.getCor().equals(name))
-                .findFirst()
+                .findAny()
                 .orElse(null);
     }
 
     // False: Cannot add Resource
-    public boolean addResource(String name, int value) {
+    public boolean addResource (String name, int value) throws NullPointerException {
         Resources x = getResource(name);
 
+        if (x == null)
+            throw new NullPointerException("Recurso não encontrado");
 
-        try {
-            // Se encontrou o recurso e se não excedeu a capacidade
-            if ((x.getResourceVal() + value) <= getMaxCargo() && (x.getResourceVal() + value) >= 0)
-                x.addResource(value);
-            else
-                x.addMaxResource(getMaxCargo());
-            return true;
-        }
-        catch(NullPointerException e){
+        // Se encontrou o recurso e se não excedeu a capacidade
+        if ((x.getResourceVal() + value) <= getMaxCargo() && (x.getResourceVal() + value) >= 0)
+            x.addResource(value);
+        else {
+            x.addMaxResource(getMaxCargo());
             return false;
         }
+        return true;
     }
 
-    public boolean addResource(Resources r){
+    public boolean addResource (Resources r) throws NullPointerException {
 
         return addResource(r.getCor(), r.getResourceVal());
     }
 
-    public boolean removeResources (String name, int value) {
+    public boolean removeResources (String name, int value) throws NullPointerException {
         Resources recurso = getResource(name);
 
-        if (recurso != null){
+        if (recurso == null) throw new NullPointerException("Recurso não encontrado");
+
+        if ((recurso.getResourceVal() - value) >= 0) {
             recurso.removeResourceVal(value);
             return true;
         }
@@ -76,7 +76,7 @@ public class CargoHold {
         return false;
     }
 
-    public boolean removeResources(Resources r){
+    public boolean removeResources (Resources r) throws NullPointerException {
         return removeResources(r.getCor(), r.getResourceVal());
     }
 
@@ -88,12 +88,12 @@ public class CargoHold {
     */
 
 
-    public int getUpgrade() {
+    public int getUpgrade () {
         return upgrade;
     }
 
     // Upgrate lvl carga and maxElementos
-    public boolean setUpgrate() {
+    public boolean setUpgrate () {
         setMaxCargo(6);
         this.upgrade += 1;
         return true;
@@ -105,18 +105,17 @@ public class CargoHold {
     ##########################################
     */
 
-    public int getMaxCargo() {
+    public int getMaxCargo () {
         return maxCargo;
     }
 
-    private void setMaxCargo(int maxCargo) {
+    private void setMaxCargo (int maxCargo) {
         this.maxCargo += maxCargo;
     }
 
 
     @Override
     public String toString () {
-        return "lvl cargo: " + upgrade + " Capacidade: " + maxCargo +
-                "resources" + resources.toString();
+        return String.format("[Porão] lvl cargo: %d Capacidade: %d Resources: %s", upgrade, maxCargo, resources.toString());
     }
 }

@@ -3,7 +3,8 @@ package PlanetBound.GameLogic.Dados;
 import PlanetBound.GameLogic.Dados.Nave.FactoryNave;
 import PlanetBound.GameLogic.Dados.Nave.Nave;
 import PlanetBound.GameLogic.Dados.Setor.Setor;
-import PlanetBound.GameLogic.Util.Util;
+import PlanetBound.GameLogic.Utils.Enums;
+import PlanetBound.GameLogic.Utils.Util;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +14,7 @@ public class GameData {
     // Nave
     private Nave nave;
     private Setor setor;
+    private boolean endGame;
 
     private final List<String> msgLog;
 
@@ -22,12 +24,23 @@ public class GameData {
         msgLog = new ArrayList<>();
     }
 
+    public void reset () {
+        initializeData();
+        nave.reset();
+    }
 
     public void initializeData () {
         setSetor();
+        endGame = false;
     }
 
+    public boolean isEndGame () {
+        return endGame;
+    }
 
+    public void setEndGame (boolean endGame) {
+        this.endGame = endGame;
+    }
 
     /*
     ################## Begin #################
@@ -84,9 +97,10 @@ public class GameData {
     public void evento() {
         int nEvento = Events.aplicaEvento(this);
 
-        /*if (No weapon officer || shield officer) {
-            Events.getEvento(nEvento);
-        }*/
+        if (getNave().getOfficers() < 6 && Enums.Events.CrewDeath.getValue() != nEvento){
+            msgLog.add("evento Dobrado...");
+            Events.aplicaEvento(this, nEvento);
+        }
 
     }
 

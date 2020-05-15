@@ -1,15 +1,6 @@
-package PlanetBound.GameLogic.Util;
+package PlanetBound.GameLogic.Utils;
 
-import PlanetBound.GameLogic.Dados.Resources.Resources;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Random;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
-
 
 
 public final class Util {

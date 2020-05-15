@@ -1,7 +1,7 @@
 package PlanetBound.GameLogic.Dados.Setor.Planetas;
 
 
-import PlanetBound.GameLogic.Util.Util;
+import PlanetBound.GameLogic.Utils.Util;
 
 public class FactoryPlanet {
 
@@ -16,3 +16,4 @@ public class FactoryPlanet {
         }
     }
 }
+

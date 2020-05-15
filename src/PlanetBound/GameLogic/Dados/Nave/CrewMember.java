@@ -1,7 +1,5 @@
 package PlanetBound.GameLogic.Dados.Nave;
 
-import com.sun.org.omg.CORBA.Initializer;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;

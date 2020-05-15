@@ -11,18 +11,20 @@ public interface IEstados {
     IEstados selectShip (int value);
 
 
-
-    IEstados moveToAnotherPlanet ();
-
-
-    IEstados LandingPlanet ();
+    // Mover para novo Planeta/Setor Ou para Planeta/Setor existente
+    IEstados moveToPlanet ();
 
     IEstados finish ();
 
+    IEstados moveToSpaceStation ();
 
-    IEstados Orbit ();
+    IEstados getItemsSpaceStations (int item);
 
-    IEstados collectResource ();
+    // Used when GameOver
+    IEstados playAgain ();
 
-    IEstados moveToStationShip ();
+
+    IEstados explore ();
+
+    IEstados moveDrone(int value);
 }

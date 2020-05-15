@@ -1,4 +1,4 @@
-package PlanetBound.GameLogic.Util;
+package PlanetBound.GameLogic.Utils;
 
 public final class Dice {
 
@@ -9,8 +9,5 @@ public final class Dice {
     public static int rollD6 () {
         return Util.probability(6);
     }
-
-
-    // @param value of dice (3 or 6)
 
 }

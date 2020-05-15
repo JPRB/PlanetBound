@@ -1,11 +1,10 @@
 package PlanetBound.UI.txt;
 
-import PlanetBound.GameLogic.Estados.AwaitBeginning;
-import PlanetBound.GameLogic.Estados.AwaitShipSelection;
-import PlanetBound.GameLogic.Estados.PlanetOrbit;
+import PlanetBound.GameLogic.Estados.*;
 import PlanetBound.GameLogic.Game;
+import PlanetBound.GameLogic.Utils.Enums;
 
-import javax.xml.bind.annotation.XmlEnum;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
@@ -16,122 +15,47 @@ public class TextUserInterface {
     private Scanner s;
     private boolean exit = false;
 
-    public TextUserInterface(Game  game) {
+    public TextUserInterface (Game game) {
         this.game = game;
         s = new Scanner(System.in);
     }
 
-    private void showGame()
-    {
+    private void showGame () {
         System.out.println(game);
     }
 
 
-    private int Menu (List<String> list){
+    private int Menu (List<String> list) {
         int value;
 
 
-        for (int i = 0; i < list.size(); i ++) {
-            System.out.println(i+1 + "-"+list.get(i));
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println(i + 1 + "-" + list.get(i));
         }
         System.out.print("> ");
 
-        while(!s.hasNextInt()) s.next();
+        while (!s.hasNextInt()) s.next();
 
-        value=s.nextInt();
+        value = s.nextInt();
 
         return value;
     }
 
 
-    private void getUserInputWhileAwaitingBeginning()
-    {
+    private void getUserInputWhileAwaitingBeginning () {
         int value;
 
-
-        List<String> MenuInicio = Arrays.asList("Begin", "Exit");
+        List<String> MenuInicio = Arrays.asList("Jogar", "Exit");
 
         value = Menu(MenuInicio);
 
-        if(value == 1) {
+        if (value == 1) {
             game.start();
-        }
-        else if (value == 2)
-            game.finish();
-    }
-
-    /*private void getUserInputWhileAwaitingBet()
-    {
-        int value;
-
-        System.out.println("\n\n---------------------------------");
-        showGame();
-
-        System.out.println();
-        System.out.println("Bet up to "+ game.getScore()+" point(s) or -1 to end the game");
-        System.out.print("> ");
-
-        while(!s.hasNextInt()) s.next();
-
-        value=s.nextInt();
-
-        if(value>=0){
-            game.bet(value);
-        }else{
-            game.finish();
-        }
-
-    }
-
-    private void getUserInputWhileAwaitingOptionSelection()
-    {
-        int value;
-
-        System.out.println("\n\n---------------------------------");
-        showGame();
-
-        System.out.println();
-        System.out.println("A black ball was removed from the bag");
-        System.out.println();
-        System.out.println("1-Lose a point");
-        System.out.println("2-Remove two balls from the bag (black balls return to the bag and white balls are removed from the game)");
-        System.out.print("> ");
-
-        while(!s.hasNextInt()) s.next();
-
-        value = s.nextInt();
-
-        if(value == 1){
-            game.removeOneBallFromCollectedWhiteBalls();
-        }else if(value == 2){
-            game.getTwoBallsFromBag();
-        }
-
-    }
-    private void getUserInputWhileGameOver()
-    {
-        int value;
-
-        System.out.println("1-Play again");
-        System.out.println("2-Exit");
-        System.out.print("> ");
-
-        while(!s.hasNextInt()) s.next();
-
-        value=s.nextInt();
-
-        if(value==1){
-            game.start();
-        }else if(value == 2){
+        } else if (value == 2)
             exit = true;
-        }
-    }*/
+    }
 
-
-
-
-    private void getUserInputShipSelection ()
-    {
+    private void getUserInputShipSelection () {
         int value;
 
         System.out.println("Escolha uma Nave: ");
@@ -139,34 +63,37 @@ public class TextUserInterface {
 
         value = Menu(MenuShipSelection);
 
-        if(value > 0 && value < 3)
+        if (value > 0 && value < 3)
             game.chooseShip(value);
     }
 
-    private void getUserInputDecisionPlanetOrbit()
-    {
-        int value;
+    private void getUserInputDecisionPlanetOrbit () {
+
+        System.out.println(game.getNave());
 
         System.out.println("Neste planeta existem estes recursos: " + game.getPlanetResources());
 
         System.out.println("Escolha uma Opção: ");
 
-        List<String> MenuPlanetOrbit = Arrays.asList("Explorar Recursos", "Ir para outro planeta");
+        List<String> MenuPlanetOrbit = new ArrayList<>(Arrays.asList("Explorar Recursos", "Ir para outro planeta"));
 
         if (game.haveStationShip()) MenuPlanetOrbit.add("Ir para a Estação Espacial");
 
         // Se Houver estação espacial, pode ir lá
         //value = Menu(MenuPlanetOrbit);
 
-        switch (Menu(MenuPlanetOrbit)){
+        switch (Menu(MenuPlanetOrbit)) {
             case 1:
+                game.explorePlanet();
                 break;
             case 2:
-                game.moveToNewPlanet();
+                game.moveToPlanet();
                 break;
             case 3:
-                if (MenuPlanetOrbit.size() == 3)
-                    game.moveToStationShip();
+                if (MenuPlanetOrbit.size() == 3) {
+                    game.moveToSpaceStation();
+                    break;
+                }
             default:
                 System.out.println("Opção inexistente");
 
@@ -178,21 +105,89 @@ public class TextUserInterface {
     }
 
 
+    private void getUserInputDecisionSpaceStation () {
+
+        System.out.println(game.getNave());
+
+        System.out.println("Escolha uma Opção: ");
+
+        List<String> MenuPlanetOrbit =
+                new ArrayList<>(Arrays.asList
+                        ("Voltar para planeta Orbita",
+                                Enums.Station.convertResources.getDescription(),
+                                Enums.Station.buyDrone.getDescription(),
+                                Enums.Station.hireNewCrew.getDescription(),
+                                Enums.Station.upgradeWeapons.getDescription(),
+                                Enums.Station.upgradeCargoHold.getDescription())
+                );
 
 
-    private void getUserInputDecisionSpaceShip()
-    {
-        int value;
+        switch (Menu(MenuPlanetOrbit)) {
+            case 1:
+                game.moveToPlanet();
+                break;
+            case 2:
+               game.getItemsSpaceStations(Enums.Station.convertResources.getValue());
+                break;
+            case 3:
+                game.getItemsSpaceStations(Enums.Station.buyDrone.getValue());
+                break;
+            case 4:
+                game.getItemsSpaceStations(Enums.Station.hireNewCrew.getValue());
+                break;
+            case 5:
+                game.getItemsSpaceStations(Enums.Station.upgradeWeapons.getValue());
+                break;
+            case 6:
+                game.getItemsSpaceStations(Enums.Station.upgradeCargoHold.getValue());
+                break;
+            default:
+                System.out.println("Opção inexistente");
+        }
 
     }
 
 
+    private void getUserInputDecisionLandingParty()
+    {
+        int value;
+
+        System.out.println("Move Drone: ");
+
+        List<String> MenuPlanetOrbit = new ArrayList<>(Arrays.asList("Y-", "X+", "X-", "Y+"));
+
+        value = Menu(MenuPlanetOrbit);
+
+        if (value > 0 && value < 5)
+            game.moveDrone(value);
+        else
+            System.out.println("Opção inexistente");
+
+    }
+
+
+    private void getUserInputWhileGameOver() {
+
+        List<String> MenuGameOver = Arrays.asList("Jogar Novamente", "Exit");
+
+        switch (Menu(MenuGameOver)) {
+            case 1:
+                game.playAgain();
+                break;
+            case 2:
+                exit = true;
+                break;
+            default:
+                System.out.println("Opção inexistente");
+        }
+    }
+
 
     public void run () {
 
-        while(!exit){
+        while (!exit) {
 
-            if(game.getMsgLog().size() > 0){
+            if (game.getMsgLog().size() > 0) {
 
                 System.out.println();
 
@@ -206,19 +201,19 @@ public class TextUserInterface {
                 case :
             }*/
 
-            if(game.getState() instanceof AwaitBeginning){
+            if (game.getState() instanceof AwaitBeginning) {
                 getUserInputWhileAwaitingBeginning();
-            }
-            else if(game.getState() instanceof AwaitShipSelection){
+            } else if (game.getState() instanceof AwaitShipSelection) {
                 getUserInputShipSelection();
-            }
-            else if(game.getState() instanceof PlanetOrbit){
+            } else if (game.getState() instanceof PlanetOrbit) {
                 getUserInputDecisionPlanetOrbit();
-                //System.out.println("vou Orbitar um planeta");
-
-            }/*else if(game.getState() instanceof GameOver){
+            }else if (game.getState() instanceof AwaitToExplorerResources) {
+                    getUserInputDecisionLandingParty();
+            } else if (game.getState() instanceof AwaitStationDecisions) {
+                getUserInputDecisionSpaceStation();
+            }else if(game.getState() instanceof GameOver){
                 getUserInputWhileGameOver();
-            }*/
+            }
         }
 
         System.out.println();

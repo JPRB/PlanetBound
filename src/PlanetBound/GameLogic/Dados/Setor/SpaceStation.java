@@ -1,16 +1,30 @@
 package PlanetBound.GameLogic.Dados.Setor;
 
+import PlanetBound.GameLogic.Dados.Nave.Nave;
+import PlanetBound.GameLogic.Dados.Resources.Resources;
+import PlanetBound.GameLogic.Utils.Enums;
+
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 public class SpaceStation {
 
 
+    private boolean cargoHoldUpgrate;
 
-
-    // visitar a estação = 2 recursos de cada [red, black, green and blue]
     public SpaceStation () {
-
+        cargoHoldUpgrate = true;
     }
 
 
+    public void setCargoHoldUpgrate () {
+        this.cargoHoldUpgrate = !cargoHoldUpgrate;
+    }
+
+    public boolean canUpgrateCargoHold () {
+        return cargoHoldUpgrate;
+    }
 
     public void convertResources () {
 
@@ -20,28 +34,69 @@ public class SpaceStation {
     }
 
 
-    public void buyDrone ()
-    {
+    public boolean buyDrone (Nave nave) {
         // Buy a new drone for (2 or 3)? of each resource [red, black, green and blue]
+        boolean canBuy = false;
 
+        try {
+            List<Resources> resources = Stream.of(Enums.PlanetResources.values())
+                    .map(res -> nave.getCarga().getResource(res.name())).filter(res -> !res.getCor().equals(Enums.PlanetResources.artifact.name())).collect(Collectors.toList());
+
+            final long count = resources.stream().filter(r -> r.getResourceVal() >= 2).count();
+
+            if (count == 4) {
+
+                for (Resources r : resources)
+                    nave.getCarga().removeResources(r.getCor(), 2);
+
+                nave.getDrone().setEstado(1);
+                canBuy = true;
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        return canBuy;
     }
 
-    public void hireNewCrew ()
-    {
-        // verify if we need anyone
+    public boolean hireNewCrew (Nave nave) {
+        boolean hiredOfficer = false;
 
-        // Hire a single crew member that was lost for one of each resource [red, black, green and blue]
+        try {
+            // Hire a single crew member that was lost for one of each resource [red, black, green and blue]
+            List<Resources> resources = Stream.of(Enums.PlanetResources.values())
+                    .map(res -> nave.getCarga().getResource(res.name())).filter(res -> !res.getCor().equals(Enums.PlanetResources.artifact.name())).collect(Collectors.toList());
+
+            final long count = resources.stream().filter(r -> r.getResourceVal() >= 1).count();
+
+            if (count == 4) {
+
+                for (Resources r : resources)
+                    hiredOfficer = nave.getCarga().removeResources(r.getCor(), 1);
+
+                nave.addCrewMember();
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        return hiredOfficer;
     }
 
-    public void upgradeWeapons() {
+    public void upgradeWeapons () {
         // Upgrade your weapon system on the Military ship for two of each resource [red, black, green and blue]
 
     }
 
-    public void upgradeCargoHold() {
-        // Upgrade your weapon system on the Military ship for two of each resource [red, black, green and blue]
-    }
+    public boolean upgradeCargoHold (Nave nave) throws Exception {
+        boolean res = false;
+        if (canUpgrateCargoHold()) {
+            res = nave.upgrateCarga();
+            setCargoHoldUpgrate();
+        }
 
+        return res;
+    }
 
 
 }

@@ -2,8 +2,8 @@ package PlanetBound.GameLogic.Dados.Setor;
 
 import PlanetBound.GameLogic.Dados.Setor.Planetas.FactoryPlanet;
 import PlanetBound.GameLogic.Dados.Setor.Planetas.Planet;
-import PlanetBound.GameLogic.Util.Enums;
-import PlanetBound.GameLogic.Util.Util;
+import PlanetBound.GameLogic.Utils.Enums;
+import PlanetBound.GameLogic.Utils.Util;
 
 public class Setor {
 

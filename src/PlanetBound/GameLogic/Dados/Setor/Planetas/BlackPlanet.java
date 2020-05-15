@@ -1,7 +1,7 @@
 package PlanetBound.GameLogic.Dados.Setor.Planetas;
 
 import PlanetBound.GameLogic.Dados.Resources.Resources;
-import PlanetBound.GameLogic.Util.Enums;
+import PlanetBound.GameLogic.Utils.Enums;
 
 import java.util.ArrayList;
 import java.util.List;

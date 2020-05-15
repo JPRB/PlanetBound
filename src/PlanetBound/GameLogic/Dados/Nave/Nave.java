@@ -2,11 +2,6 @@ package PlanetBound.GameLogic.Dados.Nave;
 
 import PlanetBound.GameLogic.Dados.Resources.Resources;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 /*enum Officers {
     Captian(1),
     Navigation,
@@ -35,8 +30,8 @@ import java.util.List;
 
 public abstract class Nave {
 
-    private final static List<String>  CrewMember =
-            Arrays.asList("Captain", "Navigation", "Landing Party", "Shields", "Weapons", "Cargo hold");
+    // Officers
+    private int officers = 6;
 
     private int combustivel; // nr fuel
 
@@ -46,21 +41,14 @@ public abstract class Nave {
 
     private CargoHold carga;
 
-    // Enum de officers [6]
-    List<CrewMember> officers = new ArrayList<>();
+    private Drone drone;
 
     public Nave () {
         carga = new CargoHold();
+        drone = new Drone();
     }
 
-    public Nave (int fuel, int shield, int weapon, CargoHold carga) {
-        this.combustivel = fuel;
-        this.shields = shield;
-        this.weapon = weapon;
-        this.carga = carga;
-    }
-
-    public abstract boolean upgrateCarga (int val);
+    public abstract boolean upgrateCarga () throws Exception;
 
     public abstract int getCombustivelMax();
 
@@ -74,6 +62,37 @@ public abstract class Nave {
 
     public abstract void setWeaponMax();
 
+    public Drone getDrone () {
+        return drone;
+    }
+
+    /*
+    ################## Begin #################
+    ############ CrewMember Methods ##########
+    ##########################################
+    */
+
+    public int getOfficers () {
+        return officers;
+    }
+
+    private void setOfficers (int officers) {
+        this.officers = officers;
+    }
+
+    public void crewMemberDie () {
+        setOfficers(getOfficers()-1);
+    }
+
+    public void addCrewMember () {
+        setOfficers(getOfficers()+1);
+    }
+
+    /*
+    ################## END ###################
+    ############ CrewMember Methods ##########
+    ##########################################
+    */
 
     public int getCombustivel () {
         return combustivel;
@@ -101,10 +120,11 @@ public abstract class Nave {
 
     @Override
     public String toString () {
-        return "combustivel=" + combustivel +
-                ", shields=" + shields +
-                ", weapon=" + weapon +
-                ", carga=" + carga.toString();
+
+        return "Total Officers: "+ officers +" combustivel: " + combustivel +
+                ", shields: " + shields +
+                ", weapon: " + weapon +
+                ", carga: " + carga.toString();
     }
 
     public void wasteFuel(int val){
@@ -115,29 +135,31 @@ public abstract class Nave {
         return carga;
     }
 
-    public boolean collectResource (String name, int resourceVal) {
+    public boolean collectResource (String name, int resourceVal) throws NullPointerException {
         if (getCarga().getMaxCargo() > resourceVal) {
            return getCarga().addResource(name, resourceVal);
         }
-
         return false;
     }
 
+    public boolean collectResource (Resources resource) throws NullPointerException {
+        return collectResource(resource.getCor(), resource.getResourceVal());
+    }
 
-    public boolean convertResources() {
+
+
+
+    public boolean convertResources() throws Exception {
 
         // ask if we have Cargo Holder office
-
+        if (getOfficers() < 4)
+            throw new Exception("Não tem oficial para esta tarefa.");
         // Yes - Can Convert
 
 
         //No - CANNOT Convert
         return false;
     }
-
-
-
-
 
 
 
@@ -155,9 +177,9 @@ public abstract class Nave {
             if (getCombustivelMax() > combustivel){
                 setCombustivel(combustivel+1);
 
-                black.setResourceVal(black.getResourceVal()-1);
-                red.setResourceVal(red.getResourceVal()-1);
-                green.setResourceVal(green.getResourceVal()-1);
+                black.removeResourceVal(1);
+                red.removeResourceVal(1);
+                green.removeResourceVal(1);
 
                 return true;
             }
@@ -177,9 +199,9 @@ public abstract class Nave {
             if (getshieldsMax() > shields){
                 setShields(shields+1);
 
-                black.setResourceVal(black.getResourceVal()-1);
-                blue.setResourceVal(blue.getResourceVal()-1);
-                green.setResourceVal(green.getResourceVal()-1);
+                black.removeResourceVal(1);
+                blue.removeResourceVal(1);
+                green.removeResourceVal(1);
 
                 return true;
             }
@@ -198,12 +220,13 @@ public abstract class Nave {
             if (getWeaponMax() > weapon){
                 setWeapon(weapon+1);
 
-                black.setResourceVal(black.getResourceVal()-1);
-                blue.setResourceVal(blue.getResourceVal()-1);
+                black.removeResourceVal(1);
+                blue.removeResourceVal(1);
                 return true;
             }
         }
         return false;
     }
 
+    public abstract void reset ();
 }
