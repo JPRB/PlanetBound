@@ -3,11 +3,10 @@ package PlanetBound.GameLogic.Dados.Nave;
 public class Drone {
     private int x;
     private int y;
-    private int estado = 0;
     private int life=6;
 
     public Drone () {
-        estado = 1;
+
     }
 
     public void setPos (int x, int y) throws ArrayIndexOutOfBoundsException {
@@ -34,13 +33,8 @@ public class Drone {
         return y;
     }
 
-    public int getEstado () {
-        return estado;
-    }
-
-    public void setEstado (int estado) {
-        this.estado = estado;
-        life = 6;
+    public void setLife (int life) {
+        this.life = life;
     }
 
     public int getLife () {

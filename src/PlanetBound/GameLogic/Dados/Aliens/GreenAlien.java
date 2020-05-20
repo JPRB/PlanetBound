@@ -9,11 +9,9 @@ public class GreenAlien extends Alien {
 
         if (val == 1 || val == 2) {
             return 0;
-        } else if (val == 4 || val == 6) {
-            setDie();
-            System.out.println("Alien morreu");
-        } else
-            System.out.println("Alien MISS");
+        } else if (val >= 4 && val <= 6) {
+            return 1;
+        }
 
         return -1;
     }

@@ -10,11 +10,9 @@ public class BlueAlien extends Alien {
 
         if (val == 4) {
             return 0;
-        } else if (val == 3 || val == 5) {
-            setDie();
-            System.out.println("Alien morreu");
-        } else
-            System.out.println("Alien MISS");
+        } else if (val >= 3 && val <= 5) {
+            return 1;
+        }
 
         return -1;
     }

@@ -121,19 +121,9 @@ public abstract class Nave {
     }
 
 
-
-
-    public boolean convertResources() throws Exception {
-
-        // ask if we have Cargo Holder office
-        if (getOfficers() < 4)
-            throw new Exception("Não tem oficial para esta tarefa.");
-        // Yes - Can Convert
-
-        //No - CANNOT Convert
-        return false;
+    public boolean haveCargoOfficer () {
+        return getOfficers() >= 4;
     }
-
 
     // Convert resources into fuel
     public boolean convertIntoFuel (){
@@ -197,6 +187,4 @@ public abstract class Nave {
         }
         return false;
     }
-
-    public abstract void reset ();
 }

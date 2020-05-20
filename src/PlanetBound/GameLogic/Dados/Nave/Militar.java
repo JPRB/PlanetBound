@@ -64,9 +64,4 @@ public class Militar extends Nave {
            return getCarga().setUpgrate();
         return false;
     }
-
-    @Override
-    public void reset () {
-
-    }
 }

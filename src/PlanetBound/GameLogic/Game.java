@@ -1,7 +1,6 @@
 package PlanetBound.GameLogic;
 
 import PlanetBound.GameLogic.Dados.GameData;
-import PlanetBound.GameLogic.Dados.Setor.Setor;
 import PlanetBound.GameLogic.Estados.AwaitBeginning;
 import PlanetBound.GameLogic.Estados.IEstados;
 
@@ -67,9 +66,9 @@ public class Game {
         setEstado(getState().selectShip(value));
     }
 
-    // New or not
-    public void moveToPlanet () {
-        setEstado(getState().moveToPlanet());
+    // Move to New Planet || To orbit in planet || to Ship in Planet Orbit
+    public void move () {
+        setEstado(getState().move());
     }
 
     public void moveToSpaceStation () {
@@ -90,5 +89,13 @@ public class Game {
 
     public void moveDrone (int value) {
         setEstado(getState().moveDrone(value));
+    }
+
+    public void convertResources(int value){
+        setEstado(getState().convertResources(value));
+    }
+
+    public void doEvent (int val) {
+        setEstado(getState().aplicaEvento(val));
     }
 }

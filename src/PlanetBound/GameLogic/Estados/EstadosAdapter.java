@@ -9,18 +9,17 @@ public abstract class EstadosAdapter implements IEstados {
     private GameData data;
 
 
-    public EstadosAdapter(GameData data) {
+    public EstadosAdapter (GameData data) {
         this.data = data;
     }
 
-    public GameData getGameData() {
+    public GameData getGameData () {
         return data;
     }
 
-    public void setData(GameData data) {
+    public void setData (GameData data) {
         this.data = data;
     }
-
 
 
     // TODO : Definir implementações vazias para os métodos do interface IEstado
@@ -42,7 +41,9 @@ public abstract class EstadosAdapter implements IEstados {
     }
 
     @Override
-    public IEstados moveToPlanet () { return this; }
+    public IEstados move () {
+        return this;
+    }
 
 
     @Override
@@ -70,4 +71,14 @@ public abstract class EstadosAdapter implements IEstados {
         return this;
     }
 
+
+    @Override
+    public IEstados convertResources (int value) {
+        return this;
+    }
+
+    @Override
+    public IEstados aplicaEvento (int value) {
+        return this;
+    }
 }

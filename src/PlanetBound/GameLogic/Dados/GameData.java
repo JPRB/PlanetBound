@@ -25,11 +25,6 @@ public class GameData {
         msgLog = new ArrayList<>();
     }
 
-    public void reset () {
-        initializeData();
-        nave.reset();
-    }
-
     public void initializeData () {
         setSetor();
         endGame = false;

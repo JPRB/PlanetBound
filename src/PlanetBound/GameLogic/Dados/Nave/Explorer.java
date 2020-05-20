@@ -64,8 +64,5 @@ public class Explorer extends Nave {
         return false;
     }
 
-    @Override
-    public void reset () {
 
-    }
 }

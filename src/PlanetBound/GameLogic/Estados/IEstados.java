@@ -12,7 +12,7 @@ public interface IEstados {
 
 
     // Mover para novo Planeta/Setor Ou para Planeta/Setor existente
-    IEstados moveToPlanet ();
+    IEstados move ();
 
     IEstados finish ();
 
@@ -27,4 +27,8 @@ public interface IEstados {
     IEstados explore ();
 
     IEstados moveDrone(int value);
+
+    IEstados convertResources (int value);
+
+    IEstados aplicaEvento (int val);
 }

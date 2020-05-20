@@ -26,7 +26,6 @@ public class AwaitToExplorerResources extends EstadosAdapter {
 
         int[] posDrone = drone.getXY();
         int[] posResource = superficie.getResourcePos();
-        // int[] posAlien = superficie.getAlienPos();
 
         try {
             switch (value) {
@@ -53,19 +52,28 @@ public class AwaitToExplorerResources extends EstadosAdapter {
         }
 
         // ALIEN INTERACTION W/ DRONE
-        if (alien.hasDied())
+        if (alien.isDied())
             superficie.setAlien();
-        else
-            alien.interaction(drone);
+        else {
+            int alienInt = alien.interaction(drone);
 
+            if (alienInt == 1)
+                getGameData().addMsgLog("Alien Morreu!!");
+            else if (alienInt == 0){
+                getGameData().addMsgLog("Drone explodiu!!");
+                return new PlanetOrbit(getGameData());
+            }
+            getGameData().addMsgLog(String.format("ALIEN (X, Y): (%d, %d)", alien.getX(), alien.getY()));
+        }
+        // ALIEN INTERACTION W/ DRONE
 
         // posDrone = superficie.getDronePos();
-
+        getGameData().addMsgLog(" ");
         getGameData().addMsgLog(String.format("Recurso (X, Y): (%d, %d)", posResource[0], posResource[1]));
         getGameData().addMsgLog(String.format("Drone (X, Y): (%d, %d)", drone.getX(), drone.getY()));
-        getGameData().addMsgLog(String.format("ALIEN (X, Y): (%d, %d)", alien.getX(), alien.getY()));
 
-        if (posDrone[0] == posResource[0] && posDrone[1] == posResource[1]) {
+
+        if (drone.getX() == posResource[0] && drone.getY() == posResource[1]) {
             try {
                 // Recurso Planet
                 Resources resources = collectResource(getGameData().getSetor().getPlaneta());
@@ -84,7 +92,7 @@ public class AwaitToExplorerResources extends EstadosAdapter {
                 }
 
 
-                return new PlanetOrbit(getGameData());
+                return new AwaitConvertResource(getGameData());
 
             } catch (NullPointerException npe) {
                 getGameData().addMsgLog("Não conseguiu adicionar recurso à Carga.");

@@ -26,13 +26,6 @@ public class SpaceStation {
         return cargoHoldUpgrate;
     }
 
-    public void convertResources () {
-
-        // Convert one resource in other
-        // Ex.: 1 green -> black
-
-    }
-
 
     public boolean buyDrone (Nave nave) {
         // Buy a new drone for (2 or 3)? of each resource [red, black, green and blue]
@@ -49,7 +42,7 @@ public class SpaceStation {
                 for (Resources r : resources)
                     nave.getCarga().removeResources(r.getCor(), 2);
 
-                nave.getDrone().setEstado(1);
+                nave.getDrone().setLife(6);
                 canBuy = true;
             }
         } catch (Exception e) {

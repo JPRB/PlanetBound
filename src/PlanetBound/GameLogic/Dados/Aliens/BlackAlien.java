@@ -12,10 +12,8 @@ public class BlackAlien extends Alien {
         if (val == 1) {
             return 0;
         } else if (val == 5 || val == 6) {
-            this.setDie();
-            System.out.println("Alien morreu");
-        } else
-            System.out.println("Alien MISS");
+            return 1;
+        }
         return -1;
     }
 }

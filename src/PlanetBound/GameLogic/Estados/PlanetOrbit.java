@@ -22,10 +22,9 @@ public class PlanetOrbit extends EstadosAdapter {
 
     // MOVE TO NEW PLANET
     @Override
-    public IEstados moveToPlanet () {
+    public IEstados move () {
 
         Nave nave = this.getGameData().getNave();
-        Event evento;
 
         nave.wasteFuel(1);
 
@@ -34,54 +33,8 @@ public class PlanetOrbit extends EstadosAdapter {
             return new GameOver(getGameData());
         }
 
-        getGameData().addMsgLog("Durante a Viagem...");
 
-
-
-        // Testar se passou num buraco negro
-        if (this.getGameData().wormHole()) {
-            this.getGameData().addMsgLog("Realizou a viagem por Worm hole");
-
-            final int shield = nave.getShields();
-            final int fuel = nave.getCombustivel();
-
-            if (shield > 1) {
-                if (nave.getOfficers() == 6) {
-                    // Custa 3 de fuel 2 de shield
-                    nave.setCombustivel(fuel - 3);
-                    nave.setShields(shield - 2);
-                } else {
-                    // Não Tem Shield officer
-                    // Custa 3+1 de fuel 2+2 de shield
-                    nave.setCombustivel(fuel - 4);
-                    nave.setShields(shield - 4);
-                }
-            } else {
-                nave.crewMemberDie();
-            }
-        }
-
-        // Evento
-        evento = FactoryEvent.criaEvento(getGameData());
-        if (evento != null) {
-            evento.aplicaEvento();
-        }else
-            getGameData().addMsgLog("Ocorreu um erro no evento");
-
-
-
-        getGameData().addMsgLog("Fim da Viagem...");
-
-
-        // Novo Sector/planeta
-        try {
-            this.getGameData().setSetor();
-            this.getGameData().addMsgLog("Novo planeta encontrado!");
-        } catch (Exception e) {
-            Util.pError(e.getMessage());
-        }
-
-        return this;
+        return new AwaitEvent(getGameData());
     }
 
     @Override
@@ -122,7 +75,7 @@ public class PlanetOrbit extends EstadosAdapter {
         }
 
         // Se tiver drone
-        if (nave.getDrone().getEstado() == 0){
+        if (nave.getDrone().getLife() == 0){
             getGameData().addMsgLog("Não tem Drone, não pode explorar. Vá até uma estação comprar um novo.");
             return this;
         }

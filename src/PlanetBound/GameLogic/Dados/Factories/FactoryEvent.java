@@ -7,7 +7,11 @@ import PlanetBound.GameLogic.Utils.Util;
 public class FactoryEvent {
 
     public static Event criaEvento (GameData data) {
-        switch (Util.probability(6)) {
+        return criaEvento(data, Util.probability(6));
+    }
+
+    public static Event criaEvento (GameData data, int val) {
+        switch (val) {
             case 1:
                 return new CrewDeathEvent(data);
             case 2:

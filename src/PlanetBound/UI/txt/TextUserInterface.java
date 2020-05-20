@@ -87,7 +87,7 @@ public class TextUserInterface {
                 game.explorePlanet();
                 break;
             case 2:
-                game.moveToPlanet();
+                game.move();
                 break;
             case 3:
                 if (MenuPlanetOrbit.size() == 3) {
@@ -114,7 +114,6 @@ public class TextUserInterface {
         List<String> MenuPlanetOrbit =
                 new ArrayList<>(Arrays.asList
                         ("Voltar para planeta Orbita",
-                                Enums.Station.convertResources.getDescription(),
                                 Enums.Station.buyDrone.getDescription(),
                                 Enums.Station.hireNewCrew.getDescription(),
                                 Enums.Station.upgradeWeapons.getDescription(),
@@ -124,21 +123,18 @@ public class TextUserInterface {
 
         switch (Menu(MenuPlanetOrbit)) {
             case 1:
-                game.moveToPlanet();
+                game.move();
                 break;
             case 2:
-               game.getItemsSpaceStations(Enums.Station.convertResources.getValue());
-                break;
-            case 3:
                 game.getItemsSpaceStations(Enums.Station.buyDrone.getValue());
                 break;
-            case 4:
+            case 3:
                 game.getItemsSpaceStations(Enums.Station.hireNewCrew.getValue());
                 break;
-            case 5:
+            case 4:
                 game.getItemsSpaceStations(Enums.Station.upgradeWeapons.getValue());
                 break;
-            case 6:
+            case 5:
                 game.getItemsSpaceStations(Enums.Station.upgradeCargoHold.getValue());
                 break;
             default:
@@ -148,8 +144,7 @@ public class TextUserInterface {
     }
 
 
-    private void getUserInputDecisionLandingParty()
-    {
+    private void getUserInputDecisionLandingParty () {
         int value;
 
         System.out.println("Move Drone: ");
@@ -165,8 +160,71 @@ public class TextUserInterface {
 
     }
 
+    private void getUserInputWhileConvertResources () {
 
-    private void getUserInputWhileGameOver() {
+        List<String> MenuConvertResources = Arrays.asList("Converter Recursos", "Go to ship");
+
+        switch (Menu(MenuConvertResources)) {
+            case 1:
+                game.convertResources(getUserInputConvertingResources());
+                break;
+            case 2:
+                game.move();
+                break;
+            default:
+                System.out.println("Opção inexistente");
+        }
+    }
+
+    private int getUserInputConvertingResources () {
+
+        int value;
+
+        List<String> MenuConvertResources =
+                Arrays.asList("Em Combustivel",
+                        "Em shield",
+                        "Em AMMO",
+                        "Black -> Red",
+                        "Black -> Green",
+                        "Black -> Blue",
+                        "Red -> Black",
+                        "Red -> Green",
+                        "Red -> Blue",
+                        "Green -> Black",
+                        "Green -> Red",
+                        "Green -> Blue",
+                        "Blue -> Red",
+                        "Blue -> Black",
+                        "Blue -> Green");
+
+        do
+            value = Menu(MenuConvertResources);
+        while (value < 0 || value > 17);
+
+        return value;
+    }
+
+    private void getUserInputEvent () {
+
+        int val;
+        List<String> MenuEvents =
+                Arrays.asList("CrewDeath",
+                        "SalvageShip",
+                        "CargoLoss",
+                        "FuelLoss",
+                        "NoEvent",
+                        "CrewRescue",
+                        "Avançar");
+
+        val = Menu(MenuEvents);
+
+        if (val > 0 && val < 8)
+            game.doEvent(val);
+
+    }
+
+
+    private void getUserInputWhileGameOver () {
 
         List<String> MenuGameOver = Arrays.asList("Jogar Novamente", "Exit");
 
@@ -207,17 +265,22 @@ public class TextUserInterface {
                 getUserInputShipSelection();
             } else if (game.getState() instanceof PlanetOrbit) {
                 getUserInputDecisionPlanetOrbit();
-            }else if (game.getState() instanceof AwaitToExplorerResources) {
-                    getUserInputDecisionLandingParty();
+            } else if (game.getState() instanceof AwaitToExplorerResources) {
+                getUserInputDecisionLandingParty();
+            } else if (game.getState() instanceof AwaitConvertResource) {
+                getUserInputWhileConvertResources();
+            } else if (game.getState() instanceof AwaitEvent) {
+                getUserInputEvent();
             } else if (game.getState() instanceof AwaitStationDecisions) {
                 getUserInputDecisionSpaceStation();
-            }else if(game.getState() instanceof GameOver){
+            } else if (game.getState() instanceof GameOver) {
                 getUserInputWhileGameOver();
             }
         }
 
         System.out.println();
         System.out.println("************** Game over *****************");
+
         showGame();
 
     }

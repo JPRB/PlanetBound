@@ -74,6 +74,8 @@ public class PlanetSuperficie {
     // CREATE ALIEN
 
     public void setAlien () {
+        System.out.println("Criei um noBO");
+
         alien = FactoryAlien.criaAlien();
         int[] pos = getRandomPos();
 

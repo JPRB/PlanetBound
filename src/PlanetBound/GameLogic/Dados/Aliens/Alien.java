@@ -34,7 +34,7 @@ public abstract class Alien {
         return y;
     }
 
-    public boolean hasDied () {
+    public boolean isDied () {
         return died == 1;
     }
 
@@ -43,28 +43,34 @@ public abstract class Alien {
     }
 
 
-    public void interaction (Drone drone) {
-        int[] dronePos = drone.getXY();
+    private int setAttack (Drone drone) {
+        int ret = -1;
 
+        while (!isDied() && drone.getLife() > 0) {
+            ret = attack();
+            if (ret == 0)
+                drone.attacked();
+            else if (ret == 1)
+                setDie();
+        }
+        return ret;
+    }
+
+    public int interaction (Drone drone) {
+        int[] dronePos = drone.getXY();
 
         if (alienNextToDrone(dronePos)) {
             // Enquanto alien vivo ou drone com vida
-            while (!hasDied() && drone.getLife() > 0) {
-
-                if (attack() == 0) {
-                    System.out.println("Drone atacado..");
-                    drone.attacked();
-                }
-            }
+            return setAttack(drone);
         } else /*if (((this.getX() - dronePos[0]) != 0) && ((this.getY() - dronePos[1]) != 0)) */ {
-            moveAlien(dronePos);
+            moveAlien(drone);
         }
-
+        return -1;
     }
 
     // Move Alien
-    private void moveAlien (int[] dronePos) {
-        int val = minorDistance(dronePos);
+    private void moveAlien (Drone drone) {
+        int val = minorDistance(drone.getXY());
 
         switch (val) {
             // TOP
@@ -82,6 +88,10 @@ public abstract class Alien {
             // LEFT
             case 4:
                 setPos(getX() - 1, getY());
+                break;
+            case -1:
+                setPos(getX() - 1, getY());
+                setAttack(drone);
                 break;
             // Stay
             default:
@@ -101,8 +111,7 @@ public abstract class Alien {
             return ((this.getX() - dronePos[0]) == 0) && ((this.getY() - dronePos[1]) == 1);
     }
 
-    public abstract int attack ();
-
+    protected abstract int attack ();
 
 
     // AUX: CALCULATE DISTANCEs
@@ -144,22 +153,24 @@ public abstract class Alien {
         }
 
         //Direita
-        else if (minorDistance > right) {
+        if (minorDistance > right) {
             minorDistance = right;
             ret = 2;
         }
 
         // Baixo
-        else if (minorDistance > bot) {
+        if (minorDistance > bot) {
             minorDistance = bot;
             ret = 3;
-
         }
 
         // Esquerda
-        else if (minorDistance > left) {
+        if (minorDistance > left) {
             ret = 4;
         }
+
+        if (minorDistance == 0.0)
+            ret = -1;
 
         return ret;
     }

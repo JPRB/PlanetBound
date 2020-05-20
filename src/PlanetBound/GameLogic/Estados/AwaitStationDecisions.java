@@ -19,18 +19,15 @@ public class AwaitStationDecisions extends EstadosAdapter {
 
         switch (item) {
             case 1:
-                convertResources();
-                break;
-            case 2:
                 buyDrone();
                 break;
-            case 3:
+            case 2:
                 hireNewoOfficer();
                 break;
-            case 4:
+            case 3:
                 upgradeWeapons();
                 break;
-            case 5:
+            case 4:
                 upgradeCargoHold();
                 break;
             default:
@@ -42,7 +39,7 @@ public class AwaitStationDecisions extends EstadosAdapter {
     }
 
     @Override
-    public IEstados moveToPlanet () {
+    public IEstados move () {
         getGameData().getNave().wasteFuel(1);
 
         if (getGameData().getNave().getCombustivel() < 1)
@@ -77,12 +74,6 @@ public class AwaitStationDecisions extends EstadosAdapter {
     private void upgradeWeapons () {
         // red, black, green and blue
         getGameData().getSetor().getSpaceStation().upgradeWeapons();
-    }
-
-    // TODO ?
-    private void convertResources () {
-        // isto -> naquilo
-        getGameData().getSetor().getSpaceStation().convertResources();
     }
 
     private void upgradeCargoHold () {

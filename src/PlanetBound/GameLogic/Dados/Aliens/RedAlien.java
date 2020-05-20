@@ -17,10 +17,9 @@ public class RedAlien extends Alien {
         if (val == 6 || val == 5) {
             return 0;
         } else if (val == 2 || val == 1) {
-            setDie();
-            System.out.println("Alien morreu");
-        } else
-            System.out.println("Alien MISS");
+            // setDie();
+            return 1;
+        }
 
         return -1;
     }
