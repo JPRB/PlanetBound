@@ -1,12 +1,10 @@
 package PlanetBound.GameLogic.Dados.Setor.Planetas;
 
 import PlanetBound.GameLogic.Dados.Aliens.Alien;
-import PlanetBound.GameLogic.Dados.Aliens.FactoryAlien;
+import PlanetBound.GameLogic.Dados.Factories.FactoryAlien;
 import PlanetBound.GameLogic.Dados.Nave.Drone;
 import PlanetBound.GameLogic.Dados.Resources.Resources;
 import PlanetBound.GameLogic.Utils.Dice;
-
-import java.util.Arrays;
 
 public class PlanetSuperficie {
 
@@ -20,9 +18,11 @@ public class PlanetSuperficie {
     public PlanetSuperficie (Resources resource, Drone drone) {
         this.resource = new Resources(resource.getCor());
 
-        setResourcePos();
-        setDrone(drone);
         setAlien();
+        setDrone(drone);
+        setResourcePos();
+
+
     }
 
     private void initFields () {
@@ -57,10 +57,8 @@ public class PlanetSuperficie {
 
         try {
             drone.setPos(x, y);
-
-            Alien();
         } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("ui ui");
+            throw new ArrayIndexOutOfBoundsException("A superficie só tem 6 quadrados");
         }
     }
 
@@ -73,12 +71,13 @@ public class PlanetSuperficie {
     }
 
 
-    // ALIENNNNN
+    // CREATE ALIEN
 
-    private void setAlien () {
+    public void setAlien () {
+        alien = FactoryAlien.criaAlien();
         int[] pos = getRandomPos();
 
-        alien = FactoryAlien.criaAlien();
+
         if (alien != null)
             alien.setPos(pos[0], pos[1]);
     }
@@ -88,29 +87,8 @@ public class PlanetSuperficie {
         return alien.getXY();
     }
 
-    // Podem estar na mesma celula a lutar apenas
-    public void Alien () {
-        int[] dronePos = getDronePos();
-
-        if (alien.getDied() == 1)
-            setAlien();
-
-        if (alien.getX() - dronePos[0] == 0 && alien.getY() - dronePos[1] == -1 ||
-                alien.getX() - dronePos[0] == 1 && alien.getY() - dronePos[1] == 0 ||
-                alien.getX() - dronePos[0] == -1 && alien.getY() - dronePos[1] == 0 ||
-                alien.getX() - dronePos[0] == 0 && alien.getY() - dronePos[1] == 1) {
-            // Enquanto alien vivo ou drone com vida
-            while (alien.getDied() == 0 && drone.getLife() > 0) {
-                if (alien.attack() == 0) {
-                    System.out.println("Drone atacado..");
-                    drone.attacked();
-                }
-            }
-        } else if (alien.getX() - dronePos[0] != 0 && alien.getY() - dronePos[1] != 0) {
-            alien.moveAlien(drone);
-        }
-
-
+    public Alien getAlien () {
+        return alien;
     }
 
 
@@ -122,14 +100,16 @@ public class PlanetSuperficie {
         // Field
         boolean ocupado;
         //recurso?
-        ocupado = this.fields[x][y] != 0;
+        ocupado = (this.fields[x][y] != 0);
 
         //Alien?
-        if (alien.getX() == x && alien.getY() == y)
-            ocupado = true;
+        if (alien != null)
+            if (alien.getX() == x && alien.getY() == y)
+                ocupado = true;
         // Drone?
-        if (drone.getX() == x && drone.getY() == y)
-            ocupado = true;
+        if (drone != null)
+            if (drone.getX() == x && drone.getY() == y)
+                ocupado = true;
 
         return ocupado;
     }

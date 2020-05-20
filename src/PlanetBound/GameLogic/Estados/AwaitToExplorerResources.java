@@ -1,6 +1,8 @@
 package PlanetBound.GameLogic.Estados;
 
+import PlanetBound.GameLogic.Dados.Aliens.Alien;
 import PlanetBound.GameLogic.Dados.GameData;
+import PlanetBound.GameLogic.Dados.Nave.Drone;
 import PlanetBound.GameLogic.Dados.Resources.Resources;
 import PlanetBound.GameLogic.Dados.Setor.Planetas.Planet;
 import PlanetBound.GameLogic.Dados.Setor.Planetas.PlanetSuperficie;
@@ -19,38 +21,55 @@ public class AwaitToExplorerResources extends EstadosAdapter {
     public IEstados moveDrone (int value) {
 
         PlanetSuperficie superficie = getGameData().getSetor().getPlaneta().getSuperficie();
-        int[] posDrone = superficie.getDronePos();
+        Alien alien = getGameData().getSetor().getPlaneta().getSuperficie().getAlien();
+        Drone drone = getGameData().getNave().getDrone();
+
+        int[] posDrone = drone.getXY();
         int[] posResource = superficie.getResourcePos();
-        int[] posAlien = superficie.getAlienPos();
+        // int[] posAlien = superficie.getAlienPos();
 
-        switch (value) {
-            // Top
-            case 1:
-                superficie.setDronePos(posDrone[0], posDrone[1] - 1);
-                break;
-            // Right
-            case 2:
-                superficie.setDronePos(posDrone[0] + 1, posDrone[1]);
-                break;
-            // Left
-            case 3:
-                superficie.setDronePos(posDrone[0] - 1, posDrone[1]);
-                break;
-            // Bot
-            case 4:
-                superficie.setDronePos(posDrone[0], posDrone[1] + 1);
-                break;
+        try {
+            switch (value) {
+                // Top
+                case 1:
+                    drone.setPos(posDrone[0], posDrone[1] - 1);
+                    break;
+                // Right
+                case 2:
+                    drone.setPos(posDrone[0] + 1, posDrone[1]);
+                    break;
+                // Left
+                case 3:
+                    drone.setPos(posDrone[0] - 1, posDrone[1]);
+                    break;
+                // Bot
+                case 4:
+                    drone.setPos(posDrone[0], posDrone[1] + 1);
+                    break;
 
+            }
+        } catch (ArrayIndexOutOfBoundsException exc) {
+            getGameData().addMsgLog(exc.getMessage());
         }
-        posDrone = superficie.getDronePos();
 
-        System.out.println(String.format("Recurso (X, Y): (%d, %d)", posResource[0], posResource[1]));
-        System.out.println(String.format("Drone (X, Y): (%d, %d)", posDrone[0], posDrone[1]));
-        System.out.println(String.format("ALIEN (X, Y): (%d, %d)", posAlien[0], posAlien[1]));
+        // ALIEN INTERACTION W/ DRONE
+        if (alien.hasDied())
+            superficie.setAlien();
+        else
+            alien.interaction(drone);
+
+
+        // posDrone = superficie.getDronePos();
+
+        getGameData().addMsgLog(String.format("Recurso (X, Y): (%d, %d)", posResource[0], posResource[1]));
+        getGameData().addMsgLog(String.format("Drone (X, Y): (%d, %d)", drone.getX(), drone.getY()));
+        getGameData().addMsgLog(String.format("ALIEN (X, Y): (%d, %d)", alien.getX(), alien.getY()));
 
         if (posDrone[0] == posResource[0] && posDrone[1] == posResource[1]) {
             try {
+                // Recurso Planet
                 Resources resources = collectResource(getGameData().getSetor().getPlaneta());
+                // ADD recurso PORÃO
                 boolean collected = getGameData().getNave().collectResource(resources);
 
                 if (collected)
@@ -59,8 +78,7 @@ public class AwaitToExplorerResources extends EstadosAdapter {
                     getGameData().addMsgLog("Eram demasiados recursos. Tentou-se recolher recursos " + resources.getCor());
 
 
-                if (getGameData().getNave().getCarga().getResource(Enums.PlanetResources.artifact.name()).getResourceVal() == 5)
-                {
+                if (getGameData().getNave().getCarga().getResource(Enums.PlanetResources.artifact.name()).getResourceVal() == 5) {
                     getGameData().addMsgLog("Ganhaste!!! Parabéns");
                     return new GameOver(getGameData());
                 }
@@ -82,7 +100,7 @@ public class AwaitToExplorerResources extends EstadosAdapter {
     }
 
     private Resources collectResource (Planet planeta) throws NullPointerException {
-        int val=1;
+        int val = 1;
         Resources resources = new Resources(planeta.getSuperficie().getResource().getCor());
 
         planeta.removeRecurso(resources);

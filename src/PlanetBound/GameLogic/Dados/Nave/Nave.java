@@ -2,32 +2,6 @@ package PlanetBound.GameLogic.Dados.Nave;
 
 import PlanetBound.GameLogic.Dados.Resources.Resources;
 
-/*enum Officers {
-    Captian(1),
-    Navigation,
-    LandingParty,
-    Shields,
-    Weapons,
-    Cargo_hold;
-
-    //private int n;
-
-    *//*Officers(int alive) {
-        this.n = alive;
-    }*//*
-
-    public boolean isAlive() {
-        return alive;
-    }
-
-    @Override
-    public String toString() {
-        if (alive)
-            return "Sim";
-        return "Não";
-    }
-}*/
-
 public abstract class Nave {
 
     // Officers
@@ -156,13 +130,9 @@ public abstract class Nave {
             throw new Exception("Não tem oficial para esta tarefa.");
         // Yes - Can Convert
 
-
         //No - CANNOT Convert
         return false;
     }
-
-
-
 
 
     // Convert resources into fuel

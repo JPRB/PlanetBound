@@ -1,7 +1,8 @@
 package PlanetBound.GameLogic.Estados;
 
+import PlanetBound.GameLogic.Dados.Events.Event;
+import PlanetBound.GameLogic.Dados.Factories.FactoryEvent;
 import PlanetBound.GameLogic.Dados.GameData;
-import PlanetBound.GameLogic.Dados.Nave.Drone;
 import PlanetBound.GameLogic.Dados.Nave.Nave;
 import PlanetBound.GameLogic.Dados.Resources.Resources;
 import PlanetBound.GameLogic.Utils.Enums;
@@ -24,6 +25,7 @@ public class PlanetOrbit extends EstadosAdapter {
     public IEstados moveToPlanet () {
 
         Nave nave = this.getGameData().getNave();
+        Event evento;
 
         nave.wasteFuel(1);
 
@@ -35,8 +37,6 @@ public class PlanetOrbit extends EstadosAdapter {
         getGameData().addMsgLog("Durante a Viagem...");
 
 
-        // Evento
-        this.getGameData().evento();
 
         // Testar se passou num buraco negro
         if (this.getGameData().wormHole()) {
@@ -60,6 +60,16 @@ public class PlanetOrbit extends EstadosAdapter {
                 nave.crewMemberDie();
             }
         }
+
+        // Evento
+        evento = FactoryEvent.criaEvento(getGameData());
+        if (evento != null) {
+            evento.aplicaEvento();
+        }else
+            getGameData().addMsgLog("Ocorreu um erro no evento");
+
+
+
         getGameData().addMsgLog("Fim da Viagem...");
 
 

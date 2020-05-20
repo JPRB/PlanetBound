@@ -1,6 +1,6 @@
 package PlanetBound.GameLogic.Dados.Setor;
 
-import PlanetBound.GameLogic.Dados.Setor.Planetas.FactoryPlanet;
+import PlanetBound.GameLogic.Dados.Factories.FactoryPlanet;
 import PlanetBound.GameLogic.Dados.Setor.Planetas.Planet;
 import PlanetBound.GameLogic.Utils.Enums;
 import PlanetBound.GameLogic.Utils.Util;

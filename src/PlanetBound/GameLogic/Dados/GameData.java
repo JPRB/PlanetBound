@@ -1,6 +1,7 @@
 package PlanetBound.GameLogic.Dados;
 
-import PlanetBound.GameLogic.Dados.Nave.FactoryNave;
+import PlanetBound.GameLogic.Dados.Events.Event;
+import PlanetBound.GameLogic.Dados.Factories.FactoryNave;
 import PlanetBound.GameLogic.Dados.Nave.Nave;
 import PlanetBound.GameLogic.Dados.Setor.Setor;
 import PlanetBound.GameLogic.Utils.Enums;
@@ -93,17 +94,6 @@ public class GameData {
     public Setor getSetor () {
         return setor;
     }
-
-    public void evento() {
-        int nEvento = Events.aplicaEvento(this);
-
-        if (getNave().getOfficers() < 6 && Enums.Events.CrewDeath.getValue() != nEvento){
-            msgLog.add("evento Dobrado...");
-            Events.aplicaEvento(this, nEvento);
-        }
-
-    }
-
 
     public boolean wormHole () {
 

@@ -1,6 +1,7 @@
-package PlanetBound.GameLogic.Dados.Setor.Planetas;
+package PlanetBound.GameLogic.Dados.Factories;
 
 
+import PlanetBound.GameLogic.Dados.Setor.Planetas.*;
 import PlanetBound.GameLogic.Utils.Util;
 
 public class FactoryPlanet {

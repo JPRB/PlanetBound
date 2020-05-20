@@ -1,6 +1,6 @@
-package PlanetBound.GameLogic.Dados.Aliens;
+package PlanetBound.GameLogic.Dados.Factories;
 
-import PlanetBound.GameLogic.Dados.Setor.Planetas.*;
+import PlanetBound.GameLogic.Dados.Aliens.*;
 import PlanetBound.GameLogic.Utils.Util;
 
 public class FactoryAlien {
