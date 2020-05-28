@@ -59,7 +59,7 @@ public class Explorer extends Nave {
         if (getOfficers() < 4)
             throw new Exception("Esta Secção não possui officer");
 
-        if (getCarga().getUpgrade() <= 3)
+        if (getCarga().getCargoLvl() <= 3)
             return getCarga().setUpgrate();
         return false;
     }

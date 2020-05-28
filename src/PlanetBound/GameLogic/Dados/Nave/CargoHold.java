@@ -88,7 +88,7 @@ public class CargoHold {
     */
 
 
-    public int getUpgrade () {
+    public int getCargoLvl () {
         return upgrade;
     }
 

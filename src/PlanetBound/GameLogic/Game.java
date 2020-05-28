@@ -1,6 +1,7 @@
 package PlanetBound.GameLogic;
 
 import PlanetBound.GameLogic.Dados.GameData;
+import PlanetBound.GameLogic.Dados.Nave.Nave;
 import PlanetBound.GameLogic.Estados.AwaitBeginning;
 import PlanetBound.GameLogic.Estados.IEstados;
 
@@ -54,6 +55,40 @@ public class Game {
     public String getNave () {
         return data.getNaveToString();
     }
+
+    // Methods to GUI
+
+
+    // Nave:: Methods
+    private Nave returnNave (){
+        return data.getNave();
+    }
+
+    public int getFuel () {
+        return returnNave().getCombustivel();
+    }
+
+    public int getOfficers () {
+        return returnNave().getOfficers();
+
+    }
+
+    public int getShield (){
+        return returnNave().getShields();
+    }
+
+    public int getMax (){
+        return returnNave().getCarga().getCargoLvl();
+    }
+
+    public int getCargoMax (){
+        return returnNave().getCarga().getMaxCargo();
+    }
+
+
+    // Planet Methods
+
+
 
     /*
             TODO : Methods State Machine

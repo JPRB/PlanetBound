@@ -1,7 +1,7 @@
 package PlanetBound.UI.GUI;
 
 public interface Constants {
-
+    String PATH = "PlanetBound/UI/GUI/";
     // int WIDTH = (int) Screen.getPrimary().getBounds().getWidth();
     // int HEIGHT = (int) Screen.getPrimary().getBounds().getHeight();
 
@@ -16,8 +16,12 @@ public interface Constants {
 //    String UNDO_IMAGE = "Images\\undo.png";
 //    String SAVE_IMAGE = "Images\\save.png";
 //    String GAME_PLAY_MUSIC = "Music\\gameplaymusicship.mp3";
-    String MAIN_MUSIC = "Music\\space.mp3";
+    String MAIN_MUSIC = PATH+"Music/space.mp3";
 
-    String MOUSE_ICON = "Images\\cursor.png";
+    String MOUSE_ICON = PATH+"Images/cursor.png";
 
+    String  SHIP_MILITAR = PATH+"Images/spaceship-militar.png";
+    String  SHIP_EXPLORER = PATH+"Images/spaceship-explorer.png";
+    String  BACKGROUND1 = PATH+"Images/space.png";
+    String  FUEL_ICON = PATH+"Images/fuel.jpg";
 }

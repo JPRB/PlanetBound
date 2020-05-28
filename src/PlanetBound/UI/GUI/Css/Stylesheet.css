@@ -1,0 +1,11 @@
+.DefaultButton{
+
+    /*-fx-font-family: "Death Star";*/
+    -fx-background-color: #3282cc;
+    -fx-border-color: #ffffff;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-font-size: 15px;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}

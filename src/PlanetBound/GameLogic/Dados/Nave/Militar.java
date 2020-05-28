@@ -60,7 +60,7 @@ public class Militar extends Nave {
         if (getOfficers() < 4)
             throw new Exception("Esta Secção não possui officer");
 
-        if (getCarga().getUpgrade() <= 1)
+        if (getCarga().getCargoLvl() <= 1)
            return getCarga().setUpgrate();
         return false;
     }

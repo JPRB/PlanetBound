@@ -1,16 +1,19 @@
 package PlanetBound.UI.GUI;
 
 import PlanetBound.GameLogic.Game;
+import PlanetBound.UI.GUI.Buttons.DefaultButton;
+import PlanetBound.UI.GUI.Panes.MainPane;
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Cursor;
 import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
@@ -30,26 +33,10 @@ public class GraphicUI implements Constants {
 
     public void run () {
         //gameMusic();
+        ModelObservable modelObs = new ModelObservable();
+        ViewController vc = new ViewController(modelObs);
 
-        // Sound Botão
-        Button soundBtn = new Button();
-        Image soundImg = new Image(getClass().getResource("Images\\soundIcon.png").toExternalForm(), 30, 30, true, true);
-
-        soundBtn.setGraphic(new ImageView(soundImg));
-
-
-        //Instantiating the HBox class
-        HBox hbox = new HBox();
-
-        //Setting the space between the nodes of a HBox pane
-        hbox.setSpacing(10);
-
-        HBox.setMargin(soundBtn, new Insets(20, 20, 20, 20));
-        hbox.setAlignment(Pos.TOP_RIGHT);
-        hbox.getChildren().add(soundBtn);
-
-
-        Scene scene = new Scene(hbox);
+        Scene scene = new Scene(vc.getRootPane());
         // setCursor(scene);
         showStage(scene);
     }
@@ -76,6 +63,9 @@ public class GraphicUI implements Constants {
 
         initialStage.setScene(scene);
         initialStage.show();
+        /*initialStage.setOnCloseRequest(e -> {
+            Platform.exit();
+        });*/
     }
 
 
