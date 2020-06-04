@@ -69,7 +69,7 @@ public class TextUserInterface {
 
     private void getUserInputDecisionPlanetOrbit () {
 
-        System.out.println(game.getNave());
+       // System.out.println(game.getNave());
 
         System.out.println("Neste planeta existem estes recursos: " + game.getPlanetResources());
 
@@ -106,8 +106,6 @@ public class TextUserInterface {
 
 
     private void getUserInputDecisionSpaceStation () {
-
-        System.out.println(game.getNave());
 
         System.out.println("Escolha uma Opção: ");
 

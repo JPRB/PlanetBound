@@ -3,7 +3,6 @@ package PlanetBound.GameLogic.Estados;
 import PlanetBound.GameLogic.Dados.Aliens.Alien;
 import PlanetBound.GameLogic.Dados.GameData;
 import PlanetBound.GameLogic.Dados.Nave.Drone;
-import PlanetBound.GameLogic.Dados.Resources.Resources;
 import PlanetBound.GameLogic.Dados.Setor.Planetas.Planet;
 import PlanetBound.GameLogic.Dados.Setor.Planetas.PlanetSuperficie;
 import PlanetBound.GameLogic.Utils.Dice;
@@ -76,7 +75,7 @@ public class AwaitToExplorerResources extends EstadosAdapter {
         if (drone.getX() == posResource[0] && drone.getY() == posResource[1]) {
             try {
                 // Recurso Planet
-                Resources resources = collectResource(getGameData().getSetor().getPlaneta());
+                PlanetBound.GameLogic.Dados.Resources.Resources resources = collectResource(getGameData().getSetor().getPlaneta());
                 // ADD recurso PORÃO
                 boolean collected = getGameData().getNave().collectResource(resources);
 
@@ -86,7 +85,7 @@ public class AwaitToExplorerResources extends EstadosAdapter {
                     getGameData().addMsgLog("Eram demasiados recursos. Tentou-se recolher recursos " + resources.getCor());
 
 
-                if (getGameData().getNave().getCarga().getResource(Enums.PlanetResources.artifact.name()).getResourceVal() == 5) {
+                if (getGameData().getNave().getCarga().getResource(Enums.EResources.artifact.name()).getResourceVal() == 5) {
                     getGameData().addMsgLog("Ganhaste!!! Parabéns");
                     return new GameOver(getGameData());
                 }
@@ -107,13 +106,13 @@ public class AwaitToExplorerResources extends EstadosAdapter {
         return this;
     }
 
-    private Resources collectResource (Planet planeta) throws NullPointerException {
+    private PlanetBound.GameLogic.Dados.Resources.Resources collectResource (Planet planeta) throws NullPointerException {
         int val = 1;
-        Resources resources = new Resources(planeta.getSuperficie().getResource().getCor());
+        PlanetBound.GameLogic.Dados.Resources.Resources resources = new PlanetBound.GameLogic.Dados.Resources.Resources(planeta.getSuperficie().getResource().getCor());
 
         planeta.removeRecurso(resources);
 
-        if (!resources.getCor().equals(Enums.PlanetResources.artifact.name()))
+        if (!resources.getCor().equals(Enums.EResources.artifact.name()))
             val = Dice.rollD6();
 
         resources.setResourceVal(val);

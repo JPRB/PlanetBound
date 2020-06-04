@@ -1,7 +1,7 @@
 package PlanetBound.GameLogic.Utils;
 
 public class Enums {
-    public enum PlanetResources {
+    public enum EResources {
         black,
         red,
         green,

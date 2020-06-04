@@ -77,10 +77,10 @@ public class Resources {
     public static Resources randomResource (int val) {
 
         switch (Util.probability(4)){
-            case 1: return new Resources(Enums.PlanetResources.black.name(), val);
-            case 2: return new Resources(Enums.PlanetResources.blue.name(), val);
-            case 3: return new Resources(Enums.PlanetResources.red.name(), val);
-            case 4: return new Resources(Enums.PlanetResources.green.name(), val);
+            case 1: return new Resources(Enums.EResources.black.name(), val);
+            case 2: return new Resources(Enums.EResources.blue.name(), val);
+            case 3: return new Resources(Enums.EResources.red.name(), val);
+            case 4: return new Resources(Enums.EResources.green.name(), val);
             default: return null;
         }
     }

@@ -1,7 +1,6 @@
 package PlanetBound.GameLogic.Dados.Setor;
 
 import PlanetBound.GameLogic.Dados.Nave.Nave;
-import PlanetBound.GameLogic.Dados.Resources.Resources;
 import PlanetBound.GameLogic.Utils.Enums;
 
 import java.util.List;
@@ -32,14 +31,14 @@ public class SpaceStation {
         boolean canBuy = false;
 
         try {
-            List<Resources> resources = Stream.of(Enums.PlanetResources.values())
-                    .map(res -> nave.getCarga().getResource(res.name())).filter(res -> !res.getCor().equals(Enums.PlanetResources.artifact.name())).collect(Collectors.toList());
+            List<PlanetBound.GameLogic.Dados.Resources.Resources> resources = Stream.of(Enums.EResources.values())
+                    .map(res -> nave.getCarga().getResource(res.name())).filter(res -> !res.getCor().equals(Enums.EResources.artifact.name())).collect(Collectors.toList());
 
             final long count = resources.stream().filter(r -> r.getResourceVal() >= 2).count();
 
             if (count == 4) {
 
-                for (Resources r : resources)
+                for (PlanetBound.GameLogic.Dados.Resources.Resources r : resources)
                     nave.getCarga().removeResources(r.getCor(), 2);
 
                 nave.getDrone().setLife(6);
@@ -57,14 +56,14 @@ public class SpaceStation {
 
         try {
             // Hire a single crew member that was lost for one of each resource [red, black, green and blue]
-            List<Resources> resources = Stream.of(Enums.PlanetResources.values())
-                    .map(res -> nave.getCarga().getResource(res.name())).filter(res -> !res.getCor().equals(Enums.PlanetResources.artifact.name())).collect(Collectors.toList());
+            List<PlanetBound.GameLogic.Dados.Resources.Resources> resources = Stream.of(Enums.EResources.values())
+                    .map(res -> nave.getCarga().getResource(res.name())).filter(res -> !res.getCor().equals(Enums.EResources.artifact.name())).collect(Collectors.toList());
 
             final long count = resources.stream().filter(r -> r.getResourceVal() >= 1).count();
 
             if (count == 4) {
 
-                for (Resources r : resources)
+                for (PlanetBound.GameLogic.Dados.Resources.Resources r : resources)
                     hiredOfficer = nave.getCarga().removeResources(r.getCor(), 1);
 
                 nave.addCrewMember();

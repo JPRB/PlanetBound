@@ -62,6 +62,10 @@ public abstract class Nave {
         setOfficers(getOfficers()+1);
     }
 
+    public boolean haveCargoOfficer () {
+        return getOfficers() >= 4;
+    }
+
     /*
     ################## END ###################
     ############ CrewMember Methods ##########
@@ -121,9 +125,7 @@ public abstract class Nave {
     }
 
 
-    public boolean haveCargoOfficer () {
-        return getOfficers() >= 4;
-    }
+
 
     // Convert resources into fuel
     public boolean convertIntoFuel (){

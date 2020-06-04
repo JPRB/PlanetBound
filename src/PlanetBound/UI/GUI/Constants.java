@@ -1,7 +1,7 @@
 package PlanetBound.UI.GUI;
 
 public interface Constants {
-    String PATH = "PlanetBound/UI/GUI/";
+    String PATH = "";
     // int WIDTH = (int) Screen.getPrimary().getBounds().getWidth();
     // int HEIGHT = (int) Screen.getPrimary().getBounds().getHeight();
 

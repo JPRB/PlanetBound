@@ -4,9 +4,15 @@ import PlanetBound.GameLogic.Dados.GameData;
 import PlanetBound.GameLogic.Dados.Nave.Nave;
 import PlanetBound.GameLogic.Estados.AwaitBeginning;
 import PlanetBound.GameLogic.Estados.IEstados;
+import PlanetBound.GameLogic.Utils.Enums;
 
 
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Game {
 
@@ -52,7 +58,7 @@ public class Game {
     }
 
 
-    public String getNave () {
+    private String getNave () {
         return data.getNaveToString();
     }
 
@@ -79,11 +85,40 @@ public class Game {
 
     public int getMax (){
         return returnNave().getCarga().getCargoLvl();
-    }
+    } // ?????
 
     public int getCargoMax (){
         return returnNave().getCarga().getMaxCargo();
     }
+
+    private Map<Enums.EResources, int> getCargo () {
+        Map<Enums.EResources, int> res = new HashMap<Enums.EResources, int>();
+
+        Stream.of(Enums.EResources.values()).map(e ->
+                res.put(e, returnNave().getCarga().getResource(e.name()).getResourceVal())
+        );
+
+        return res;
+    }
+
+
+    public void getRedResource(){
+        getCargo().get(Enums.EResources.red);
+    }
+
+    public void getBlackResource(){
+        getCargo().get(Enums.EResources.black);
+    }
+
+    public void getBlueResource(){
+        getCargo().get(Enums.EResources.blue);
+    }
+
+    public void getGreenResource(){
+        getCargo().get(Enums.EResources.green);
+    }
+
+
 
 
     // Planet Methods

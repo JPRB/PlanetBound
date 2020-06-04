@@ -12,10 +12,10 @@ public class Main extends Application {
 
         launch(args);
 
-       /* Game game = new Game();
+        Game game = new Game();
         TextUserInterface ui = new TextUserInterface(game);
 
-        ui.run();*/
+        ui.run();
 
 
         /*if (args.length == 0 *//*&& args[0].equals("-console")*//*){ // make console work

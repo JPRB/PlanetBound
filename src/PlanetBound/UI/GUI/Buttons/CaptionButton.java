@@ -18,17 +18,26 @@ public class CaptionButton extends Button {
 
     public CaptionButton (String caption, Image image, int height, int width) {
 
+       this(caption, image, 0, 0, height, width);
+
+    }
+
+    public CaptionButton (String caption, Image image, int heightImg, int widthImg, int height, int width) {
+
         bp = new BorderPane();
         VBox cap = new VBox(new Label(caption));
         cap.setAlignment(Pos.BOTTOM_CENTER);
 
-
         //Personagem Captain
         img = new ImageView();
         img.setImage(image);
-        img.setFitHeight(height-50);
-        img.setFitWidth(width-50);
-
+        if (heightImg > 0 && widthImg > 0) {
+            img.setFitHeight(heightImg);
+            img.setFitWidth(widthImg);
+        } else {
+            img.setFitHeight(height - 50);
+            img.setFitWidth(width - 50);
+        }
 
         bp.setCenter(img);
         bp.setBottom(cap);

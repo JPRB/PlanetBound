@@ -2,9 +2,10 @@ package PlanetBound.UI.GUI.Panes;
 
 
 import PlanetBound.UI.GUI.Buttons.CaptionButton;
-import PlanetBound.UI.GUI.Images.ImageLoader;
+import PlanetBound.UI.Resources.ImageLoader;
 import PlanetBound.UI.GUI.ModelObservable;
 import PlanetBound.UI.GUI.ViewController;
+import PlanetBound.UI.Resources.ImgConstants;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -12,8 +13,6 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-
-import static PlanetBound.UI.GUI.Constants.*;
 
 public class ChooseNavePane extends MainPane {
 
@@ -29,9 +28,9 @@ public class ChooseNavePane extends MainPane {
     @Override
     public void setLayout (){
 
-        BackgroundImage backImg = new BackgroundImage(new ImageLoader(BACKGROUND1).getImagem(),
+        /*BackgroundImage backImg = new BackgroundImage(new ImageLoader1(BACKGROUND1).getImagem(),
                 BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
-
+        */
         // title
         VBox txtBox = new VBox();
         Label titulo = setTitle();
@@ -51,7 +50,7 @@ public class ChooseNavePane extends MainPane {
         bPane.setPrefHeight(height);
         bPane.setPrefWidth(width);
 
-        bPane.setBackground(new Background(backImg));
+        //bPane.setBackground(new Background(backImg));
         this.getChildren().add(bPane);
     }
 
@@ -73,9 +72,9 @@ public class ChooseNavePane extends MainPane {
         HBox menu = new HBox();
         menu.setSpacing(30);
 
-        CaptionButton militarBtn = new CaptionButton("Militar", new ImageLoader(SHIP_MILITAR).getImagem(), 200, 200);
+        CaptionButton militarBtn = new CaptionButton("Militar", new ImageLoader(ImgConstants.SPACESHIP_MILITAR.getName()).getImagem(), 200, 200);
 
-        CaptionButton explorerBtn = new CaptionButton("Explorer", new ImageLoader(SHIP_EXPLORER).getImagem(), 200, 200);
+        CaptionButton explorerBtn = new CaptionButton("Explorer", new ImageLoader(ImgConstants.SPACESHIP_EXPLORER.getName()).getImagem(), 200, 200);
 
         menu.getChildren().addAll(militarBtn, explorerBtn);
         menu.setAlignment(Pos.CENTER);

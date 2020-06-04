@@ -28,6 +28,7 @@ public abstract class MainPane extends Pane implements Constants {
         this.width = width;
         this.height = height;
 
+        getStyleClass().add(getClass().getResource("/PlanetBound/UI/GUI/Css/Stylesheet.css").toExternalForm());
         setLayout();
     }
 

@@ -1,6 +1,5 @@
 package PlanetBound.GameLogic.Dados.Setor.Planetas;
 
-import PlanetBound.GameLogic.Dados.Resources.Resources;
 import PlanetBound.GameLogic.Utils.Enums;
 
 import java.util.ArrayList;
@@ -22,11 +21,11 @@ public class BlackPlanet extends Planet {
 */
 
     @Override
-    public List<Resources> addPlanetResources () {
-        List <Resources> res = new ArrayList<>();
+    public List<PlanetBound.GameLogic.Dados.Resources.Resources> addPlanetResources () {
+        List <PlanetBound.GameLogic.Dados.Resources.Resources> res = new ArrayList<>();
 
-        res.add(new Resources(Enums.PlanetResources.black.name()));
-        res.add(new Resources(Enums.PlanetResources.blue.name()));
+        res.add(new PlanetBound.GameLogic.Dados.Resources.Resources(Enums.EResources.black.name()));
+        res.add(new PlanetBound.GameLogic.Dados.Resources.Resources(Enums.EResources.blue.name()));
 
         return res;
     }

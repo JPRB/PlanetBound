@@ -66,7 +66,8 @@ public class StartGamePane extends MainPane{
     private void listeners () {
 
         startBtn.setOnMouseClicked(e -> {
-
+            modelo.
+            modelo.fireEvent();
         });
 
 

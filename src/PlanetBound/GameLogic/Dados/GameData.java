@@ -91,7 +91,6 @@ public class GameData {
     }
 
     public boolean wormHole () {
-
         return (Util.probability(8) == 1);
     }
 }

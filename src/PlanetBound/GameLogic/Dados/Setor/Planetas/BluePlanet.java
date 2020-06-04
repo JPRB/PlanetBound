@@ -1,6 +1,5 @@
 package PlanetBound.GameLogic.Dados.Setor.Planetas;
 
-import PlanetBound.GameLogic.Dados.Resources.Resources;
 import PlanetBound.GameLogic.Utils.Enums;
 
 import java.util.List;
@@ -20,12 +19,12 @@ public class BluePlanet extends Planet  {
     }
 */
     @Override
-    public List<Resources> addPlanetResources () {
-        List <Resources> res;
+    public List<PlanetBound.GameLogic.Dados.Resources.Resources> addPlanetResources () {
+        List <PlanetBound.GameLogic.Dados.Resources.Resources> res;
 
         // create null or instanceof
-        res = Stream.of(Enums.PlanetResources.values())
-                .map(val -> new Resources(val.toString()))
+        res = Stream.of(Enums.EResources.values())
+                .map(val -> new PlanetBound.GameLogic.Dados.Resources.Resources(val.toString()))
                 .collect(Collectors.toList());
 
         return res;

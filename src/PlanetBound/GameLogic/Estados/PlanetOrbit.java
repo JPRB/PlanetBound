@@ -1,12 +1,8 @@
 package PlanetBound.GameLogic.Estados;
 
-import PlanetBound.GameLogic.Dados.Events.Event;
-import PlanetBound.GameLogic.Dados.Factories.FactoryEvent;
 import PlanetBound.GameLogic.Dados.GameData;
 import PlanetBound.GameLogic.Dados.Nave.Nave;
-import PlanetBound.GameLogic.Dados.Resources.Resources;
 import PlanetBound.GameLogic.Utils.Enums;
-import PlanetBound.GameLogic.Utils.Util;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -41,8 +37,8 @@ public class PlanetOrbit extends EstadosAdapter {
     public IEstados moveToSpaceStation () {
 
 
-        List<Resources> resources = Stream.of(Enums.PlanetResources.values())
-                .map(res -> getGameData().getNave().getCarga().getResource(res.name())).filter(res -> !res.getCor().equals(Enums.PlanetResources.artifact.name())).collect(Collectors.toList());
+        List<PlanetBound.GameLogic.Dados.Resources.Resources> resources = Stream.of(Enums.EResources.values())
+                .map(res -> getGameData().getNave().getCarga().getResource(res.name())).filter(res -> !res.getCor().equals(Enums.EResources.artifact.name())).collect(Collectors.toList());
 
         //final long count = resources.stream().filter(r -> !r.getCor().equals(Enums.PlanetResources.artifact.name())).filter(r -> r.getResourceVal() >= 2).count();
 
