@@ -1,6 +1,7 @@
 package PlanetBound.UI.GUI.Panes;
 
 
+import PlanetBound.GameLogic.Utils.Enums;
 import PlanetBound.UI.GUI.Buttons.CaptionButton;
 import PlanetBound.UI.Resources.ImageLoader;
 import PlanetBound.UI.GUI.ModelObservable;
@@ -17,12 +18,15 @@ import javafx.scene.text.FontWeight;
 public class ChooseNavePane extends MainPane {
 
     private VBox vb;
-    private Button btnMilitar;
     private BorderPane bPane;
+    private CaptionButton militarBtn;
+    private CaptionButton explorerBtn;
 
-    public ChooseNavePane (ModelObservable obs, ViewController vc) {
-        super(obs, vc);
 
+    public ChooseNavePane (ModelObservable modelo, ViewController vc) {
+        super(modelo, vc);
+
+        setListeners();
     }
 
     @Override
@@ -54,6 +58,19 @@ public class ChooseNavePane extends MainPane {
         this.getChildren().add(bPane);
     }
 
+    @Override
+    protected void setListeners () {
+        militarBtn.setOnMouseClicked( e ->{
+                modelo.chooseShip(Enums.ShipType.Militar.getValue());
+        });
+
+        explorerBtn.setOnMouseClicked( e ->{
+            modelo.chooseShip(Enums.ShipType.Explorer.getValue());
+        });
+    }
+
+
+
     private Label setTitle () {
 
         Label titulo = new Label();
@@ -66,15 +83,14 @@ public class ChooseNavePane extends MainPane {
         return titulo;
     }
 
-
     private HBox setButtons() {
         // Horizontal Box (align Center) w/ Btn to Start or finish
         HBox menu = new HBox();
         menu.setSpacing(30);
 
-        CaptionButton militarBtn = new CaptionButton("Militar", new ImageLoader(ImgConstants.SPACESHIP_MILITAR.getName()).getImagem(), 200, 200);
+        militarBtn = new CaptionButton("Militar", new ImageLoader(ImgConstants.SPACESHIP_MILITAR.getName()).getImagem(), 200, 200);
 
-        CaptionButton explorerBtn = new CaptionButton("Explorer", new ImageLoader(ImgConstants.SPACESHIP_EXPLORER.getName()).getImagem(), 200, 200);
+        explorerBtn = new CaptionButton("Explorer", new ImageLoader(ImgConstants.SPACESHIP_EXPLORER.getName()).getImagem(), 200, 200);
 
         menu.getChildren().addAll(militarBtn, explorerBtn);
         menu.setAlignment(Pos.CENTER);

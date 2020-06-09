@@ -1,0 +1,12 @@
+package PlanetBound.GameLogic.Estados;
+
+public enum EstadoID {
+    AWAIT_BEGINNING,
+    AWAIT_SHIP_SELECTION,
+    AWAIT_STATION_DECISIONS,
+    EXPLORE_RESOURCES,
+    MOVE_DRONE,
+    CONVERT_RESORUCES,
+    DO_EVENT,
+    PLANET_ORBIT;
+}

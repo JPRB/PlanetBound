@@ -1,6 +1,30 @@
 package PlanetBound.GameLogic.Utils;
 
 public class Enums {
+
+    public enum ShipType {
+        Militar(1),
+        Explorer(2);
+
+        private final int value;
+
+        ShipType(int val){
+            this.value = val;
+        }
+
+        public int getValue () {
+            return value;
+        }
+    }
+
+    public enum PlanetType {
+        BLACKPLANET,
+        REDPLANET,
+        GREENPLANET,
+        BLUEPLANET
+    }
+
+
     public enum EResources {
         black,
         red,

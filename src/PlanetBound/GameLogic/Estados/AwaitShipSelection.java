@@ -20,4 +20,9 @@ public class AwaitShipSelection extends EstadosAdapter {
 
         return new PlanetOrbit(getGameData());
     }
+
+    @Override
+    public EstadoID getEstadoID () {
+        return EstadoID.AWAIT_SHIP_SELECTION;
+    }
 }

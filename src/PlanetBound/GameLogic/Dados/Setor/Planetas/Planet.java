@@ -3,6 +3,7 @@ package PlanetBound.GameLogic.Dados.Setor.Planetas;
 import PlanetBound.GameLogic.Dados.Nave.Drone;
 import PlanetBound.GameLogic.Dados.Resources.Resources;
 import PlanetBound.GameLogic.Utils.Dice;
+import PlanetBound.GameLogic.Utils.Enums;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +17,7 @@ public abstract class Planet {
     private PlanetSuperficie superficie;
 
 
-    public Planet () {
+    protected Planet () {
         initialize();
     }
 
@@ -67,4 +68,5 @@ public abstract class Planet {
 
     public abstract List<Resources> addPlanetResources ();
 
+    public abstract Enums.PlanetType getPlanetType ();
 }

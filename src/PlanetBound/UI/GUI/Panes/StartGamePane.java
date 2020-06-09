@@ -25,6 +25,7 @@ public class StartGamePane extends MainPane{
         this.setPrefWidth(800);
         this.setPrefHeight(600);
 
+        setListeners();
     }
 
     @Override
@@ -59,15 +60,13 @@ public class StartGamePane extends MainPane{
 
         this.getChildren().addAll(pane);
 
-        listeners();
     }
 
-
-    private void listeners () {
+    @Override
+    protected void setListeners () {
 
         startBtn.setOnMouseClicked(e -> {
-            modelo.
-            modelo.fireEvent();
+            modelo.startGame();
         });
 
 

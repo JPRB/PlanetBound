@@ -11,6 +11,9 @@ public class CargoHold {
     private int upgrade = 0; // initial 0
     private int maxCargo = 6;
 
+
+    //private Map<Enums.EResources, int> resources1;
+
     private List<Resources> resources = new ArrayList<>();
 
     public CargoHold () {
@@ -18,11 +21,12 @@ public class CargoHold {
     }
 
     private void cargaInitial () {
-        resources.add(new Resources(Enums.PlanetResources.red.name(), 0));
-        resources.add(new Resources(Enums.PlanetResources.blue.name(), 0));
-        resources.add(new Resources(Enums.PlanetResources.green.name(), 0));
-        resources.add(new Resources(Enums.PlanetResources.black.name(), 0));
-        resources.add(new Resources(Enums.PlanetResources.artifact.name(), 0));
+
+        resources.add(new Resources(Enums.EResources.red.name(), 0));
+        resources.add(new Resources(Enums.EResources.blue.name(), 0));
+        resources.add(new Resources(Enums.EResources.green.name(), 0));
+        resources.add(new Resources(Enums.EResources.black.name(), 0));
+        resources.add(new Resources(Enums.EResources.artifact.name(), 0));
     }
 
 
@@ -94,7 +98,7 @@ public class CargoHold {
 
     // Upgrate lvl carga and maxElementos
     public boolean setUpgrate () {
-        setMaxCargo(6);
+        updateMaxCargo();
         this.upgrade += 1;
         return true;
     }
@@ -109,8 +113,8 @@ public class CargoHold {
         return maxCargo;
     }
 
-    private void setMaxCargo (int maxCargo) {
-        this.maxCargo += maxCargo;
+    private void updateMaxCargo () {
+        this.maxCargo += 6;
     }
 
 

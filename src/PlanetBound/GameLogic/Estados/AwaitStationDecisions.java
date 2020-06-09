@@ -39,6 +39,11 @@ public class AwaitStationDecisions extends EstadosAdapter {
     }
 
     @Override
+    public EstadoID getEstadoID () {
+        return EstadoID.AWAIT_STATION_DECISIONS;
+    }
+
+    @Override
     public IEstados move () {
         getGameData().getNave().wasteFuel(1);
 

@@ -3,6 +3,7 @@ package PlanetBound.UI.GUI;
 import PlanetBound.GameLogic.Game;
 import PlanetBound.UI.GUI.Buttons.DefaultButton;
 import PlanetBound.UI.GUI.Panes.MainPane;
+import PlanetBound.UI.Resources.*;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -24,6 +25,8 @@ public class GraphicUI implements Constants {
 
     private Game gameLogic;
     private Stage initialStage;
+    private double stageHeight = 600;
+    private double stageWidth = 800;
 
 
     public GraphicUI (Stage stage, Game game) {
@@ -45,7 +48,7 @@ public class GraphicUI implements Constants {
         try {
             Image imageCursor = new Image(getClass().getResourceAsStream("Images\\cursor.png"));
 
-            scene.setCursor(new ImageCursor(imageCursor));
+            scene.setCursor(new ImageCursor(new ImageLoader(ImgConstants.CURSOR.getName()).getImagem()));
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -58,8 +61,8 @@ public class GraphicUI implements Constants {
 
         initialStage.setResizable(false);
         initialStage.centerOnScreen();
-        initialStage.setHeight(600);
-        initialStage.setWidth(800);
+        initialStage.setHeight(stageHeight);
+        initialStage.setWidth(stageWidth);
 
         initialStage.setScene(scene);
         initialStage.show();

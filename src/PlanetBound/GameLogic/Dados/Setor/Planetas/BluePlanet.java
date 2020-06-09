@@ -29,4 +29,9 @@ public class BluePlanet extends Planet  {
 
         return res;
     }
+
+    @Override
+    public Enums.PlanetType getPlanetType () {
+        return Enums.PlanetType.BLUEPLANET;
+    }
 }

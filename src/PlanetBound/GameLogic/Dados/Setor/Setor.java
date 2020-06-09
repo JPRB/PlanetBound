@@ -51,4 +51,8 @@ public class Setor {
         return planeta;
     }
 
+    public Enums.PlanetType getPlanetType() {
+        return planeta.getPlanetType();
+    }
+
 }

@@ -30,6 +30,11 @@ public class RedPlanet extends Planet  {
         return res;
     }
 
+    @Override
+    public Enums.PlanetType getPlanetType () {
+        return Enums.PlanetType.REDPLANET;
+    }
+
     /*public void setRecursos (List<Resources> recursos) {
         this.recursos.addAll(recursos);
     }*/

@@ -18,8 +18,8 @@ public class LandingCraftPane extends MainPane {
 
     }
 
+    @Override
+    protected void setListeners () {
 
-
-
-
+    }
 }

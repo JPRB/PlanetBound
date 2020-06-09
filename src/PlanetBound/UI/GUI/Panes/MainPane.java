@@ -19,7 +19,7 @@ public abstract class MainPane extends Pane implements Constants {
     protected double height;
 
     protected MainPane(ModelObservable obs, ViewController vc) {
-        this(obs, vc, 800, 600);
+        this(obs, vc, 800-15, 562);
     }
 
     protected MainPane(ModelObservable obs, ViewController vc, double width, double height ) {
@@ -30,11 +30,14 @@ public abstract class MainPane extends Pane implements Constants {
 
         getStyleClass().add(getClass().getResource("/PlanetBound/UI/GUI/Css/Stylesheet.css").toExternalForm());
         setLayout();
+
+        // setListeners();
     }
 
 
     public abstract void setLayout ();
 
+    protected abstract void setListeners();
 
 
 }

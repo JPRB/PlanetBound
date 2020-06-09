@@ -31,4 +31,6 @@ public interface IEstados {
     IEstados convertResources (int value);
 
     IEstados aplicaEvento (int val);
+
+    EstadoID getEstadoID();
 }

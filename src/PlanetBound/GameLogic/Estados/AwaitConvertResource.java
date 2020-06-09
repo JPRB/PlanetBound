@@ -55,6 +55,11 @@ public class AwaitConvertResource extends EstadosAdapter {
         return this;
     }
 
+    @Override
+    public EstadoID getEstadoID () {
+        return EstadoID.CONVERT_RESORUCES;
+    }
+
 
     // move to Ship in Planet Orbit
     @Override

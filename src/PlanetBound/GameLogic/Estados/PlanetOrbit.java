@@ -3,6 +3,7 @@ package PlanetBound.GameLogic.Estados;
 import PlanetBound.GameLogic.Dados.GameData;
 import PlanetBound.GameLogic.Dados.Nave.Nave;
 import PlanetBound.GameLogic.Utils.Enums;
+import PlanetBound.GameLogic.Utils.Util;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -30,7 +31,16 @@ public class PlanetOrbit extends EstadosAdapter {
         }
 
 
-        return new AwaitEvent(getGameData());
+        // APAGAR!!!!!!!!
+        try {
+            this.getGameData().setSetor();
+            System.out.println("Novo planeta encontrado!");
+        } catch (Exception e) {
+            Util.pError(e.getMessage());
+        }
+
+        return new PlanetOrbit(getGameData());
+//         return new AwaitEvent(getGameData());
     }
 
     @Override
@@ -90,5 +100,10 @@ public class PlanetOrbit extends EstadosAdapter {
         System.out.println(String.format("Drone (X, Y): (%d, %d)", getGameData().getSetor().getPlaneta().getSuperficie().getDronePos()[0], getGameData().getSetor().getPlaneta().getSuperficie().getDronePos()[1]));
 
         return new AwaitToExplorerResources(getGameData());
+    }
+
+    @Override
+    public EstadoID getEstadoID () {
+        return EstadoID.PLANET_ORBIT;
     }
 }

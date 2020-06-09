@@ -3,6 +3,7 @@ package PlanetBound.GameLogic.Estados;
 import PlanetBound.GameLogic.Dados.Aliens.Alien;
 import PlanetBound.GameLogic.Dados.GameData;
 import PlanetBound.GameLogic.Dados.Nave.Drone;
+import PlanetBound.GameLogic.Dados.Resources.Resources;
 import PlanetBound.GameLogic.Dados.Setor.Planetas.Planet;
 import PlanetBound.GameLogic.Dados.Setor.Planetas.PlanetSuperficie;
 import PlanetBound.GameLogic.Utils.Dice;
@@ -75,7 +76,7 @@ public class AwaitToExplorerResources extends EstadosAdapter {
         if (drone.getX() == posResource[0] && drone.getY() == posResource[1]) {
             try {
                 // Recurso Planet
-                PlanetBound.GameLogic.Dados.Resources.Resources resources = collectResource(getGameData().getSetor().getPlaneta());
+                Resources resources = collectResource(getGameData().getSetor().getPlaneta());
                 // ADD recurso PORÃO
                 boolean collected = getGameData().getNave().collectResource(resources);
 
@@ -106,9 +107,14 @@ public class AwaitToExplorerResources extends EstadosAdapter {
         return this;
     }
 
-    private PlanetBound.GameLogic.Dados.Resources.Resources collectResource (Planet planeta) throws NullPointerException {
+    @Override
+    public EstadoID getEstadoID () {
+        return EstadoID.EXPLORE_RESOURCES;
+    }
+
+    private Resources collectResource (Planet planeta) throws NullPointerException {
         int val = 1;
-        PlanetBound.GameLogic.Dados.Resources.Resources resources = new PlanetBound.GameLogic.Dados.Resources.Resources(planeta.getSuperficie().getResource().getCor());
+        Resources resources = new Resources(planeta.getSuperficie().getResource().getCor());
 
         planeta.removeRecurso(resources);
 

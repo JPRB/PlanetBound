@@ -2,7 +2,6 @@ package PlanetBound.UI.GUI.Buttons;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -15,6 +14,9 @@ public class CaptionButton extends Button {
 
     private final ImageView img;
     private final BorderPane bp;
+    private Color color;
+    private  CornerRadii cornerRadii;
+    private Insets insets;
 
     public CaptionButton (String caption, Image image, int height, int width) {
 
@@ -24,6 +26,10 @@ public class CaptionButton extends Button {
 
     public CaptionButton (String caption, Image image, int heightImg, int widthImg, int height, int width) {
 
+        color = Color.WHITE;
+        cornerRadii = new CornerRadii(30.0);
+        insets = Insets.EMPTY;
+
         bp = new BorderPane();
         VBox cap = new VBox(new Label(caption));
         cap.setAlignment(Pos.BOTTOM_CENTER);
@@ -31,25 +37,58 @@ public class CaptionButton extends Button {
         //Personagem Captain
         img = new ImageView();
         img.setImage(image);
-        if (heightImg > 0 && widthImg > 0) {
-            img.setFitHeight(heightImg);
-            img.setFitWidth(widthImg);
-        } else {
-            img.setFitHeight(height - 50);
-            img.setFitWidth(width - 50);
-        }
+        if (image != null) {
+            if (heightImg > 0 && widthImg > 0) {
+                img.setFitHeight(heightImg);
+                img.setFitWidth(widthImg);
+            } else {
+                img.setFitHeight(height - 50);
+                img.setFitWidth(width - 50);
+            }
 
-        bp.setCenter(img);
-        bp.setBottom(cap);
+            bp.setCenter(img);
+            bp.setBottom(cap);
+        }
+        else{
+            cap.setAlignment(Pos.CENTER);
+            bp.setCenter(cap);
+        }
 
 
         //btn = new Button();
-        this.setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(30.0), Insets.EMPTY)));
+        this.setBackground(new Background(new BackgroundFill(color, cornerRadii, insets)));
         this.setGraphic(bp);
         this.setMinHeight(height);
         this.setMinWidth(width);
 
     }
 
+    public void setImg (Image img){
+        this.img.setImage(img);
+    }
 
+
+    public void setColor (String color){
+        setColor(Color.valueOf(color));
+    }
+
+    public void setColor (Color color) {
+        this.color = color;
+    }
+
+    public Color getColor () {
+        return color;
+    }
+
+    public void setCornerRadii (CornerRadii cornerRadii) {
+        this.cornerRadii = cornerRadii;
+    }
+
+    public CornerRadii getCornerRadii () {
+        return cornerRadii;
+    }
+
+    public void setInsets (Insets insets) {
+        this.insets = insets;
+    }
 }

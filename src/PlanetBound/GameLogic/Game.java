@@ -3,6 +3,7 @@ package PlanetBound.GameLogic;
 import PlanetBound.GameLogic.Dados.GameData;
 import PlanetBound.GameLogic.Dados.Nave.Nave;
 import PlanetBound.GameLogic.Estados.AwaitBeginning;
+import PlanetBound.GameLogic.Estados.EstadoID;
 import PlanetBound.GameLogic.Estados.IEstados;
 import PlanetBound.GameLogic.Utils.Enums;
 
@@ -62,11 +63,13 @@ public class Game {
         return data.getNaveToString();
     }
 
+
+
     // Methods to GUI
 
 
     // Nave:: Methods
-    private Nave returnNave (){
+    private Nave returnNave () {
         return data.getNave();
     }
 
@@ -79,49 +82,49 @@ public class Game {
 
     }
 
-    public int getShield (){
+    public int getShield () {
         return returnNave().getShields();
     }
 
-    public int getMax (){
+    public int getMax () {
         return returnNave().getCarga().getCargoLvl();
     } // ?????
 
-    public int getCargoMax (){
+    public int getCargoMax () {
         return returnNave().getCarga().getMaxCargo();
     }
 
-    private Map<Enums.EResources, int> getCargo () {
-        Map<Enums.EResources, int> res = new HashMap<Enums.EResources, int>();
+    private int getCargo (Enums.EResources resource) {
 
-        Stream.of(Enums.EResources.values()).map(e ->
-                res.put(e, returnNave().getCarga().getResource(e.name()).getResourceVal())
-        );
-
-        return res;
+        return returnNave().getCarga().getResource(resource.toString()).getResourceVal();
     }
 
 
-    public void getRedResource(){
-        getCargo().get(Enums.EResources.red);
+    public void getRedResource () {
+        getCargo(Enums.EResources.red);
     }
 
-    public void getBlackResource(){
-        getCargo().get(Enums.EResources.black);
+    public void getBlackResource () {
+        getCargo(Enums.EResources.black);
     }
 
-    public void getBlueResource(){
-        getCargo().get(Enums.EResources.blue);
+    public void getBlueResource () {
+        getCargo(Enums.EResources.blue);
     }
 
-    public void getGreenResource(){
-        getCargo().get(Enums.EResources.green);
+    public void getGreenResource () {
+        getCargo(Enums.EResources.green);
+    }
+
+
+    // Planet:: Methods
+    public Enums.PlanetType getPlanetType () {
+        return data.getSetor().getPlanetType();
     }
 
 
 
 
-    // Planet Methods
 
 
 
@@ -161,11 +164,15 @@ public class Game {
         setEstado(getState().moveDrone(value));
     }
 
-    public void convertResources(int value){
+    public void convertResources (int value) {
         setEstado(getState().convertResources(value));
     }
 
     public void doEvent (int val) {
         setEstado(getState().aplicaEvento(val));
+    }
+
+    public EstadoID getEstadoID () {
+        return estado.getEstadoID();
     }
 }

@@ -81,4 +81,9 @@ public abstract class EstadosAdapter implements IEstados {
     public IEstados aplicaEvento (int value) {
         return this;
     }
+
+    @Override
+    public EstadoID getEstadoID () {
+        return null;
+    }
 }

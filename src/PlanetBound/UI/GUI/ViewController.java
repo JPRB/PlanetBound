@@ -1,6 +1,6 @@
 package PlanetBound.UI.GUI;
 
-import PlanetBound.GameLogic.Estados.Estados;
+import PlanetBound.GameLogic.Estados.EstadoID;
 import PlanetBound.UI.GUI.Panes.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
@@ -8,8 +8,6 @@ import javafx.scene.layout.Pane;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
-import java.util.EventListener;
-import java.util.concurrent.ThreadPoolExecutor;
 
 public class ViewController {
 
@@ -21,6 +19,7 @@ public class ViewController {
     public ViewController (ModelObservable modelo) {
         this.modelo = modelo;
 
+        rootPane = new BorderPane();
         initVC();
     }
 
@@ -30,46 +29,55 @@ public class ViewController {
 
 
     public void initVC () {
-        rootPane = new BorderPane();
+
         panes = new ArrayList<>();
         //MainPane Mainpane = new MainPane();
 
         panes.add(new StartGamePane(modelo, this));
         panes.add(new ChooseNavePane(modelo, this));
-        panes.add(new NaveAttributesPane(modelo, this));
+        //panes.add(new NaveAttributesPane(modelo, this));
+        panes.add(new PlanetOrbitPane(modelo, this));
         panes.add(new SpaceStationPane(modelo, this));
 
         rootPane.getChildren().addAll(panes);
 
 
-        setListeners ();
+        setListeners();
 
         setPaneVisibility(Panes.StartGamePane);
+
     }
 
     private void setListeners () {
-        modelo.addPropertyChangeListener(Estados.START, new PropertyChangeListener() {
+       modelo.addPropertyChangeListener(EstadoID.AWAIT_BEGINNING, new PropertyChangeListener() {
             @Override
             public void propertyChange (PropertyChangeEvent evt) {
                 setPaneVisibility(Panes.StartGamePane);
             }
         });
 
-        modelo.addPropertyChangeListener(Estados.CHOOSE_SHIP, new PropertyChangeListener() {
+        modelo.addPropertyChangeListener(EstadoID.AWAIT_SHIP_SELECTION, new PropertyChangeListener() {
             @Override
             public void propertyChange (PropertyChangeEvent evt) {
                 setPaneVisibility(Panes.ChooseNavePane);
             }
         });
 
-        modelo.addPropertyChangeListener(Estados.EXPLORE_PLANET, new PropertyChangeListener() {
+        modelo.addPropertyChangeListener(EstadoID.PLANET_ORBIT, new PropertyChangeListener() {
             @Override
             public void propertyChange (PropertyChangeEvent evt) {
-                // setPaneVisibility(Panes.StartGamePane);
+                 setPaneVisibility(Panes.PlanetOrbitPane);
             }
         });
 
-        modelo.addPropertyChangeListener(Estados.DO_EVENT, new PropertyChangeListener() {
+        modelo.addPropertyChangeListener(EstadoID.AWAIT_STATION_DECISIONS, new PropertyChangeListener() {
+            @Override
+            public void propertyChange (PropertyChangeEvent evt) {
+                setPaneVisibility(Panes.SpaceStationPane);
+            }
+        });
+
+       /* modelo.addPropertyChangeListener(Estados.DO_EVENT, new PropertyChangeListener() {
             @Override
             public void propertyChange (PropertyChangeEvent evt) {
                 //setPaneVisibility(Panes);

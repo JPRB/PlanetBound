@@ -73,7 +73,10 @@ public class NaveAttributesPane extends MainPane {
         this.getChildren().addAll(pane);
     }
 
+    @Override
+    protected void setListeners () {
 
+    }
 
     private VBox setFuelBar()
     {

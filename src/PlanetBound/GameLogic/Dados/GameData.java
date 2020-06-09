@@ -72,7 +72,6 @@ public class GameData {
         return nave;
     }
 
-
     public void chooseShip (int ship) {
         nave = FactoryNave.criaNave(ship);
     }

@@ -23,4 +23,9 @@ public class AwaitBeginning extends EstadosAdapter {
 
         return super.finish();
     }
+
+    @Override
+    public EstadoID getEstadoID () {
+        return EstadoID.AWAIT_BEGINNING;
+    }
 }

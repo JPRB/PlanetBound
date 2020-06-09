@@ -6,7 +6,7 @@ public enum ImgConstants {
     ALIEN_BLACK("AlienBlack.png"),
     ALIEN_GREEN("AlienGreen.png"),
     ALIEN_BLUE("AlienBlue.png"),
-    SPACE("space.png"),
+    SPACE("space.jpg"),
     SPACESHIP_EXPLORER("spaceship-explorer.png"),
     SPACESHIP_MILITAR("spaceship-militar.png"),
     RED_CUBE("redCube.png"),
@@ -19,7 +19,14 @@ public enum ImgConstants {
     SHIELD("shield.png"),
     CARGO_HOLD("CargoHold.png"),
     DRONE("drone.png"),
-    CARGO("cargo.jpg");
+    CARGO("cargo.jpg"),
+    SPACE_STATION("spaceStation.png"),
+    RED_PLANET("redPlanet.png"),
+    BLUE_PLANET("bluePlanet.png"),
+    BLACK_PLANET("blackPlanet.png"),
+    GREEN_PLANET("greenPlanet.png")
+
+    ;
 
     private String name;
 

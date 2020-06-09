@@ -71,4 +71,9 @@ public class AwaitEvent extends EstadosAdapter {
         return new PlanetOrbit(getGameData());
     }
 
+    @Override
+    public EstadoID getEstadoID () {
+        return EstadoID.DO_EVENT;
+    }
+
 }

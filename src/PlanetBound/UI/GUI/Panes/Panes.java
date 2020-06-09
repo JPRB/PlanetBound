@@ -3,10 +3,8 @@ package PlanetBound.UI.GUI.Panes;
 public enum Panes {
     StartGamePane(0),
     ChooseNavePane(1),
-    SpaceStationPane(2);
-
-
-
+    PlanetOrbitPane(2),
+    SpaceStationPane(3);
 
 
     private int value;
