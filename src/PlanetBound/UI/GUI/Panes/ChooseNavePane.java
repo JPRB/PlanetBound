@@ -67,6 +67,7 @@ public class ChooseNavePane extends MainPane {
         explorerBtn.setOnMouseClicked( e ->{
             modelo.chooseShip(Enums.ShipType.Explorer.getValue());
         });
+
     }
 
 

@@ -14,6 +14,8 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -21,7 +23,8 @@ import javafx.scene.paint.Color;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-public class PlanetOrbitPane extends MainPane {
+
+public class PlanetOrbitPane extends MainPane implements PropertyChangeListener {
 
     private CaptionButton explorerBtn;
     private CaptionButton newPlanetBtn;
@@ -29,31 +32,25 @@ public class PlanetOrbitPane extends MainPane {
     private HBox planet;
     private BorderPane bp;
     private HBox btns;
+    ImageView img;
 
     public PlanetOrbitPane (ModelObservable model, ViewController vc) {
         super(model, vc);
 
+         this.getChildren().addAll(bp);
 
-        this.getChildren().addAll(bp);
-
-        modelo.addPropertyChangeListener(EstadoID.PLANET_ORBIT,
-                new PropertyChangeListener() {
-                    @Override
-                    public void propertyChange (PropertyChangeEvent evt) {
-                        atualiza();
-                        System.out.println("aqui");
-                    }
-                });
+        modelo.addPropertyChangeListener(EstadoID.PLANET_ORBIT, this);
 
 
+        setListener();
 
-
-        setListeners();
+        propertyChange(null);
     }
 
     @Override
     public void setLayout () {
         bp = new BorderPane();
+
         bp.setPrefSize(width, height);
         bp.setMaxSize(width, height);
         bp.setMinSize(width, height);
@@ -62,16 +59,15 @@ public class PlanetOrbitPane extends MainPane {
     }
 
     private void atualiza () {
-        bp.setCenter(planet = setPlanet());
+        bp.setBottom(null);
         bp.setBottom(btns = setBtns());
+
+        bp.setCenter(setPlanet());
     }
 
-    private HBox setPlanet () {
-        HBox box = new HBox();
+
+    private ImageView setImgPlanet() {
         String planetURI;
-
-
-        System.out.println(modelo.getPlanetType().toString());
 
         switch (modelo.getPlanetType()) {
             case BLACKPLANET:
@@ -88,16 +84,26 @@ public class PlanetOrbitPane extends MainPane {
                 break;
             default:
                 planetURI = null;
-
         }
 
-        ImageView img = new ImageView(new ImageLoader(planetURI).getImagem());
+        return new ImageView(new ImageLoader(planetURI).getImagem());
+    }
+
+    private HBox setPlanet () {
+        HBox box = new HBox();
+
+        System.out.println(modelo.getPlanetType().toString());
+
+        img = setImgPlanet();
         img.setFitWidth(300);
         img.setPreserveRatio(true);
 
         box.getChildren().addAll(img);
 
         box.setAlignment(Pos.CENTER);
+
+        box.setBorder(new Border(new BorderStroke(Color.PINK,
+                BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(3))));
 
         return box;
     }
@@ -122,10 +128,8 @@ public class PlanetOrbitPane extends MainPane {
         //spaceStationBtn.setColor("#a7c7e0");
         spaceStationBtn.setOpacity(0.9);
 
-        box.getChildren().addAll(explorerBtn, newPlanetBtn);
+        box.getChildren().addAll(explorerBtn, newPlanetBtn, spaceStationBtn);
 
-        if (modelo.getStation())
-            box.getChildren().addAll(spaceStationBtn);
 
         box.setAlignment(Pos.BOTTOM_CENTER);
         box.setBorder(new Border(new BorderStroke(Color.valueOf("#9E9E9E"),
@@ -137,37 +141,40 @@ public class PlanetOrbitPane extends MainPane {
         return box;
     }
 
+
+    protected void setListener () {
+        explorerBtn.setOnAction(actionEvent -> {
+
+        });
+
+        spaceStationBtn.setOnAction(actionEvent -> {
+            modelo.moveToSpaceStation();
+        });
+
+        newPlanetBtn.setOnAction(actionEvent -> {
+            modelo.move();
+        });
+
+
+    }
+
     @Override
     protected void setListeners () {
-        explorerBtn.setOnAction(new ExploreListener());
-        newPlanetBtn.setOnAction(new NewPlanetListener());
-        spaceStationBtn.setOnAction(new SpaceStationListener());
-
 
     }
 
-    private class NewPlanetListener implements EventHandler<ActionEvent> {
+    @Override
+    public void propertyChange (PropertyChangeEvent evt) {
+        // bp.setCenter(null);
+        planet = setPlanet();
 
-        @Override
-        public void handle (ActionEvent actionEvent) {
-            modelo.move();
-        }
+        spaceStationBtn.setVisible(modelo.getStation());
+        spaceStationBtn.setManaged(modelo.getStation());
+        bp.setCenter(planet);
+
+        System.out.println("aqui");
     }
 
-    private class ExploreListener implements EventHandler<ActionEvent> {
 
-        @Override
-        public void handle (ActionEvent actionEvent) {
-
-        }
-    }
-
-    private class SpaceStationListener implements EventHandler<ActionEvent> {
-
-        @Override
-        public void handle (ActionEvent actionEvent) {
-            modelo.moveToSpaceStation();
-        }
-    }
 
 }

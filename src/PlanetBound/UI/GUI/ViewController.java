@@ -2,6 +2,7 @@ package PlanetBound.UI.GUI;
 
 import PlanetBound.GameLogic.Estados.EstadoID;
 import PlanetBound.UI.GUI.Panes.*;
+import javafx.scene.control.Dialog;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 
@@ -15,11 +16,13 @@ public class ViewController {
     private BorderPane rootPane;
     private ModelObservable modelo;
     private ArrayList<Pane> panes;
+    private Dialog dialog;
 
     public ViewController (ModelObservable modelo) {
         this.modelo = modelo;
 
         rootPane = new BorderPane();
+        panes = new ArrayList<>();
         initVC();
     }
 
@@ -30,12 +33,15 @@ public class ViewController {
 
     public void initVC () {
 
-        panes = new ArrayList<>();
+        Pane eventPane = new EventPane(modelo, this);
         //MainPane Mainpane = new MainPane();
+        dialog = new Dialog();
+        dialog.getDialogPane().setContent(eventPane);
+
 
         panes.add(new StartGamePane(modelo, this));
         panes.add(new ChooseNavePane(modelo, this));
-        //panes.add(new NaveAttributesPane(modelo, this));
+        // panes.add(new NaveAttributesPane(modelo, this));
         panes.add(new PlanetOrbitPane(modelo, this));
         panes.add(new SpaceStationPane(modelo, this));
 
@@ -66,7 +72,8 @@ public class ViewController {
         modelo.addPropertyChangeListener(EstadoID.PLANET_ORBIT, new PropertyChangeListener() {
             @Override
             public void propertyChange (PropertyChangeEvent evt) {
-                 setPaneVisibility(Panes.PlanetOrbitPane);
+                dialog.close();
+                setPaneVisibility(Panes.PlanetOrbitPane);
             }
         });
 
@@ -77,10 +84,10 @@ public class ViewController {
             }
         });
 
-       /* modelo.addPropertyChangeListener(Estados.DO_EVENT, new PropertyChangeListener() {
+        modelo.addPropertyChangeListener(EstadoID.DO_EVENT, new PropertyChangeListener() {
             @Override
             public void propertyChange (PropertyChangeEvent evt) {
-                //setPaneVisibility(Panes);
+                dialog.show();
             }
         });
 

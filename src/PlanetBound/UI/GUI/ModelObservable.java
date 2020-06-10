@@ -19,7 +19,7 @@ public class ModelObservable {
 
     public final void fireEvent (String ev) {
         System.out.println(jogo.getEstadoID());
-        change.firePropertyChange(ev, null, true);
+        change.firePropertyChange(ev, null, null);
     }
 
     public void addPropertyChangeListener (PropertyChangeListener l) {
@@ -50,9 +50,13 @@ public class ModelObservable {
     // Move to New Planet || To orbit in planet || to Ship in Planet Orbit
     public void move () {
         jogo.move();
-        fireEvent(EstadoID.PLANET_ORBIT.name());
+        fireEvent(EstadoID.DO_EVENT.name());
     }
 
+    public void doEvent (int val){
+        jogo.doEvent(val);
+        fireEvent(EstadoID.PLANET_ORBIT.name());
+    }
 
     public void moveToSpaceStation () {
         jogo.moveToSpaceStation();

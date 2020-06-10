@@ -32,15 +32,15 @@ public class PlanetOrbit extends EstadosAdapter {
 
 
         // APAGAR!!!!!!!!
-        try {
+       /* try {
             this.getGameData().setSetor();
             System.out.println("Novo planeta encontrado!");
         } catch (Exception e) {
             Util.pError(e.getMessage());
         }
 
-        return new PlanetOrbit(getGameData());
-//         return new AwaitEvent(getGameData());
+        return new PlanetOrbit(getGameData());*/
+       return new AwaitEvent(getGameData());
     }
 
     @Override
