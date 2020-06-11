@@ -32,6 +32,6 @@ public class BlackPlanet extends Planet {
 
     @Override
     public Enums.PlanetType getPlanetType () {
-        return Enums.PlanetType.BLACKPLANET;
+        return Enums.PlanetType.BLACK_PLANET;
     }
 }

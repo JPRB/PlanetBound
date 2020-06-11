@@ -1,5 +1,6 @@
 package PlanetBound.UI.GUI.Panes;
 
+import PlanetBound.GameLogic.Utils.Enums;
 import PlanetBound.UI.GUI.Buttons.CaptionButton;
 import PlanetBound.UI.GUI.ModelObservable;
 import PlanetBound.UI.GUI.ViewController;
@@ -22,6 +23,7 @@ public class SpaceStationPane extends MainPane {
     public SpaceStationPane (ModelObservable obs, ViewController vc) {
         super(obs, vc);
 
+        setListeners();
     }
 
     @Override
@@ -46,7 +48,32 @@ public class SpaceStationPane extends MainPane {
     @Override
     protected void setListeners () {
 
+        backBtn.setOnAction(actionEvent -> {
+            modelo.move();
+        });
+
+        buyDroneBtn.setOnAction(actionEvent -> {
+            getItems(Enums.Station.buyDrone.getValue());
+        });
+
+        hireNewCrewBtn.setOnAction(actionEvent -> {
+            getItems(Enums.Station.hireNewCrew.getValue());
+        });
+
+        upgradeWeaponsBtn.setOnAction(actionEvent -> {
+            getItems(Enums.Station.upgradeWeapons.getValue());
+        });
+
+        upgradeCargoHoldBtn.setOnAction(actionEvent -> {
+            getItems(Enums.Station.upgradeCargoHold.getValue());
+        });
+
     }
+
+    private void getItems (int value){
+        modelo.getItemsSpaceStations(value);
+    }
+
 
     private VBox setStation() {
 

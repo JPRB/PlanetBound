@@ -1,6 +1,7 @@
 package PlanetBound.GameLogic.Dados.Aliens;
 
 import PlanetBound.GameLogic.Utils.Dice;
+import PlanetBound.GameLogic.Utils.Enums;
 
 public class GreenAlien extends Alien {
     @Override
@@ -14,5 +15,10 @@ public class GreenAlien extends Alien {
         }
 
         return -1;
+    }
+
+    @Override
+    public Enums.AlienType getAlienType () {
+        return Enums.AlienType.GREEN_ALIEN;
     }
 }

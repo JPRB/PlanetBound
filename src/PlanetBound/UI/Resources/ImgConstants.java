@@ -2,10 +2,10 @@ package PlanetBound.UI.Resources;
 
 public enum ImgConstants {
     CURSOR("cursor.png"),
-    ALIEN_RED("AlienRed.png"),
-    ALIEN_BLACK("AlienBlack.png"),
-    ALIEN_GREEN("AlienGreen.png"),
-    ALIEN_BLUE("AlienBlue.png"),
+    RED_ALIEN("AlienRed.png"),
+    BLACK_ALIEN("AlienBlack.png"),
+    GREEN_ALIEN("AlienGreen.png"),
+    BLUE_ALIEN("AlienBlue.png"),
     SPACE("space.jpg"),
     SPACESHIP_EXPLORER("spaceship-explorer.png"),
     SPACESHIP_MILITAR("spaceship-militar.png"),

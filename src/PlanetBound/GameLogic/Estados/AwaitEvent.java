@@ -46,7 +46,7 @@ public class AwaitEvent extends EstadosAdapter {
         // Evento
         Event evento;
 
-        if (value == 7)
+        if (value == 7 || value == -1)
             evento = FactoryEvent.criaEvento(getGameData());
         else
             evento = FactoryEvent.criaEvento(getGameData(), value);

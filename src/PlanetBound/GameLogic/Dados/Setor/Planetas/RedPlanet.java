@@ -32,7 +32,7 @@ public class RedPlanet extends Planet  {
 
     @Override
     public Enums.PlanetType getPlanetType () {
-        return Enums.PlanetType.REDPLANET;
+        return Enums.PlanetType.RED_PLANET;
     }
 
     /*public void setRecursos (List<Resources> recursos) {

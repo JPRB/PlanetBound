@@ -10,12 +10,13 @@ public class Drone {
     }
 
     public void setPos (int x, int y) throws ArrayIndexOutOfBoundsException {
-        if ((x > 5) || (x < 0) || (y > 5) || (y < 0)) {
+        if ((x <= 5) && (x >= 0) && (y <= 5) && (y >= 0)) {
+            this.x = x;
+            this.y = y;
+        } else {
             throw new ArrayIndexOutOfBoundsException("Posição inválida");
         }
-
-        this.x = x;
-        this.y = y;
+        System.out.println("fds!!!");
     }
 
 

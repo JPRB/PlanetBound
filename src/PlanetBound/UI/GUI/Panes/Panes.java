@@ -5,7 +5,7 @@ public enum Panes {
     ChooseNavePane(1),
     PlanetOrbitPane(2),
     SpaceStationPane(3),
-    EventsPane(4);
+    MoveDronePane(4);
 
 
     private int value;

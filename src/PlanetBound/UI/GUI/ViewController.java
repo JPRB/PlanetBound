@@ -16,7 +16,6 @@ public class ViewController {
     private BorderPane rootPane;
     private ModelObservable modelo;
     private ArrayList<Pane> panes;
-    private Dialog dialog;
 
     public ViewController (ModelObservable modelo) {
         this.modelo = modelo;
@@ -33,17 +32,15 @@ public class ViewController {
 
     public void initVC () {
 
-        Pane eventPane = new EventPane(modelo, this);
         //MainPane Mainpane = new MainPane();
-        dialog = new Dialog();
-        dialog.getDialogPane().setContent(eventPane);
-
 
         panes.add(new StartGamePane(modelo, this));
         panes.add(new ChooseNavePane(modelo, this));
         // panes.add(new NaveAttributesPane(modelo, this));
         panes.add(new PlanetOrbitPane(modelo, this));
         panes.add(new SpaceStationPane(modelo, this));
+
+        panes.add(new LandingCraftPane(modelo, this));
 
         rootPane.getChildren().addAll(panes);
 
@@ -72,7 +69,6 @@ public class ViewController {
         modelo.addPropertyChangeListener(EstadoID.PLANET_ORBIT, new PropertyChangeListener() {
             @Override
             public void propertyChange (PropertyChangeEvent evt) {
-                dialog.close();
                 setPaneVisibility(Panes.PlanetOrbitPane);
             }
         });
@@ -84,19 +80,12 @@ public class ViewController {
             }
         });
 
-        modelo.addPropertyChangeListener(EstadoID.DO_EVENT, new PropertyChangeListener() {
+        modelo.addPropertyChangeListener(EstadoID.EXPLORE_RESOURCES, new PropertyChangeListener() {
             @Override
             public void propertyChange (PropertyChangeEvent evt) {
-                dialog.show();
+                setPaneVisibility(Panes.MoveDronePane);
             }
         });
-
-       /* modelo.addPropertyChangeListener(Estados.START, new PropertyChangeListener() {
-            @Override
-            public void propertyChange (PropertyChangeEvent evt) {
-                setPaneVisibility(Panes.StartGamePane);
-            }
-        });*/
 
     }
 

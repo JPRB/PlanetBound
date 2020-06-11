@@ -50,24 +50,41 @@ public class ModelObservable {
     // Move to New Planet || To orbit in planet || to Ship in Planet Orbit
     public void move () {
         jogo.move();
-        fireEvent(EstadoID.DO_EVENT.name());
+        fireEvent(EstadoID.PLANET_ORBIT.name());
     }
 
     public void doEvent (int val){
+        this.move();
         jogo.doEvent(val);
-        fireEvent(EstadoID.PLANET_ORBIT.name());
     }
 
     public void moveToSpaceStation () {
         jogo.moveToSpaceStation();
+
+        // TODO : Verify if Estado in getEstadoID == AWAIT STATION DECICIONS
+
         fireEvent(EstadoID.AWAIT_STATION_DECISIONS.name());
     }
 
-    /*
+
     public void getItemsSpaceStations (int item) {
-        setEstado(getState().getItemsSpaceStations(item));
+        jogo.getItemsSpaceStations(item);
     }
 
+    public void explorePlanet () {
+        jogo.explorePlanet();
+        fireEvent(EstadoID.EXPLORE_RESOURCES.name());
+    }
+
+    public void moveDrone (int value) {
+        jogo.moveDrone(value);
+        fireEvent(EstadoID.MOVE_DRONE.name());
+    }
+
+
+
+
+/*
     public void playAgain () {
         setEstado(getState().playAgain());
     }
@@ -88,15 +105,6 @@ public class ModelObservable {
 
 }*/
 
-    /*
-     *
-     *   MENU Surface Planet
-     *
-     *
-     */
-    public void moveDrone (int value) {
-        //fireEvent(jogo.moveDrone(value));
-    }
 
 
     // Methods From Logic to GUI
@@ -133,7 +141,35 @@ public class ModelObservable {
         return jogo.haveStationShip();
     }
 
+
+
+
+
+    // Gui To collect Resources
+
+    public int[] getDronePos () {
+        return jogo.getPosDrone();
+    }
+
+    public Enums.AlienType getAlien () {
+        return jogo.getAlien();
+    }
+
+    public int[] getAlienPos () {
+        return jogo.getPosAlien();
+    }
+
     public Enums.PlanetType getPlanetType () {
         return jogo.getPlanetType();
+    }
+
+
+    public int[] getPosResource () {
+        return jogo.getPosResource();
+    }
+
+
+    public String getResource () {
+        return jogo.getResourceSurface();
     }
 }

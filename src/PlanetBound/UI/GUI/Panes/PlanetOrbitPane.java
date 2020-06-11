@@ -1,27 +1,24 @@
 package PlanetBound.UI.GUI.Panes;
 
-import PlanetBound.GameLogic.Dados.Setor.SpaceStation;
 import PlanetBound.GameLogic.Estados.EstadoID;
+import PlanetBound.GameLogic.Utils.Enums;
 import PlanetBound.UI.GUI.Buttons.CaptionButton;
 import PlanetBound.UI.GUI.ModelObservable;
 import PlanetBound.UI.GUI.ViewController;
 import PlanetBound.UI.Resources.ImageLoader;
 import PlanetBound.UI.Resources.ImgConstants;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.geometry.VPos;
-import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.image.Image;
+import javafx.scene.control.ChoiceDialog;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 
 public class PlanetOrbitPane extends MainPane implements PropertyChangeListener {
@@ -33,6 +30,7 @@ public class PlanetOrbitPane extends MainPane implements PropertyChangeListener 
     private BorderPane bp;
     private HBox btns;
     ImageView img;
+    ChoiceDialog d;
 
     public PlanetOrbitPane (ModelObservable model, ViewController vc) {
         super(model, vc);
@@ -55,12 +53,23 @@ public class PlanetOrbitPane extends MainPane implements PropertyChangeListener 
         bp.setMaxSize(width, height);
         bp.setMinSize(width, height);
 
+        List<Enums.Events> l = new ArrayList<>();
+        for (Enums.Events evt : Enums.Events.values()){
+            l.add(evt);
+        }
+
+        // create a choice dialog
+        d = new ChoiceDialog<Enums.Events>(l.get(0), l);
+        // setheader text
+        d.setHeaderText("Selecione o evento que quer. \nPara avançar normalmente, basta cancelar!");
+
+
         atualiza();
     }
 
     private void atualiza () {
         bp.setBottom(null);
-        bp.setBottom(btns = setBtns());
+        bp.setBottom(setBtns());
 
         bp.setCenter(setPlanet());
     }
@@ -70,16 +79,16 @@ public class PlanetOrbitPane extends MainPane implements PropertyChangeListener 
         String planetURI;
 
         switch (modelo.getPlanetType()) {
-            case BLACKPLANET:
+            case BLACK_PLANET:
                 planetURI = ImgConstants.BLACK_PLANET.getName();
                 break;
-            case REDPLANET:
+            case RED_PLANET:
                 planetURI = ImgConstants.RED_PLANET.getName();
                 break;
-            case BLUEPLANET:
+            case BLUE_PLANET:
                 planetURI = ImgConstants.BLUE_PLANET.getName();
                 break;
-            case GREENPLANET:
+            case GREEN_PLANET:
                 planetURI = ImgConstants.GREEN_PLANET.getName();
                 break;
             default:
@@ -144,7 +153,7 @@ public class PlanetOrbitPane extends MainPane implements PropertyChangeListener 
 
     protected void setListener () {
         explorerBtn.setOnAction(actionEvent -> {
-
+            modelo.explorePlanet();
         });
 
         spaceStationBtn.setOnAction(actionEvent -> {
@@ -152,7 +161,16 @@ public class PlanetOrbitPane extends MainPane implements PropertyChangeListener 
         });
 
         newPlanetBtn.setOnAction(actionEvent -> {
-            modelo.move();
+            // show the dialog
+            Optional<Enums.Events> evt = d.showAndWait();
+            int val = -1;
+
+            if (evt.isPresent())
+                val = evt.get().getValue();
+
+            System.out.println(val);
+
+            modelo.doEvent(val);
         });
 
 
@@ -172,7 +190,7 @@ public class PlanetOrbitPane extends MainPane implements PropertyChangeListener 
         spaceStationBtn.setManaged(modelo.getStation());
         bp.setCenter(planet);
 
-        System.out.println("aqui");
+
     }
 
 

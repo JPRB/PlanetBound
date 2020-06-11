@@ -1,6 +1,7 @@
 package PlanetBound.GameLogic.Dados.Aliens;
 
 import PlanetBound.GameLogic.Dados.Nave.Drone;
+import PlanetBound.GameLogic.Utils.Enums;
 
 public abstract class Alien {
 
@@ -13,12 +14,12 @@ public abstract class Alien {
     }
 
     public void setPos (int x, int y) throws ArrayIndexOutOfBoundsException {
-        if ((x > 5) || (x < 0) || (y > 5) || (y < 0)) {
+        if ((x <= 5) && (x >= 0) && (y <= 5) && (y >= 0)) {
+            this.x = x;
+            this.y = y;
+        } else {
             throw new ArrayIndexOutOfBoundsException("Posição inválida");
         }
-
-        this.x = x;
-        this.y = y;
     }
 
 
@@ -175,5 +176,5 @@ public abstract class Alien {
         return ret;
     }
 
-
+    public abstract Enums.AlienType getAlienType ();
 }

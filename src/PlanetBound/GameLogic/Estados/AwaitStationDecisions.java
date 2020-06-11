@@ -96,8 +96,9 @@ public class AwaitStationDecisions extends EstadosAdapter {
 
         if (!can) {
             getGameData().addMsgLog("Não é possivel fazer upgrade nesta estação");
-        } else
+        } else {
             getGameData().addMsgLog("Porão UPGRATED!!");
+        }
     }
 
 }

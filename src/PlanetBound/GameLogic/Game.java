@@ -125,6 +125,22 @@ public class Game {
 
 
 
+    // Planet Surface :: METHODS
+    public int[] getPosDrone () {
+        return data.getSetor().getPlaneta().getSuperficie().getDronePos();
+    }
+
+    public int[] getPosAlien () {
+        return data.getSetor().getPlaneta().getSuperficie().getAlienPos();
+    }
+
+    public Enums.AlienType getAlien () {
+        return data.getSetor().getPlaneta().getSuperficie().getAlien().getAlienType();
+    }
+
+    public int[] getPosResource () {
+        return data.getSetor().getPlaneta().getSuperficie().getResourcePos();
+    }
 
 
 
@@ -174,5 +190,9 @@ public class Game {
 
     public EstadoID getEstadoID () {
         return estado.getEstadoID();
+    }
+
+    public String getResourceSurface () {
+        return data.getSetor().getPlaneta().getSuperficie().getResource().getCor();
     }
 }

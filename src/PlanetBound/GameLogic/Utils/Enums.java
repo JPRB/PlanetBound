@@ -18,19 +18,36 @@ public class Enums {
     }
 
     public enum PlanetType {
-        BLACKPLANET,
-        REDPLANET,
-        GREENPLANET,
-        BLUEPLANET
+        BLACK_PLANET,
+        RED_PLANET,
+        GREEN_PLANET,
+        BLUE_PLANET
+    }
+
+    public enum AlienType {
+        BLACK_ALIEN,
+        RED_ALIEN,
+        GREEN_ALIEN,
+        BLUE_ALIEN
     }
 
 
     public enum EResources {
-        black,
-        red,
-        green,
-        blue,
-        artifact
+        black("black"),
+        red("red"),
+        green("green"),
+        blue("blue"),
+        artifact("artifact");
+
+        private String description;
+
+        EResources(String desc){
+            this.description = desc;
+        }
+
+        public String getDesc () {
+            return description;
+        }
     }
 
     public enum PlanetSectorType {

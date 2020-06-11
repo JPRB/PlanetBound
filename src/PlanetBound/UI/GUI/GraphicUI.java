@@ -56,6 +56,7 @@ public class GraphicUI implements Constants {
 
 
     private void showStage (Scene scene) {
+
         initialStage.setTitle("Planet Bound");
 
 
@@ -66,6 +67,7 @@ public class GraphicUI implements Constants {
 
         initialStage.setScene(scene);
         initialStage.show();
+
         /*initialStage.setOnCloseRequest(e -> {
             Platform.exit();
         });*/
