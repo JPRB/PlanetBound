@@ -17,6 +17,7 @@ import javafx.scene.paint.Color;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,9 +40,9 @@ public class PlanetOrbitPane extends MainPane implements PropertyChangeListener 
 
         modelo.addPropertyChangeListener(EstadoID.PLANET_ORBIT, this);
 
+        atualiza();
 
-        setListener();
-
+        setListeners();
         propertyChange(null);
     }
 
@@ -49,22 +50,17 @@ public class PlanetOrbitPane extends MainPane implements PropertyChangeListener 
     public void setLayout () {
         bp = new BorderPane();
 
-        bp.setPrefSize(width, height);
-        bp.setMaxSize(width, height);
-        bp.setMinSize(width, height);
+        bp.setPrefSize(width, height-60);
+        bp.setMaxSize(bp.getPrefWidth(), bp.getPrefHeight());
+        bp.setMinSize(bp.getPrefWidth(), bp.getPrefHeight());
 
-        List<Enums.Events> l = new ArrayList<>();
-        for (Enums.Events evt : Enums.Events.values()){
-            l.add(evt);
-        }
+        List<Enums.Events> l = new ArrayList<>(Arrays.asList(Enums.Events.values()));
 
         // create a choice dialog
         d = new ChoiceDialog<Enums.Events>(l.get(0), l);
         // setheader text
         d.setHeaderText("Selecione o evento que quer. \nPara avançar normalmente, basta cancelar!");
 
-
-        atualiza();
     }
 
     private void atualiza () {
@@ -151,7 +147,7 @@ public class PlanetOrbitPane extends MainPane implements PropertyChangeListener 
     }
 
 
-    protected void setListener () {
+    protected void setListeners () {
         explorerBtn.setOnAction(actionEvent -> {
             modelo.explorePlanet();
         });
@@ -173,11 +169,6 @@ public class PlanetOrbitPane extends MainPane implements PropertyChangeListener 
             modelo.doEvent(val);
         });
 
-
-    }
-
-    @Override
-    protected void setListeners () {
 
     }
 

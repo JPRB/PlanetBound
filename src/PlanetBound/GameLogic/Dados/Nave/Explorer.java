@@ -1,5 +1,7 @@
 package PlanetBound.GameLogic.Dados.Nave;
 
+import PlanetBound.GameLogic.Utils.Enums;
+
 public class Explorer extends Nave {
 
     private final static int CombustivelMax = 53;
@@ -44,6 +46,11 @@ public class Explorer extends Nave {
     @Override
     public void setWeaponMax() {
         setWeapon(getWeaponMax());
+    }
+
+    @Override
+    public String getNaveType () {
+        return Enums.ShipType.Explorer.name();
     }
 
     @Override

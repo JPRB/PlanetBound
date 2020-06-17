@@ -19,7 +19,7 @@ public class ModelObservable {
 
     public final void fireEvent (String ev) {
         System.out.println(jogo.getEstadoID());
-        change.firePropertyChange(ev, null, null);
+        change.firePropertyChange(ev, null, true);
     }
 
     public void addPropertyChangeListener (PropertyChangeListener l) {
@@ -54,8 +54,9 @@ public class ModelObservable {
     }
 
     public void doEvent (int val){
-        this.move();
+        jogo.move();
         jogo.doEvent(val);
+        fireEvent(EstadoID.PLANET_ORBIT.name());
     }
 
     public void moveToSpaceStation () {
@@ -123,6 +124,7 @@ public class ModelObservable {
      *  **** get
      */
 
+    // GUI NAVE
     public int getFuel () {
         return jogo.getFuel();
     }
@@ -136,13 +138,37 @@ public class ModelObservable {
         return jogo.getShield();
     }
 
+    public int getCargoMax () {
+        return jogo.getCargoMax();
+    }
 
+    public int getBlueResources () {
+        return jogo.getBlueResource();
+    }
+
+    public int getBlackResources () {
+        return jogo.getBlackResource();
+    }
+
+    public int getRedResources () {
+        return jogo.getRedResource();
+    }
+
+    public int getGreenResources () {
+        return jogo.getGreenResource();
+    }
+
+
+
+    // GUI Planet Orbit
     public boolean getStation () {
         return jogo.haveStationShip();
     }
 
 
-
+    public Enums.PlanetType getPlanetType () {
+        return jogo.getPlanetType();
+    }
 
 
     // Gui To collect Resources
@@ -159,10 +185,6 @@ public class ModelObservable {
         return jogo.getPosAlien();
     }
 
-    public Enums.PlanetType getPlanetType () {
-        return jogo.getPlanetType();
-    }
-
 
     public int[] getPosResource () {
         return jogo.getPosResource();
@@ -171,5 +193,14 @@ public class ModelObservable {
 
     public String getResource () {
         return jogo.getResourceSurface();
+    }
+
+
+    public String getNaveType () {
+        return jogo.getNaveType();
+    }
+
+    public int getWeapon () {
+        return jogo.getWeapon();
     }
 }

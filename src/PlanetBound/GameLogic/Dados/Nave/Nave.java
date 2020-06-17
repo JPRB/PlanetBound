@@ -189,4 +189,6 @@ public abstract class Nave {
         }
         return false;
     }
+
+    public abstract String getNaveType ();
 }

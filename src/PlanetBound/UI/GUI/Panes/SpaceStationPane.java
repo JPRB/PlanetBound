@@ -28,21 +28,22 @@ public class SpaceStationPane extends MainPane {
 
     @Override
     public void setLayout () {
-
+        BorderPane bp = new BorderPane();
         GridPane pane = new GridPane();
+        this.setPrefSize(width, height);
+        this.setMaxSize(width, height);
+        this.setMinSize(width, height);
 
-        pane.setPrefSize(width, 100);
-        pane.setMaxSize(pane.getPrefWidth(), pane.getPrefHeight());
-        pane.setMinSize(pane.getPrefWidth(), pane.getPrefHeight());
-
+        pane.setPrefSize(200, 100);
 
         pane.addColumn(0, setStation());
         pane.addColumn(1, setOptionsBtn());
 
         ImageView backGround = new ImageView(new ImageLoader(ImgConstants.SPACE.getName()).getImagem());
 
+        bp.getChildren().addAll(backGround, pane);
 
-        this.getChildren().addAll(backGround, pane);
+        this.getChildren().addAll(bp);
     }
 
     @Override

@@ -4,6 +4,7 @@ import PlanetBound.GameLogic.Utils.Dice;
 import PlanetBound.GameLogic.Utils.Enums;
 
 public class GreenAlien extends Alien {
+
     @Override
     public int attack () {
         int val = Dice.rollD6();

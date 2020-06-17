@@ -34,7 +34,6 @@ public abstract class MainPane extends Pane implements Constants {
         // setListeners();
     }
 
-
     public abstract void setLayout ();
 
     protected abstract void setListeners();

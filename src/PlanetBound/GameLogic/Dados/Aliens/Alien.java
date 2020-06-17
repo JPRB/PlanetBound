@@ -10,7 +10,6 @@ public abstract class Alien {
     private int died = 0;
 
     protected Alien () {
-
     }
 
     public void setPos (int x, int y) throws ArrayIndexOutOfBoundsException {
@@ -60,7 +59,7 @@ public abstract class Alien {
     public int interaction (Drone drone) {
         int[] dronePos = drone.getXY();
 
-        if (alienNextToDrone(dronePos)) {
+        if (/*alienNextToDrone(dronePos)*/ distance(dronePos, getXY()) == 1) {
             // Enquanto alien vivo ou drone com vida
             return setAttack(drone);
         } else /*if (((this.getX() - dronePos[0]) != 0) && ((this.getY() - dronePos[1]) != 0)) */ {

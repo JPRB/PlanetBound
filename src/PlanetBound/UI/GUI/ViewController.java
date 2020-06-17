@@ -2,7 +2,6 @@ package PlanetBound.UI.GUI;
 
 import PlanetBound.GameLogic.Estados.EstadoID;
 import PlanetBound.UI.GUI.Panes.*;
-import javafx.scene.control.Dialog;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 
@@ -16,6 +15,8 @@ public class ViewController {
     private BorderPane rootPane;
     private ModelObservable modelo;
     private ArrayList<Pane> panes;
+    private LandingCraftPane LCP;
+    private NaveAttributesPane ship;
 
     public ViewController (ModelObservable modelo) {
         this.modelo = modelo;
@@ -34,16 +35,15 @@ public class ViewController {
 
         //MainPane Mainpane = new MainPane();
 
-        panes.add(new StartGamePane(modelo, this));
-        panes.add(new ChooseNavePane(modelo, this));
-        // panes.add(new NaveAttributesPane(modelo, this));
-        panes.add(new PlanetOrbitPane(modelo, this));
-        panes.add(new SpaceStationPane(modelo, this));
+        panes.add(0, new StartGamePane(modelo, this));
+        panes.add(1, new ChooseNavePane(modelo, this));
 
-        panes.add(new LandingCraftPane(modelo, this));
+        panes.add(2, new PlanetOrbitPane(modelo, this));
+        panes.add(3, new SpaceStationPane(modelo, this));
 
-        rootPane.getChildren().addAll(panes);
+        panes.add(4, LCP = new LandingCraftPane(modelo, this));
 
+        ship = new NaveAttributesPane(modelo, this);
 
         setListeners();
 
@@ -52,12 +52,6 @@ public class ViewController {
     }
 
     private void setListeners () {
-       modelo.addPropertyChangeListener(EstadoID.AWAIT_BEGINNING, new PropertyChangeListener() {
-            @Override
-            public void propertyChange (PropertyChangeEvent evt) {
-                setPaneVisibility(Panes.StartGamePane);
-            }
-        });
 
         modelo.addPropertyChangeListener(EstadoID.AWAIT_SHIP_SELECTION, new PropertyChangeListener() {
             @Override
@@ -83,7 +77,7 @@ public class ViewController {
         modelo.addPropertyChangeListener(EstadoID.EXPLORE_RESOURCES, new PropertyChangeListener() {
             @Override
             public void propertyChange (PropertyChangeEvent evt) {
-                setPaneVisibility(Panes.MoveDronePane);
+                setPaneVisibility(Panes.LandingCraftPane);
             }
         });
 
@@ -91,14 +85,14 @@ public class ViewController {
 
 
     private void setPaneVisibility (Panes pane) {
+        int value = pane.getValue();
+        Pane p = panes.get(value);
+        rootPane.setTop(null);
 
-        setPanesDisabled();
+        if (value == Panes.PlanetOrbitPane.getValue())
+            rootPane.setTop(ship);
 
-        Pane p = panes.get(pane.getValue());
-
-        p.setVisible(true);
-        p.setDisable(false);
-
+        rootPane.setCenter(p);
     }
 
 

@@ -64,14 +64,18 @@ public class Game {
     }
 
 
-
-    // Methods to GUI
+    // ********************** Methods to GUI ************************************
 
 
     // Nave:: Methods
     private Nave returnNave () {
         return data.getNave();
     }
+
+    public String getNaveType () {
+        return returnNave().getNaveType();
+    }
+
 
     public int getFuel () {
         return returnNave().getCombustivel();
@@ -82,6 +86,10 @@ public class Game {
 
     }
 
+    public int getWeapon () {
+        return returnNave().getWeapon();
+    }
+
     public int getShield () {
         return returnNave().getShields();
     }
@@ -90,39 +98,44 @@ public class Game {
         return returnNave().getCarga().getCargoLvl();
     } // ?????
 
+    // Cargo MAX TO GUI
     public int getCargoMax () {
         return returnNave().getCarga().getMaxCargo();
     }
 
+
+    // Aux to GUI
     private int getCargo (Enums.EResources resource) {
 
         return returnNave().getCarga().getResource(resource.toString()).getResourceVal();
     }
 
 
-    public void getRedResource () {
-        getCargo(Enums.EResources.red);
+    public int getRedResource () {
+        return getCargo(Enums.EResources.red);
     }
 
-    public void getBlackResource () {
-        getCargo(Enums.EResources.black);
+    public int getBlackResource () {
+        return getCargo(Enums.EResources.black);
     }
 
-    public void getBlueResource () {
-        getCargo(Enums.EResources.blue);
+    public int getBlueResource () {
+        return getCargo(Enums.EResources.blue);
     }
 
-    public void getGreenResource () {
-        getCargo(Enums.EResources.green);
+    public int getGreenResource () {
+        return getCargo(Enums.EResources.green);
     }
+
+
+
+
 
 
     // Planet:: Methods
     public Enums.PlanetType getPlanetType () {
         return data.getSetor().getPlanetType();
     }
-
-
 
 
     // Planet Surface :: METHODS
@@ -141,6 +154,14 @@ public class Game {
     public int[] getPosResource () {
         return data.getSetor().getPlaneta().getSuperficie().getResourcePos();
     }
+
+
+    public String getResourceSurface () {
+        return data.getSetor().getPlaneta().getSuperficie().getResource().getCor();
+    }
+
+
+
 
 
 
@@ -190,9 +211,5 @@ public class Game {
 
     public EstadoID getEstadoID () {
         return estado.getEstadoID();
-    }
-
-    public String getResourceSurface () {
-        return data.getSetor().getPlaneta().getSuperficie().getResource().getCor();
     }
 }

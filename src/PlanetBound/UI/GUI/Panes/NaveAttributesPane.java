@@ -1,5 +1,7 @@
 package PlanetBound.UI.GUI.Panes;
 
+import PlanetBound.GameLogic.Estados.EstadoID;
+import PlanetBound.GameLogic.Utils.Enums;
 import PlanetBound.UI.Resources.ImageLoader;
 import PlanetBound.UI.GUI.ModelObservable;
 import PlanetBound.UI.GUI.ViewController;
@@ -7,6 +9,7 @@ import PlanetBound.UI.Resources.ImgConstants;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
@@ -14,12 +17,21 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
 public class NaveAttributesPane extends MainPane {
 
     private VBox vb;
     private Button btnMilitar;
     private BorderPane bPane;
     private GridPane pane;
+    private HBox weaponShiled;
+    private HBox cargoHold;
+    private HBox officer;
+    private VBox fuelBar;
+    private HBox naveImg;
+    private GridPane pane1;
 
     public NaveAttributesPane (ModelObservable obs, ViewController vc) {
         super(obs, vc);
@@ -29,6 +41,7 @@ public class NaveAttributesPane extends MainPane {
 
         pane.setCenter(img);*/
 
+        setListeners();
     }
 
     @Override
@@ -36,52 +49,82 @@ public class NaveAttributesPane extends MainPane {
         // create a tile pane
         pane = new GridPane();
 
-        pane.setVgap(10);
-        pane.setHgap(30);
 
-        pane.setMinWidth(width/2);
-        pane.setMinHeight(height);
+        pane.setVgap(10);
+        pane.setHgap(10);
+
+        pane.setMinWidth(width);
         pane.setBorder(new Border(new BorderStroke(Color.CYAN,
                 BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(3))));
 
         pane.setBackground(new Background(new BackgroundFill(Color.rgb(35, 85, 10), CornerRadii.EMPTY, Insets.EMPTY)));
 
+        //pane.setGridLinesVisible(true);
 
-        pane.setGridLinesVisible(true);
+      /*  pane1.addColumn(0, setNave("militar"));
+        pane1.addColumn(1, setFuelBar(5));
 
+        pane1.addColumn(2, setWeaponShield(4, 3));
+        pane1.addColumn(3, setOfficer(4));
 
-        VBox weaponShiled = setWeaponShield();
-
-
-        pane.addColumn(0, setFuelBar());
-        pane.addColumn(1, setOfficer());
-        GridPane.setHalignment(weaponShiled, HPos.CENTER);
-        pane.addColumn(2, weaponShiled);
-        // column span 3, row span 1
-        pane.add(setNave("militar"), 1, 1, 3, 1);
+        pane1.addColumn(4,  setCargoHold(6, 0, 0, 0, 0));
 
 
-        pane.add(setCargoHold("6", "6", "6", "6", "6"), 0, 2, 3, 1);
+        pane.getChildren().addAll(pane1);*/
 
-
-       /* HBox box = new HBox();
-
-        box.getChildren().addAll(setFuelBar(), setOfficer(), setWeaponShield(), setNave("militar"), setCargoHold("6", "6", "6", "6", "6"));
-
-        bPane.setTop(box);*/
 
         this.getChildren().addAll(pane);
     }
 
-    @Override
-    protected void setListeners () {
 
+    private void atualiza (int weapon, int shield, String nave, int fuel, int officers, int Cargo, int blue, int black, int red, int green) {
+
+        pane.getChildren().remove(pane1);
+
+        pane1 = new GridPane();
+
+        naveImg =       setNave(nave);
+        fuelBar =       setFuelBar(fuel);
+        weaponShiled =  setWeaponShield(weapon, shield);
+        officer =       setOfficer(officers);
+        cargoHold =     setCargoHold(Cargo, blue, black, red, green);
+
+
+        pane1.addColumn(0, naveImg);
+        pane1.addColumn(1, fuelBar);
+        pane1.addColumn(2, officer);
+        pane1.addColumn(3, weaponShiled);
+
+        pane1.addColumn(4, cargoHold);
+
+        pane.getChildren().addAll(pane1);
     }
 
-    private VBox setFuelBar()
-    {
+
+    @Override
+    protected void setListeners () {
+        modelo.addPropertyChangeListener(EstadoID.PLANET_ORBIT, new PropertyChangeListener() {
+            @Override
+            public void propertyChange (PropertyChangeEvent evt) {
+                int weapon = modelo.getWeapon();
+                int shield = modelo.getShield();
+                String nave = modelo.getNaveType();
+                int fuel = modelo.getFuel();
+                int officers = modelo.getOfficers();
+                int Cargo = modelo.getCargoMax();
+                int blue = modelo.getBlueResources();
+                int black = modelo.getBlackResources();
+                int red = modelo.getRedResources();
+                int green = modelo.getGreenResources();
+
+                atualiza(weapon, shield, nave, fuel, officers, Cargo, blue, black, red, green);
+            }
+        });
+    }
+
+    private VBox setFuelBar (int fuel) {
         VBox fuelBox = new VBox();
-        fuelBox.setFillWidth(true);
+        //fuelBox.setFillWidth(true);
 
         ImageView imgVw = new ImageView(new ImageLoader(ImgConstants.FUEL.getName()).getImagem());
         imgVw.setFitWidth(100);
@@ -89,7 +132,7 @@ public class NaveAttributesPane extends MainPane {
 
 
         // create a progressbar
-        ProgressBar fuelBar = new ProgressBar(0);
+        ProgressBar fuelBar = new ProgressBar(fuel);
 
 
         fuelBar.setBorder(new Border(new BorderStroke(Color.RED,
@@ -107,9 +150,8 @@ public class NaveAttributesPane extends MainPane {
         return fuelBox;
     }
 
-    private VBox setOfficer()
-    {
-        VBox officerBox = new VBox();
+    private HBox setOfficer (int officer) {
+        HBox officerBox = new HBox();
         officerBox.setMaxWidth(50);
 
 
@@ -118,15 +160,10 @@ public class NaveAttributesPane extends MainPane {
         imgOfficer.setPreserveRatio(true);
 
 
-
-        Label officerNum  = new Label ("2", imgOfficer);
+        Label officerNum = new Label(String.valueOf(officer), imgOfficer);
         // officerNum.setMaxWidth(officerBox.getMaxWidth());
         officerNum.setTextFill(Color.WHITE);
         officerNum.setAlignment(Pos.CENTER);
-
-
-
-
 
 
         officerNum.setBorder(new Border(new BorderStroke(Color.RED,
@@ -143,17 +180,18 @@ public class NaveAttributesPane extends MainPane {
     }
 
 
-    private VBox setCargoHold(String maxCargo, String blackRes, String redRes, String blueRes, String greenRes)
-    {
-        VBox cargoHold = new VBox();
+    private HBox setCargoHold (int maxCargo, int blackRes, int redRes, int blueRes, int greenRes) {
+        final int imgFit = 25;
+
+        HBox cargoHold = new HBox();
         //cargoHold.setMinWidth(width/6);
 
         ImageView cargo = new ImageView(new ImageLoader(ImgConstants.CARGO_HOLD.getName()).getImagem());
-        cargo.setFitWidth(200);
+        cargo.setFitWidth(imgFit * 4);
         cargo.setPreserveRatio(true);
 
 
-        Label cargoMax  = new Label (maxCargo, cargo);
+        Label cargoMax = new Label(String.valueOf(maxCargo), cargo);
         cargoMax.setTextFill(Color.WHITE);
 
 
@@ -162,45 +200,43 @@ public class NaveAttributesPane extends MainPane {
 
 
         // Black
-        ImageView black = new ImageView(new ImageLoader(ImgConstants.BLACK_CUBE.getName()).getImagem());
-        black.setFitWidth(50);
-        black.setPreserveRatio(true);
+        ImageView blackImg = new ImageView(new ImageLoader(ImgConstants.BLACK_CUBE.getName()).getImagem());
+        blackImg.setFitWidth(imgFit);
+        blackImg.setPreserveRatio(true);
 
-        Label blackLb  = new Label (blackRes, black);
+        Label blackLb = new Label(String.valueOf(blackRes), blackImg);
         blackLb.setTextFill(Color.WHITE);
         blackLb.setPadding(new Insets(10, 10, 10, 10));
 
         // Red
-        ImageView red = new ImageView(new ImageLoader(ImgConstants.RED_CUBE.getName()).getImagem());
-        red.setFitWidth(50);
-        red.setPreserveRatio(true);
+        ImageView redImg = new ImageView(new ImageLoader(ImgConstants.RED_CUBE.getName()).getImagem());
+        redImg.setFitWidth(imgFit);
+        redImg.setPreserveRatio(true);
 
-        Label redLb  = new Label (redRes, red);
+        Label redLb = new Label(String.valueOf(redRes), redImg);
         redLb.setTextFill(Color.WHITE);
         redLb.setPadding(new Insets(10, 10, 10, 10));
 
         // Blue
-        ImageView blue = new ImageView(new ImageLoader(ImgConstants.BLUE_CUBE.getName()).getImagem());
-        blue.setFitWidth(50);
-        blue.setPreserveRatio(true);
+        ImageView blueImg = new ImageView(new ImageLoader(ImgConstants.BLUE_CUBE.getName()).getImagem());
+        blueImg.setFitWidth(imgFit);
+        blueImg.setPreserveRatio(true);
 
-        Label blueLb  = new Label (blueRes, blue);
+        Label blueLb = new Label(String.valueOf(blueRes), blueImg);
         blueLb.setTextFill(Color.WHITE);
         blueLb.setPadding(new Insets(10, 10, 10, 10));
 
         // Green
-        ImageView green = new ImageView(new ImageLoader(ImgConstants.GREEN_CUBE.getName()).getImagem());
-        green.setFitWidth(50);
-        green.setPreserveRatio(true);
+        ImageView greenImg = new ImageView(new ImageLoader(ImgConstants.GREEN_CUBE.getName()).getImagem());
+        greenImg.setFitWidth(imgFit);
+        greenImg.setPreserveRatio(true);
 
-        Label greenLb  = new Label (greenRes, green);
+        Label greenLb = new Label(String.valueOf(greenRes), greenImg);
         greenLb.setTextFill(Color.WHITE);
         greenLb.setPadding(new Insets(10, 10, 10, 10));
 
 
         resources.getChildren().addAll(blackLb, redLb, blueLb, greenLb);
-
-
 
 
         cargoHold.setBorder(new Border(new BorderStroke(Color.RED,
@@ -211,15 +247,13 @@ public class NaveAttributesPane extends MainPane {
                 BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(3))));
 
 
-
         cargoHold.getChildren().addAll(cargoMax, resources);
 
         return cargoHold;
     }
 
-    private VBox setWeaponShield()
-    {
-        VBox box = new VBox();
+    private HBox setWeaponShield (int w, int s) {
+        HBox box = new HBox();
         box.setMaxWidth(40);
 
         // WEAPON
@@ -231,7 +265,7 @@ public class NaveAttributesPane extends MainPane {
         weapon.setFitWidth(50);
         weapon.setPreserveRatio(true);
 
-        Label weaponNum  = new Label ("5", weapon);
+        Label weaponNum = new Label(String.valueOf(w), weapon);
         weaponNum.setTextFill(Color.WHITE);
 
         weaponBox.getChildren().add(weaponNum);
@@ -240,19 +274,19 @@ public class NaveAttributesPane extends MainPane {
         //  SHIELDS
 
         VBox shieldsBox = new VBox();
-        shieldsBox.setMaxWidth(40);
+        shieldsBox.setMaxWidth(60);
+        shieldsBox.setMinWidth(60);
+        shieldsBox.setPrefWidth(60);
 
         ImageView shields = new ImageView(new ImageLoader(ImgConstants.SHIELD.getName()).getImagem());
         shields.setFitWidth(35);
         shields.setPreserveRatio(true);
 
-        Label shieldsNum  = new Label ("9", shields);
+        Label shieldsNum = new Label(String.valueOf(s), shields);
         shieldsNum.setTextFill(Color.WHITE);
 
 
-
         shieldsBox.getChildren().add(shieldsNum);
-
 
 
         // TODO : ELIMINAR
@@ -268,36 +302,31 @@ public class NaveAttributesPane extends MainPane {
                 BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(3))));
 
 
-
-
-
-
-
-
         box.getChildren().addAll(shieldsBox, weaponBox);
 
         return box;
     }
 
 
-
-    private HBox setNave(String nave){
+    private HBox setNave (String nave) {
 
         HBox box = new HBox();
 
         ImageView ship;
 
-        if (nave.equals("militar"))
-            ship = new ImageView(new ImageLoader(ImgConstants.SPACESHIP_MILITAR.getName()).getImagem());
-        else
-            ship = new ImageView(new ImageLoader(ImgConstants.SPACESHIP_EXPLORER.getName()).getImagem());
+        if (!nave.isEmpty()) {
+            if (nave.equals(Enums.ShipType.Militar.name()))
+                ship = new ImageView(new ImageLoader(ImgConstants.SPACESHIP_MILITAR.getName()).getImagem());
+            else
+                ship = new ImageView(new ImageLoader(ImgConstants.SPACESHIP_EXPLORER.getName()).getImagem());
 
-        ship.setFitWidth(200);
-        ship.setPreserveRatio(true);
+            ship.setFitWidth(100);
+            ship.setPreserveRatio(true);
 
-        box.getChildren().add(ship);
-
+            box.getChildren().add(ship);
+        }
 
         return box;
     }
+
 }
