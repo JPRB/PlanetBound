@@ -20,8 +20,8 @@ public class CrewRescueEvent extends Event {
 
             nave.addCrewMember();
 
-            data.addMsgLog("Foi adicionado um novo officer.");
+            data.addMsgLog("Foi adicionado um novo officer.\n");
         } else
-            data.addMsgLog("Não foi adicionado à crew, porque já está completa");
+            data.addMsgLog("Não foi adicionado à crew, porque já está completa.\n");
     }
 }

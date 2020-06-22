@@ -10,49 +10,6 @@ import java.util.Map;
 
 public class Resources {
 
- /*   private static Map<Enums.EResources, int> resources;
-
-
-    static  {
-
-        resources = new HashMap<Enums.EResources, int>();
-
-        resources.put(Enums.EResources.red, 0);
-        resources.put(Enums.EResources.black, 0);
-        resources.put(Enums.EResources.green, 0);
-        resources.put(Enums.EResources.blue, 0);
-        resources.put(Enums.EResources.artifact, 0);
-    }
-
-
-    public Map<Enums.EResources, int> getResources () {
-        return resources;
-    }
-
-    public void addResource(int resource) {
-        resources.get(setResourceVal(getResourceVal()+resource);
-    }
-
-    public int getValue (Enums.EResources res) {
-        return res;
-    }
-
-    private void setResourceVal (int resource) {
-        this.resourceValue = resource;
-    }
-
-    public void removeResourceVal(int resource) {
-        setResourceVal(getResourceVal()-resource);
-    }
-
-    public void addMaxResource (int maxR) {
-        this.resourceValue = maxR;
-    }
-
-*/
-
-
-
     private int n;
     private String cor;
     private int resourceValue;

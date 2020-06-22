@@ -1,15 +1,26 @@
 package PlanetBound.UI.GUI.Panes;
 
+import PlanetBound.GameLogic.Estados.EstadoID;
 import PlanetBound.UI.GUI.Buttons.DefaultButton;
 import PlanetBound.UI.GUI.Constants;
 import PlanetBound.UI.GUI.ModelObservable;
 import PlanetBound.UI.GUI.ViewController;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.stage.StageStyle;
+
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public abstract class MainPane extends Pane implements Constants {
 
@@ -31,7 +42,42 @@ public abstract class MainPane extends Pane implements Constants {
         getStyleClass().add(getClass().getResource("/PlanetBound/UI/GUI/Css/Stylesheet.css").toExternalForm());
         setLayout();
 
+        log(true);
         // setListeners();
+    }
+
+    protected void setMsgLog () {
+        List <String> list = modelo.getMsgLog();
+        StringBuilder str = new StringBuilder();
+
+        if (!list.isEmpty()){
+
+            for(String msg : list){
+                str.append(msg);
+            }
+
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.initStyle(StageStyle.UTILITY);
+            alert.setTitle("MSG Log");
+            alert.setHeaderText(null);
+
+            alert.setContentText(str.toString());
+
+            alert.showAndWait();
+            modelo.clearMsg();
+        }
+
+
+    }
+
+    public void log(boolean bol) {
+        modelo.addPropertyChangeListener(new PropertyChangeListener() {
+            @Override
+            public void propertyChange (PropertyChangeEvent evt) {
+                if (bol)
+                    setMsgLog();
+            }
+        });
     }
 
     public abstract void setLayout ();

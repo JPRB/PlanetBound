@@ -39,11 +39,6 @@ public class AwaitStationDecisions extends EstadosAdapter {
     }
 
     @Override
-    public EstadoID getEstadoID () {
-        return EstadoID.AWAIT_STATION_DECISIONS;
-    }
-
-    @Override
     public IEstados move () {
         getGameData().getNave().wasteFuel(1);
 
@@ -99,6 +94,11 @@ public class AwaitStationDecisions extends EstadosAdapter {
         } else {
             getGameData().addMsgLog("Porão UPGRATED!!");
         }
+    }
+
+    @Override
+    public EstadoID getEstadoID () {
+        return EstadoID.AWAIT_STATION_DECISIONS;
     }
 
 }

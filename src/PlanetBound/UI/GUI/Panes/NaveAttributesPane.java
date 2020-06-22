@@ -117,6 +117,14 @@ public class NaveAttributesPane extends MainPane {
                 int red = modelo.getRedResources();
                 int green = modelo.getGreenResources();
 
+                // Convert value of Fuel to 0-100 %
+                fuel *= 100;
+
+                if (modelo.getFuelMax() > 50)
+                    fuel /= 53;
+                else
+                    fuel /= 35;
+
                 atualiza(weapon, shield, nave, fuel, officers, Cargo, blue, black, red, green);
             }
         });
@@ -130,9 +138,8 @@ public class NaveAttributesPane extends MainPane {
         imgVw.setFitWidth(100);
         imgVw.setPreserveRatio(true);
 
-
         // create a progressbar
-        ProgressBar fuelBar = new ProgressBar(fuel);
+        ProgressBar fuelBar = new ProgressBar((double) fuel/100);
 
 
         fuelBar.setBorder(new Border(new BorderStroke(Color.RED,
@@ -180,7 +187,7 @@ public class NaveAttributesPane extends MainPane {
     }
 
 
-    private HBox setCargoHold (int maxCargo, int blackRes, int redRes, int blueRes, int greenRes) {
+    private HBox setCargoHold (int maxCargo, int blueRes, int blackRes, int redRes, int greenRes) {
         final int imgFit = 25;
 
         HBox cargoHold = new HBox();

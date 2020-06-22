@@ -3,10 +3,16 @@ package PlanetBound.GameLogic.Dados.Nave;
 public class Drone {
     private int x;
     private int y;
-    private int life=6;
+    private int maxLife = 6;
+    private int life=maxLife;
+
 
     public Drone () {
 
+    }
+
+    public int getMaxLife () {
+        return maxLife;
     }
 
     public void setPos (int x, int y) throws ArrayIndexOutOfBoundsException {
@@ -18,8 +24,6 @@ public class Drone {
         }
         System.out.println("fds!!!");
     }
-
-
 
     public int[] getXY () {
 
@@ -44,6 +48,6 @@ public class Drone {
 
     // When drone is attacked
     public void attacked () {
-        life--;
+        if (life >= 0) life--;
     }
 }

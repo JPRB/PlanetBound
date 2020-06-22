@@ -18,11 +18,11 @@ import javafx.scene.paint.Color;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EventPane extends MainPane {
+public class GameOverPane extends MainPane {
 
 
 
-    public EventPane (ModelObservable obs, ViewController vc) {
+    public GameOverPane (ModelObservable obs, ViewController vc) {
         super(obs, vc, 300, 160);
 
         setListeners();

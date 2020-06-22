@@ -54,6 +54,7 @@ public class SpaceStationPane extends MainPane {
         });
 
         buyDroneBtn.setOnAction(actionEvent -> {
+            System.out.println("aqui");
             getItems(Enums.Station.buyDrone.getValue());
         });
 

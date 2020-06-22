@@ -18,11 +18,11 @@ public class AwaitEvent extends EstadosAdapter {
         Nave nave = this.getGameData().getNave();
 
 
-        getGameData().addMsgLog("Durante a Viagem...");
+        getGameData().addMsgLog("Durante a Viagem...\n\n");
 
         // Testar se passou num buraco negro
         if (this.getGameData().wormHole()) {
-            this.getGameData().addMsgLog("Realizou a viagem por Worm hole");
+            this.getGameData().addMsgLog("Realizou a viagem por Worm hole\n\n");
 
             final int shield = nave.getShields();
             final int fuel = nave.getCombustivel();
@@ -54,16 +54,16 @@ public class AwaitEvent extends EstadosAdapter {
         if (evento != null)
             evento.aplicaEvento();
         else
-            getGameData().addMsgLog("Ocorreu um erro no evento");
+            getGameData().addMsgLog("Ocorreu um erro no evento\n");
 
 
-        getGameData().addMsgLog("Fim da Viagem...");
+        getGameData().addMsgLog("\nFim da Viagem...\n");
 
 
         // Novo Sector/planeta
         try {
             this.getGameData().setSetor();
-            this.getGameData().addMsgLog("Novo planeta encontrado!");
+            this.getGameData().addMsgLog("\n\n---->Novo planeta encontrado!<----\n");
         } catch (Exception e) {
             Util.pError(e.getMessage());
         }

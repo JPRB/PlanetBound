@@ -56,12 +56,12 @@ public class Enums {
     }
 
     public enum Events {
-        CrewDeath(1, "Um membro da tripulação morreu."),
-        SalvageShip(2, "Encontraste uma nave abandonada com recursos."), // recolher recursos de 1 tipo
-        CargoLoss(3, "Ocorreu um problema no porão. Perdeste alguns recursos."), // d3 [1-3] to see how much of that resource you lose
-        FuelLoss(4, "Usaste demasiado combustivel."),
-        NoEvent(5, "Não aconteceu nenhum evento."),
-        CrewRescue(6, "Encontraste um membro numa nave abandonada.");
+        CrewDeath(1, "Um membro da tripulação morreu.\n"),
+        SalvageShip(2, "Encontraste uma nave abandonada com recursos.\n"), // recolher recursos de 1 tipo
+        CargoLoss(3, "Ocorreu um problema no porão. Perdeste alguns recursos.\n"), // d3 [1-3] to see how much of that resource you lose
+        FuelLoss(4, "Usaste demasiado combustivel.\n"),
+        NoEvent(5, "Não aconteceu nenhum evento.\n"),
+        CrewRescue(6, "Encontraste um membro numa nave abandonada.\n");
 
         private final int value;
         private final String description;
@@ -81,11 +81,11 @@ public class Enums {
     }
 
     public enum Station {
-        convertResources(1, "Coverter Recursos"),
-        buyDrone(2, "Comprar Novo Drone"),
-        hireNewCrew(3, "Contratar Novo Membro"),
-        upgradeWeapons(4, "Upgrate Armas"),
-        upgradeCargoHold(5, "Upgrate Carga");
+        buyDrone(1, "Comprar Novo Drone"),
+        hireNewCrew(2, "Contratar Novo Membro"),
+        upgradeWeapons(3, "Upgrate Armas"),
+        upgradeCargoHold(4, "Upgrate Carga"),
+        convertResources(5, "Coverter Recursos");
 
         private final int value;
         private final String description;

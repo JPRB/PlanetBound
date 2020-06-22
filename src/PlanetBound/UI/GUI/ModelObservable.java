@@ -6,6 +6,7 @@ import PlanetBound.GameLogic.Utils.Enums;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.List;
 
 public class ModelObservable {
     private Game jogo;
@@ -19,6 +20,7 @@ public class ModelObservable {
 
     public final void fireEvent (String ev) {
         System.out.println(jogo.getEstadoID());
+        //jogo.clearMsgLog();
         change.firePropertyChange(ev, null, true);
     }
 
@@ -63,13 +65,16 @@ public class ModelObservable {
         jogo.moveToSpaceStation();
 
         // TODO : Verify if Estado in getEstadoID == AWAIT STATION DECICIONS
-
-        fireEvent(EstadoID.AWAIT_STATION_DECISIONS.name());
+        if (getEstadoID() == EstadoID.AWAIT_STATION_DECISIONS)
+            fireEvent(EstadoID.AWAIT_STATION_DECISIONS.name());
+        else
+            fireEvent(EstadoID.PLANET_ORBIT.name());
     }
 
 
     public void getItemsSpaceStations (int item) {
         jogo.getItemsSpaceStations(item);
+        fireEvent(EstadoID.AWAIT_STATION_DECISIONS.name());
     }
 
     public void explorePlanet () {
@@ -84,27 +89,12 @@ public class ModelObservable {
 
 
 
-
-/*
-    public void playAgain () {
-        setEstado(getState().playAgain());
+    public EstadoID getEstadoID() {
+        return jogo.getEstadoID();
     }
 
-    public void explorePlanet () {
-        setEstado(getState().explore());
-    }
 
-    public void moveDrone (int value) {
-        setEstado(getState().moveDrone(value));
-    }
 
-    public void convertResources(int value){
-        setEstado(getState().convertResources(value));
-    }
-
-    public void doEvent(){
-
-}*/
 
 
 
@@ -123,6 +113,15 @@ public class ModelObservable {
      *  **** get planeta resources?
      *  **** get
      */
+
+
+    public List<String> getMsgLog () {
+        return jogo.getMsgLog();
+    }
+
+    public void clearMsg () {
+        jogo.clearMsgLog();
+    }
 
     // GUI NAVE
     public int getFuel () {
@@ -202,5 +201,10 @@ public class ModelObservable {
 
     public int getWeapon () {
         return jogo.getWeapon();
+    }
+
+
+    public int getFuelMax () {
+        return jogo.getFuelMax();
     }
 }

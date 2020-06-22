@@ -1,6 +1,7 @@
 package PlanetBound.GameLogic.Dados.Setor;
 
 import PlanetBound.GameLogic.Dados.Nave.Nave;
+import PlanetBound.GameLogic.Dados.Resources.Resources;
 import PlanetBound.GameLogic.Utils.Enums;
 
 import java.util.List;
@@ -28,48 +29,52 @@ public class SpaceStation {
 
     public boolean buyDrone (Nave nave) {
         // Buy a new drone for (2 or 3)? of each resource [red, black, green and blue]
-        boolean canBuy = false;
+        boolean couldBuy = false;
 
-        try {
-            List<PlanetBound.GameLogic.Dados.Resources.Resources> resources = Stream.of(Enums.EResources.values())
-                    .map(res -> nave.getCarga().getResource(res.name())).filter(res -> !res.getCor().equals(Enums.EResources.artifact.name())).collect(Collectors.toList());
+        if (nave.getDrone().getLife() < nave.getDrone().getMaxLife()) {
+            try {
+                List<Resources> resources = Stream.of(Enums.EResources.values())
+                        .map(res -> nave.getCarga().getResource(res.name())).filter(res -> !res.getCor().equals(Enums.EResources.artifact.name())).collect(Collectors.toList());
 
-            final long count = resources.stream().filter(r -> r.getResourceVal() >= 2).count();
+                final long count = resources.stream().filter(r -> r.getResourceVal() >= 2).count();
 
-            if (count == 4) {
+                if (count == 4) {
 
-                for (PlanetBound.GameLogic.Dados.Resources.Resources r : resources)
-                    nave.getCarga().removeResources(r.getCor(), 2);
+                    for (Resources r : resources)
+                        nave.getCarga().removeResources(r.getCor(), 2);
 
-                nave.getDrone().setLife(6);
-                canBuy = true;
+                    nave.getDrone().setLife(nave.getDrone().getMaxLife());
+                    couldBuy = true;
+                }
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
         }
 
-        return canBuy;
+        return couldBuy;
     }
 
     public boolean hireNewCrew (Nave nave) {
         boolean hiredOfficer = false;
 
-        try {
-            // Hire a single crew member that was lost for one of each resource [red, black, green and blue]
-            List<PlanetBound.GameLogic.Dados.Resources.Resources> resources = Stream.of(Enums.EResources.values())
-                    .map(res -> nave.getCarga().getResource(res.name())).filter(res -> !res.getCor().equals(Enums.EResources.artifact.name())).collect(Collectors.toList());
+        if (nave.officersNeeded()) {
+            try {
+                // Hire a single crew member that was lost for one of each resource [red, black, green and blue]
+                List<Resources> resources = Stream.of(Enums.EResources.values())
+                        .map(res -> nave.getCarga().getResource(res.name())).filter(res -> !res.getCor().equals(Enums.EResources.artifact.name())).collect(Collectors.toList());
 
-            final long count = resources.stream().filter(r -> r.getResourceVal() >= 1).count();
+                final long count = resources.stream().filter(r -> r.getResourceVal() >= 1).count();
 
-            if (count == 4) {
+                if (count == 4) {
 
-                for (PlanetBound.GameLogic.Dados.Resources.Resources r : resources)
-                    hiredOfficer = nave.getCarga().removeResources(r.getCor(), 1);
+                    for (Resources r : resources)
+                        hiredOfficer = nave.getCarga().removeResources(r.getCor(), 1);
 
-                nave.addCrewMember();
+                    nave.addCrewMember();
+                }
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
         }
 
         return hiredOfficer;

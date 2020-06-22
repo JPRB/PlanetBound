@@ -22,10 +22,10 @@ public class CargoHold {
 
     private void cargaInitial () {
 
-        resources.add(new Resources(Enums.EResources.red.name(), 0));
-        resources.add(new Resources(Enums.EResources.blue.name(), 0));
-        resources.add(new Resources(Enums.EResources.green.name(), 0));
-        resources.add(new Resources(Enums.EResources.black.name(), 0));
+        resources.add(new Resources(Enums.EResources.red.name(), 5));
+        resources.add(new Resources(Enums.EResources.blue.name(), 5));
+        resources.add(new Resources(Enums.EResources.green.name(), 5));
+        resources.add(new Resources(Enums.EResources.black.name(), 5));
         resources.add(new Resources(Enums.EResources.artifact.name(), 0));
     }
 

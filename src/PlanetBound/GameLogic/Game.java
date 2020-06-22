@@ -81,6 +81,11 @@ public class Game {
         return returnNave().getCombustivel();
     }
 
+
+    public int getFuelMax () {
+        return returnNave().getCombustivelMax();
+    }
+
     public int getOfficers () {
         return returnNave().getOfficers();
 

@@ -40,6 +40,10 @@ public abstract class Nave {
         return drone;
     }
 
+    public void setNewDrone () {
+        this.drone = new Drone();
+    }
+
     /*
     ################## Begin #################
     ############ CrewMember Methods ##########
@@ -64,6 +68,10 @@ public abstract class Nave {
 
     public boolean haveCargoOfficer () {
         return getOfficers() >= 4;
+    }
+
+    public boolean officersNeeded () {
+        return getOfficers() != 6;
     }
 
     /*
@@ -191,4 +199,6 @@ public abstract class Nave {
     }
 
     public abstract String getNaveType ();
+
+
 }
