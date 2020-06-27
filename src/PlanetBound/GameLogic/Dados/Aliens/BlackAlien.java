@@ -6,6 +6,15 @@ import PlanetBound.GameLogic.Utils.Enums;
 public class BlackAlien extends Alien {
 
 
+    public BlackAlien () {
+        super();
+    }
+
+    public BlackAlien (boolean morto) {
+
+    }
+
+
     @Override
     public int attack () {
         int val = Dice.rollD6();

@@ -7,7 +7,7 @@ public abstract class Alien {
 
     private int x;
     private int y;
-    private int died = 0;
+    protected int died = 0;
 
     protected Alien () {
     }

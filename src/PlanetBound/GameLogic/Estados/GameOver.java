@@ -16,6 +16,6 @@ public class GameOver extends EstadosAdapter{
 
     @Override
     public EstadoID getEstadoID () {
-        return null;
+        return EstadoID.GAME_OVER;
     }
 }

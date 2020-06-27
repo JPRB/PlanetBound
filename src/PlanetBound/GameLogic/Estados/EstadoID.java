@@ -8,5 +8,6 @@ public enum EstadoID {
     MOVE_DRONE,
     CONVERT_RESORUCES,
     DO_EVENT,
-    PLANET_ORBIT;
+    PLANET_ORBIT,
+    GAME_OVER;
 }

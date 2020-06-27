@@ -35,13 +35,14 @@ public class ViewController {
 
         //MainPane Mainpane = new MainPane();
 
-        panes.add(0, new StartGamePane(modelo, this));
-        panes.add(1, new ChooseNavePane(modelo, this));
+        panes.add(Panes.StartGamePane.getValue(), new StartGamePane(modelo, this));
+        panes.add(Panes.ChooseNavePane.getValue(), new ChooseNavePane(modelo, this));
 
-        panes.add(2, new PlanetOrbitPane(modelo, this));
-        panes.add(3, new SpaceStationPane(modelo, this));
+        panes.add(Panes.PlanetOrbitPane.getValue(), new PlanetOrbitPane(modelo, this));
+        panes.add(Panes.SpaceStationPane.getValue(), new SpaceStationPane(modelo, this));
 
-        panes.add(4, LCP = new LandingCraftPane(modelo, this));
+        panes.add(Panes.LandingCraftPane.getValue(), LCP = new LandingCraftPane(modelo, this));
+        panes.add(Panes.GameOverPane.getValue(), new GameOverPane(modelo, this));
 
         ship = new NaveAttributesPane(modelo, this);
 
@@ -78,6 +79,13 @@ public class ViewController {
             @Override
             public void propertyChange (PropertyChangeEvent evt) {
                 setPaneVisibility(Panes.LandingCraftPane);
+            }
+        });
+
+        modelo.addPropertyChangeListener(EstadoID.GAME_OVER, new PropertyChangeListener() {
+            @Override
+            public void propertyChange (PropertyChangeEvent evt) {
+                setPaneVisibility(Panes.GameOverPane);
             }
         });
 

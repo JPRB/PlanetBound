@@ -22,7 +22,6 @@ public class Drone {
         } else {
             throw new ArrayIndexOutOfBoundsException("Posição inválida");
         }
-        System.out.println("fds!!!");
     }
 
     public int[] getXY () {
@@ -49,5 +48,9 @@ public class Drone {
     // When drone is attacked
     public void attacked () {
         if (life >= 0) life--;
+    }
+
+    public boolean isDestroyed() {
+        return life == 0;
     }
 }

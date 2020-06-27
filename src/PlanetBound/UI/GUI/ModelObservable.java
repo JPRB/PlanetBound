@@ -38,64 +38,62 @@ public class ModelObservable {
 
 
     public void startGame () {
-        jogo.start();
+        fireEvent(jogo.start().toString());
 
-        fireEvent(EstadoID.AWAIT_SHIP_SELECTION.toString());
+        // fireEvent(EstadoID.AWAIT_SHIP_SELECTION.toString());
     }
 
     public void chooseShip (int value) {
-        jogo.chooseShip(value);
-
-        fireEvent(EstadoID.PLANET_ORBIT.name());
+        fireEvent(jogo.chooseShip(value).toString());
+        //fireEvent(EstadoID.PLANET_ORBIT.name());
     }
 
     // Move to New Planet || To orbit in planet || to Ship in Planet Orbit
     public void move () {
-        jogo.move();
-        fireEvent(EstadoID.PLANET_ORBIT.name());
+        fireEvent(jogo.move().toString());
+//        fireEvent(EstadoID.PLANET_ORBIT.name());
     }
 
-    public void doEvent (int val){
+    public void doEvent (int val) {
         jogo.move();
-        jogo.doEvent(val);
-        fireEvent(EstadoID.PLANET_ORBIT.name());
+        fireEvent(jogo.doEvent(val).toString());
+        //fireEvent(EstadoID.PLANET_ORBIT.name());
     }
 
     public void moveToSpaceStation () {
-        jogo.moveToSpaceStation();
+        fireEvent(jogo.moveToSpaceStation().toString());
 
         // TODO : Verify if Estado in getEstadoID == AWAIT STATION DECICIONS
-        if (getEstadoID() == EstadoID.AWAIT_STATION_DECISIONS)
+      /*  if (getEstadoID() == EstadoID.AWAIT_STATION_DECISIONS)
             fireEvent(EstadoID.AWAIT_STATION_DECISIONS.name());
         else
-            fireEvent(EstadoID.PLANET_ORBIT.name());
+            fireEvent(EstadoID.PLANET_ORBIT.name());*/
     }
 
 
     public void getItemsSpaceStations (int item) {
-        jogo.getItemsSpaceStations(item);
-        fireEvent(EstadoID.AWAIT_STATION_DECISIONS.name());
+        fireEvent(jogo.getItemsSpaceStations(item).toString());
+//        fireEvent(EstadoID.AWAIT_STATION_DECISIONS.name());
     }
 
     public void explorePlanet () {
-        jogo.explorePlanet();
-        fireEvent(EstadoID.EXPLORE_RESOURCES.name());
+        fireEvent(jogo.explorePlanet().toString());
+//        fireEvent(EstadoID.EXPLORE_RESOURCES.name());
     }
 
     public void moveDrone (int value) {
-        jogo.moveDrone(value);
-        fireEvent(EstadoID.MOVE_DRONE.name());
+        fireEvent(jogo.moveDrone(value).toString());
+//        fireEvent(EstadoID.MOVE_DRONE.name());
+    }
+
+    public void playAgain () {
+        fireEvent(jogo.playAgain().toString());
     }
 
 
-
-    public EstadoID getEstadoID() {
+    public EstadoID getEstadoID () {
         return jogo.getEstadoID();
     }
-
-
-
-
 
 
     // Methods From Logic to GUI
@@ -109,7 +107,7 @@ public class ModelObservable {
      *  **** get weapon
      *  **** get carga lvl
      *  **** get capacidade
-        **** get resources
+     **** get resources
      *  **** get planeta resources?
      *  **** get
      */
@@ -156,7 +154,6 @@ public class ModelObservable {
     public int getGreenResources () {
         return jogo.getGreenResource();
     }
-
 
 
     // GUI Planet Orbit
@@ -206,5 +203,9 @@ public class ModelObservable {
 
     public int getFuelMax () {
         return jogo.getFuelMax();
+    }
+
+    public boolean getEstadoAlien () {
+        return jogo.getAlienDied();
     }
 }

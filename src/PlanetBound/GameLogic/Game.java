@@ -133,10 +133,6 @@ public class Game {
     }
 
 
-
-
-
-
     // Planet:: Methods
     public Enums.PlanetType getPlanetType () {
         return data.getSetor().getPlanetType();
@@ -156,6 +152,10 @@ public class Game {
         return data.getSetor().getPlaneta().getSuperficie().getAlien().getAlienType();
     }
 
+    public boolean getAlienDied () {
+        return data.getSetor().getPlaneta().getSuperficie().getAlien().isDied();
+    }
+
     public int[] getPosResource () {
         return data.getSetor().getPlaneta().getSuperficie().getResourcePos();
     }
@@ -166,52 +166,58 @@ public class Game {
     }
 
 
-
-
-
-
     /*
             TODO : Methods State Machine
         */
-    public void start () {
+    public EstadoID start () {
         setEstado(getState().start());
+        return getEstadoID();
     }
 
-    public void chooseShip (int value) {
+    public EstadoID chooseShip (int value) {
         setEstado(getState().selectShip(value));
+        return getEstadoID();
     }
 
     // Move to New Planet || To orbit in planet || to Ship in Planet Orbit
-    public void move () {
+    public EstadoID move () {
         setEstado(getState().move());
+        return getEstadoID();
     }
 
-    public void moveToSpaceStation () {
+    public EstadoID moveToSpaceStation () {
         setEstado(getState().moveToSpaceStation());
+        return getEstadoID();
     }
 
-    public void getItemsSpaceStations (int item) {
+    public EstadoID getItemsSpaceStations (int item) {
         setEstado(getState().getItemsSpaceStations(item));
+        return getEstadoID();
     }
 
-    public void playAgain () {
+    public EstadoID playAgain () {
         setEstado(getState().playAgain());
+        return getEstadoID();
     }
 
-    public void explorePlanet () {
+    public EstadoID explorePlanet () {
         setEstado(getState().explore());
+        return getEstadoID();
     }
 
-    public void moveDrone (int value) {
+    public EstadoID moveDrone (int value) {
         setEstado(getState().moveDrone(value));
+        return getEstadoID();
     }
 
-    public void convertResources (int value) {
+    public EstadoID convertResources (int value) {
         setEstado(getState().convertResources(value));
+        return getEstadoID();
     }
 
-    public void doEvent (int val) {
+    public EstadoID doEvent (int val) {
         setEstado(getState().aplicaEvento(val));
+        return getEstadoID();
     }
 
     public EstadoID getEstadoID () {

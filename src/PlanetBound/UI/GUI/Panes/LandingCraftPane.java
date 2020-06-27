@@ -24,10 +24,10 @@ public class LandingCraftPane extends MainPane {
     private TextField keyEvent;
 
     private ImageView alien;
-    private ImageView resource;
+    private ImageView resource = null;
     private ImageView localToCollect;
 
-    private ImageView drone;
+    private ImageView drone = null;
 
 
     public LandingCraftPane (ModelObservable obs, ViewController vc) {
@@ -115,36 +115,30 @@ public class LandingCraftPane extends MainPane {
                         setLocalToCollect();
                     }
                 });
-
-        modelo.addPropertyChangeListener(EstadoID.MOVE_DRONE,
-                new PropertyChangeListener() {
-                    @Override
-                    public void propertyChange (PropertyChangeEvent evt) {
-                        setDronePos();
-
-                        setAlienPos();
-                    }
-                });
-
     }
 
 
     private void setAlien () {
-        switch (modelo.getAlien()) {
-            case BLACK_ALIEN:
-                alien = new ImageView(new ImageLoader(ImgConstants.BLACK_ALIEN.getName()).getImagem());
-                break;
-            case RED_ALIEN:
-                alien = new ImageView(new ImageLoader(ImgConstants.RED_ALIEN.getName()).getImagem());
-                break;
-            case BLUE_ALIEN:
-                alien = new ImageView(new ImageLoader(ImgConstants.BLUE_ALIEN.getName()).getImagem());
-                break;
-            case GREEN_ALIEN:
-                alien = new ImageView(new ImageLoader(ImgConstants.GREEN_ALIEN.getName()).getImagem());
-                break;
+        //if (alien.getImage() == null || modelo.getEstadoAlien()) {
+            switch (modelo.getAlien()) {
+                case BLACK_ALIEN:
+                    setImg(alien, new ImageLoader(ImgConstants.BLACK_ALIEN.getName()).getImagem());
+//                    alien = new ImageView(new ImageLoader(ImgConstants.BLACK_ALIEN.getName()).getImagem());
+                    break;
+                case RED_ALIEN:
+                    setImg(alien, new ImageLoader(ImgConstants.RED_ALIEN.getName()).getImagem());
+//                    alien = new ImageView(new ImageLoader(ImgConstants.RED_ALIEN.getName()).getImagem());
+                    break;
+                case BLUE_ALIEN:
+                    setImg(alien, new ImageLoader(ImgConstants.BLUE_ALIEN.getName()).getImagem());
+//                    alien = new ImageView(new ImageLoader(ImgConstants.BLUE_ALIEN.getName()).getImagem());
+                    break;
+                case GREEN_ALIEN:
+                    setImg(alien, new ImageLoader(ImgConstants.GREEN_ALIEN.getName()).getImagem());
+//                    alien = new ImageView(new ImageLoader(ImgConstants.GREEN_ALIEN.getName()).getImagem());
+                    break;
+            //}
         }
-
         setAlienPos();
     }
 
@@ -155,24 +149,26 @@ public class LandingCraftPane extends MainPane {
     }
 
     private void setResource () {
-        switch (modelo.getResource()) {
-            case "black":
-                resource = new ImageView(new ImageLoader(ImgConstants.BLACK_CUBE.getName()).getImagem());
-                break;
-            case "blue":
-                resource = new ImageView(new ImageLoader(ImgConstants.BLUE_CUBE.getName()).getImagem());
-                break;
-            case "green":
-                resource = new ImageView(new ImageLoader(ImgConstants.GREEN_CUBE.getName()).getImagem());
-                break;
-            case "red":
-                resource = new ImageView(new ImageLoader(ImgConstants.RED_CUBE.getName()).getImagem());
-                break;
-        }
+        if (resource == null) {
+            switch (modelo.getResource()) {
+                case "black":
+                    resource = new ImageView(new ImageLoader(ImgConstants.BLACK_CUBE.getName()).getImagem());
+                    break;
+                case "blue":
+                    resource = new ImageView(new ImageLoader(ImgConstants.BLUE_CUBE.getName()).getImagem());
+                    break;
+                case "green":
+                    resource = new ImageView(new ImageLoader(ImgConstants.GREEN_CUBE.getName()).getImagem());
+                    break;
+                case "red":
+                    resource = new ImageView(new ImageLoader(ImgConstants.RED_CUBE.getName()).getImagem());
+                    break;
+            }
 
-        int x = modelo.getPosResource()[0];
-        int y = modelo.getPosResource()[1];
-        setPos(resource, x, y);
+            int x = modelo.getPosResource()[0];
+            int y = modelo.getPosResource()[1];
+            setPos(resource, x, y);
+        }
     }
 
     private void setLocalToCollect () {
@@ -182,7 +178,8 @@ public class LandingCraftPane extends MainPane {
     }
 
     private void setDrone () {
-        drone = new ImageView(new ImageLoader(ImgConstants.DRONE.getName()).getImagem());
+        if (drone == null)
+            drone = new ImageView(new ImageLoader(ImgConstants.DRONE.getName()).getImagem());
 
         setDronePos();
     }

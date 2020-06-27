@@ -48,29 +48,31 @@ public class AwaitToExplorerResources extends EstadosAdapter {
 
             }
         } catch (ArrayIndexOutOfBoundsException exc) {
-            getGameData().addMsgLog(exc.getMessage());
+            // getGameData().addMsgLog(exc.getMessage());
         }
 
         // ALIEN INTERACTION W/ DRONE
         if (alien.isDied())
             superficie.setAlien();
-        else {
+        else if (!drone.isDestroyed()){
             int alienInt = alien.interaction(drone);
 
-            if (alienInt == 1)
+            if (alienInt == 1) {
                 getGameData().addMsgLog("Alien Morreu!!");
+                superficie.setAlien();
+            }
             else if (alienInt == 0){
                 getGameData().addMsgLog("Drone explodiu!!");
                 return new PlanetOrbit(getGameData());
             }
-            getGameData().addMsgLog(String.format("ALIEN (X, Y): (%d, %d)", alien.getX(), alien.getY()));
+            //getGameData().addMsgLog(String.format("ALIEN (X, Y): (%d, %d)", alien.getX(), alien.getY()));
         }
         // ALIEN INTERACTION W/ DRONE
 
         // posDrone = superficie.getDronePos();
-        getGameData().addMsgLog(" ");
-        getGameData().addMsgLog(String.format("Recurso (X, Y): (%d, %d)", posResource[0], posResource[1]));
-        getGameData().addMsgLog(String.format("Drone (X, Y): (%d, %d)", drone.getX(), drone.getY()));
+        //getGameData().addMsgLog(" ");
+        //getGameData().addMsgLog(String.format("Recurso (X, Y): (%d, %d)", posResource[0], posResource[1]));
+        //getGameData().addMsgLog(String.format("Drone (X, Y): (%d, %d)", drone.getX(), drone.getY()));
 
 
         if (drone.getX() == posResource[0] && drone.getY() == posResource[1]) {
