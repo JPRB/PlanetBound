@@ -35,7 +35,7 @@ public class AwaitStationDecisions extends EstadosAdapter {
         }
         getGameData().getNave().wasteFuel(1);
 
-        return this;
+        return new AwaitStationDecisions(getGameData());
     }
 
     @Override

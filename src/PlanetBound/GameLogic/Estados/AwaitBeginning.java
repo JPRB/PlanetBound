@@ -13,7 +13,6 @@ public class AwaitBeginning extends EstadosAdapter {
 
         // Escolher a nave
 
-
         return new AwaitShipSelection(getGameData());
         // return new Próximo estado (this.getGamedata());
     }

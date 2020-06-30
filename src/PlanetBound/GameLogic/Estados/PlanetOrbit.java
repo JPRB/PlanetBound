@@ -23,23 +23,13 @@ public class PlanetOrbit extends EstadosAdapter {
 
         Nave nave = this.getGameData().getNave();
 
-        nave.wasteFuel(1);
-
         if (nave.getCombustivel() <= 1 || nave.getOfficers() < 1) {
             this.getGameData().addMsgLog("### GAME OVER ###");
             return new GameOver(getGameData());
         }
 
+        nave.wasteFuel(1);
 
-        // APAGAR!!!!!!!!
-       /* try {
-            this.getGameData().setSetor();
-            System.out.println("Novo planeta encontrado!");
-        } catch (Exception e) {
-            Util.pError(e.getMessage());
-        }
-
-        return new PlanetOrbit(getGameData());*/
        return new AwaitEvent(getGameData());
     }
 
