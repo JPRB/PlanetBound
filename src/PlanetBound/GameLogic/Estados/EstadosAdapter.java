@@ -29,11 +29,6 @@ public abstract class EstadosAdapter implements IEstados {
         return this;
     }
 
-    @Override
-    public IEstados finish () {
-        return this;
-    }
-
 
     @Override
     public IEstados selectShip (int value) {
@@ -74,6 +69,11 @@ public abstract class EstadosAdapter implements IEstados {
 
     @Override
     public IEstados convertResources (int value) {
+        return this;
+    }
+
+    @Override
+    public IEstados convertResourceInOther (int value) {
         return this;
     }
 

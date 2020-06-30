@@ -61,6 +61,10 @@ public class PlanetOrbit extends EstadosAdapter {
             if (this.getGameData().getNave().getCombustivel() < 1)
                 return new GameOver(getGameData());
 
+            for (Enums.EResources res : Enums.EResources.values())
+                if (res != Enums.EResources.artifact)
+                    getGameData().getNave().getCarga().removeResources(res.name(), 2);
+
             return new AwaitStationDecisions(getGameData());
         }
 
@@ -95,9 +99,6 @@ public class PlanetOrbit extends EstadosAdapter {
         nave.wasteFuel(1);
 
         getGameData().getSetor().getPlaneta().setSuperficie(nave.getDrone());
-
-        System.out.println(String.format("Recurso (X, Y): (%d, %d)", getGameData().getSetor().getPlaneta().getSuperficie().getResourcePos()[0], getGameData().getSetor().getPlaneta().getSuperficie().getResourcePos()[1]));
-        System.out.println(String.format("Drone (X, Y): (%d, %d)", getGameData().getSetor().getPlaneta().getSuperficie().getDronePos()[0], getGameData().getSetor().getPlaneta().getSuperficie().getDronePos()[1]));
 
         return new AwaitToExplorerResources(getGameData());
     }

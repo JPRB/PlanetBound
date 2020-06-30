@@ -1,24 +1,19 @@
 package PlanetBound.UI.GUI.Panes;
 
-import PlanetBound.GameLogic.Utils.Enums;
 import PlanetBound.UI.GUI.Buttons.DefaultButton;
 import PlanetBound.UI.GUI.ModelObservable;
 import PlanetBound.UI.GUI.ViewController;
+import PlanetBound.UI.Resources.ImageLoader;
+import PlanetBound.UI.Resources.ImgConstants;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceDialog;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class GameOverPane extends MainPane {
 
@@ -38,19 +33,27 @@ public class GameOverPane extends MainPane {
     public void setLayout () {
 
         BorderPane pane = new BorderPane();
+        pane.setPrefHeight(height);
+        pane.setPrefWidth(width);
+
+        VBox txtBox = new VBox();
+        Label titulo = setTitle();
+
+        txtBox.getChildren().add(titulo);
+        txtBox.setAlignment(Pos.CENTER);
+
+        // Buttons
+        VBox vbtns = new VBox();
+        vbtns.setSpacing(25);
+        vbtns.getChildren().add(setButtons());
+        vbtns.setAlignment(Pos.CENTER_RIGHT);
 
 
-        VBox vbox = new VBox();
-        vbox.setAlignment(Pos.CENTER);
+        pane.setTop(txtBox);
+        pane.setCenter(vbtns);
 
-        vbox.getChildren().addAll(setTitle(), setButtons());
-
-        vbox.setMinWidth(800);
-
-        pane.setCenter(vbox);
-
-        this.getChildren().addAll(pane);
-
+        ImageView backGround = new ImageView(new ImageLoader(ImgConstants.SPACE.getName()).getImagem());
+        this.getChildren().addAll(backGround, pane);
     }
 
     @Override
@@ -70,7 +73,7 @@ public class GameOverPane extends MainPane {
     private Label setTitle () {
 
         Label titulo = new Label("Game Over");
-        titulo.setTextFill(Color.PALEVIOLETRED);
+        titulo.setTextFill(Color.RED);
         titulo.setFont(Font.font("Magneto", FontWeight.EXTRA_BOLD, 80));
         titulo.setAlignment(Pos.TOP_CENTER);
 
@@ -87,11 +90,7 @@ public class GameOverPane extends MainPane {
         playAgainBtn = new DefaultButton("Play Again", null, 200, 50, false);
         finishBtn = new DefaultButton("Exit", null, 200, 50, false);
 
-        //box.setMargin(startBtn, new Insets(300, 200, 20, 20));
-        //box.setMargin(finishBtn, new Insets(300, 20, 20, 20));
         box.setAlignment(Pos.BOTTOM_CENTER);
-        box.setBorder(new Border(new BorderStroke(Color.valueOf("#9E9E9E"),
-                BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(3))));
         box.setSpacing(300);
         box.getChildren().addAll(playAgainBtn, finishBtn);
 

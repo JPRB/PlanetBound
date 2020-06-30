@@ -10,6 +10,7 @@ import PlanetBound.UI.Resources.ImgConstants;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.ChoiceDialog;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -22,7 +23,7 @@ import java.util.List;
 import java.util.Optional;
 
 
-public class PlanetOrbitPane extends MainPane implements PropertyChangeListener {
+public class PlanetOrbitPane extends MainPane {
 
     private CaptionButton explorerBtn;
     private CaptionButton newPlanetBtn;
@@ -36,18 +37,12 @@ public class PlanetOrbitPane extends MainPane implements PropertyChangeListener 
     public PlanetOrbitPane (ModelObservable model, ViewController vc) {
         super(model, vc);
 
-         this.getChildren().addAll(bp);
-
-        modelo.addPropertyChangeListener(EstadoID.PLANET_ORBIT, this);
-
-        atualiza();
-
         setListeners();
-        propertyChange(null);
     }
 
     @Override
     public void setLayout () {
+
         bp = new BorderPane();
 
         bp.setPrefSize(width, height-60);
@@ -61,13 +56,18 @@ public class PlanetOrbitPane extends MainPane implements PropertyChangeListener 
         // setheader text
         d.setHeaderText("Selecione o evento que quer. \nPara avançar normalmente, basta cancelar!");
 
+        ImageView imgVw = new ImageView(new ImageLoader(ImgConstants.SPACE.getName()).getImagem());
+        this.getChildren().addAll(imgVw, bp);
+
+        bp.setBottom(setBtns());
+
+        bp.setCenter(setPlanet());
+
     }
 
     private void atualiza () {
         bp.setBottom(null);
-        bp.setBottom(setBtns());
 
-        bp.setCenter(setPlanet());
     }
 
 
@@ -106,9 +106,9 @@ public class PlanetOrbitPane extends MainPane implements PropertyChangeListener 
         box.getChildren().addAll(img);
 
         box.setAlignment(Pos.CENTER);
-
+/*
         box.setBorder(new Border(new BorderStroke(Color.PINK,
-                BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(3))));
+                BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(3))));*/
 
         return box;
     }
@@ -136,9 +136,9 @@ public class PlanetOrbitPane extends MainPane implements PropertyChangeListener 
         box.getChildren().addAll(explorerBtn, newPlanetBtn, spaceStationBtn);
 
 
-        box.setAlignment(Pos.BOTTOM_CENTER);
+        box.setAlignment(Pos.BOTTOM_CENTER);/*
         box.setBorder(new Border(new BorderStroke(Color.valueOf("#9E9E9E"),
-                BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(3))));
+                BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(3))));*/
 
         box.setPadding(new Insets(20, 20, 50, 20));
         box.setSpacing(25);
@@ -169,20 +169,19 @@ public class PlanetOrbitPane extends MainPane implements PropertyChangeListener 
             modelo.doEvent(val);
         });
 
+        modelo.addPropertyChangeListener(EstadoID.PLANET_ORBIT,
+                new PropertyChangeListener() {
+                    @Override
+                    public void propertyChange (PropertyChangeEvent evt) {
+                        spaceStationBtn.setVisible(modelo.getStation());
+                        spaceStationBtn.setManaged(modelo.getStation());
+                        bp.setCenter(setPlanet());
+                    }
+                });
 
     }
 
-    @Override
-    public void propertyChange (PropertyChangeEvent evt) {
-        // bp.setCenter(null);
-        planet = setPlanet();
 
-        spaceStationBtn.setVisible(modelo.getStation());
-        spaceStationBtn.setManaged(modelo.getStation());
-        bp.setCenter(planet);
-
-
-    }
 
 
 

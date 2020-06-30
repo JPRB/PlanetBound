@@ -10,23 +10,15 @@ public class Main extends Application {
 
     public static void main(String[] args) {
 
-        launch(args);
-
-        Game game = new Game();
-        TextUserInterface ui = new TextUserInterface(game);
-
-        ui.run();
-
-
-        /*if (args.length == 0 *//*&& args[0].equals("-console")*//*){ // make console work
+        /*if (args.length == 0 && args[0].equals("-console")){ // make console work
 
             Game game = new Game();
             TextUserInterface ui = new TextUserInterface(game);
 
             ui.run();
         }
-        else
-            launch(args);*/
+        else*/
+            launch(args);
 
 
     }

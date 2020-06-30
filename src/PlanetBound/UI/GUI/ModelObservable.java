@@ -39,55 +39,49 @@ public class ModelObservable {
 
     public void startGame () {
         fireEvent(jogo.start().toString());
-
-        // fireEvent(EstadoID.AWAIT_SHIP_SELECTION.toString());
     }
 
     public void chooseShip (int value) {
         fireEvent(jogo.chooseShip(value).toString());
-        //fireEvent(EstadoID.PLANET_ORBIT.name());
     }
 
     // Move to New Planet || To orbit in planet || to Ship in Planet Orbit
     public void move () {
         fireEvent(jogo.move().toString());
-//        fireEvent(EstadoID.PLANET_ORBIT.name());
     }
 
     public void doEvent (int val) {
         jogo.move();
         fireEvent(jogo.doEvent(val).toString());
-        //fireEvent(EstadoID.PLANET_ORBIT.name());
     }
 
     public void moveToSpaceStation () {
         fireEvent(jogo.moveToSpaceStation().toString());
-
-        // TODO : Verify if Estado in getEstadoID == AWAIT STATION DECICIONS
-      /*  if (getEstadoID() == EstadoID.AWAIT_STATION_DECISIONS)
-            fireEvent(EstadoID.AWAIT_STATION_DECISIONS.name());
-        else
-            fireEvent(EstadoID.PLANET_ORBIT.name());*/
     }
 
 
     public void getItemsSpaceStations (int item) {
         fireEvent(jogo.getItemsSpaceStations(item).toString());
-//        fireEvent(EstadoID.AWAIT_STATION_DECISIONS.name());
     }
 
     public void explorePlanet () {
         fireEvent(jogo.explorePlanet().toString());
-//        fireEvent(EstadoID.EXPLORE_RESOURCES.name());
     }
 
     public void moveDrone (int value) {
         fireEvent(jogo.moveDrone(value).toString());
-//        fireEvent(EstadoID.MOVE_DRONE.name());
     }
 
     public void playAgain () {
         fireEvent(jogo.playAgain().toString());
+    }
+
+    public void convertResources (int value) {
+        fireEvent(jogo.convertResources(value).toString());
+    }
+
+    public void convertInOtherResource (int value) {
+        fireEvent(jogo.convertResourceInOther(value).toString());
     }
 
 
@@ -155,6 +149,9 @@ public class ModelObservable {
         return jogo.getGreenResource();
     }
 
+    public int getArtifactResoruces () {
+        return jogo.getArtifactResource();
+    }
 
     // GUI Planet Orbit
     public boolean getStation () {
@@ -191,6 +188,72 @@ public class ModelObservable {
         return jogo.getResourceSurface();
     }
 
+    // Gui to convert Resources
+    public void convertIntoArmor () {
+        this.convertResources(3);
+    }
+
+    public void convertIntoFuel () {
+        this.convertResources(1);
+    }
+
+    public void convertIntoShield () {
+        this.convertResources(2);
+    }
+
+    public void convertResblackToRedBtn () {
+        convertInOtherResource(1);
+    }
+
+    public void convertResblackToGreenBtn () {
+        convertInOtherResource(2);
+    }
+
+    public void convertResblackToBlueBtn () {
+        convertInOtherResource(3);
+    }
+
+    public void convertResblueToBlackBtn () {
+        convertInOtherResource(4);
+    }
+
+    public void convertResblueToGreenBtn () {
+        convertInOtherResource(5);
+    }
+
+    public void convertResblueToRedBtn () {
+        convertInOtherResource(6);
+    }
+
+
+    public void convertResredToBlackBtn () {
+        convertInOtherResource(7);
+    }
+
+    public void convertResredToBlueBtn () {
+        convertInOtherResource(8);
+    }
+
+    public void convertResredToGreenBtn () {
+        convertInOtherResource(9);
+    }
+
+    public void convertResgreenToRedBtn () {
+        convertInOtherResource(10);
+    }
+
+
+    public void convertResgreenToBlackBtn () {
+        convertInOtherResource(11);
+    }
+
+    public void convertResgreenToBlueBtn () {
+        convertInOtherResource(12);
+    }
+
+
+
+
 
     public String getNaveType () {
         return jogo.getNaveType();
@@ -208,4 +271,5 @@ public class ModelObservable {
     public boolean getEstadoAlien () {
         return jogo.getAlienDied();
     }
+
 }

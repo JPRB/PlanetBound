@@ -48,32 +48,41 @@ public class CaptionButton extends Button {
 
             bp.setCenter(img);
             bp.setBottom(cap);
-        }
-        else{
-            cap.setAlignment(Pos.CENTER);
-            bp.setCenter(cap);
+        }else {
+            if (caption.isEmpty()) {
+                bp.setCenter(img);
+            }
+            else
+            {
+                cap.setAlignment(Pos.CENTER);
+                bp.setCenter(cap);
+            }
         }
 
 
         //btn = new Button();
-        this.setBackground(new Background(new BackgroundFill(color, cornerRadii, insets)));
+        setBackGround();
         this.setGraphic(bp);
         this.setMinHeight(height);
         this.setMinWidth(width);
 
     }
 
+    public void setBackGround() {
+        this.setBackground(new Background(new BackgroundFill(color, cornerRadii, insets)));
+    }
+
     public void setImg (Image img){
         this.img.setImage(img);
     }
 
-
-    public void setColor (String color){
+    public final void setColor (String color){
         setColor(Color.valueOf(color));
     }
 
     public void setColor (Color color) {
         this.color = color;
+        this.setBackGround();
     }
 
     public Color getColor () {

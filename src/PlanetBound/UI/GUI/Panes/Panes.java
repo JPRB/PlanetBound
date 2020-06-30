@@ -6,7 +6,7 @@ public enum Panes {
     PlanetOrbitPane(2),
     SpaceStationPane(3),
     LandingCraftPane(4),
-    GameOverPane(5);
+    GameOverPane(6), ConvertResources(5);
 
 
     private int value;

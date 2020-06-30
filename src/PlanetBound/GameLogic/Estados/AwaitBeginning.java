@@ -18,11 +18,6 @@ public class AwaitBeginning extends EstadosAdapter {
         // return new Próximo estado (this.getGamedata());
     }
 
-    @Override
-    public IEstados finish () {
-
-        return super.finish();
-    }
 
     @Override
     public EstadoID getEstadoID () {

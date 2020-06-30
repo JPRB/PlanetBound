@@ -85,7 +85,7 @@ public class AwaitToExplorerResources extends EstadosAdapter {
                 if (collected)
                     getGameData().addMsgLog("Recolheu " + resources.getResourceVal() + " recurso " + resources.getCor());
                 else
-                    getGameData().addMsgLog("Eram demasiados recursos. Tentou-se recolher recursos " + resources.getCor());
+                    getGameData().addMsgLog("Eram demasiados recursos. - "+ resources.getResourceVal() + " - Tentou-se recolher alguns recursos " + resources.getCor());
 
 
                 if (getGameData().getNave().getCarga().getResource(Enums.EResources.artifact.name()).getResourceVal() == 5) {

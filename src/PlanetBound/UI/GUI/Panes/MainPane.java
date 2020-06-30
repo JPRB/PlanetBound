@@ -5,6 +5,8 @@ import PlanetBound.UI.GUI.Buttons.DefaultButton;
 import PlanetBound.UI.GUI.Constants;
 import PlanetBound.UI.GUI.ModelObservable;
 import PlanetBound.UI.GUI.ViewController;
+import PlanetBound.UI.Resources.ImageLoader;
+import PlanetBound.UI.Resources.ImgConstants;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
@@ -28,6 +30,7 @@ public abstract class MainPane extends Pane implements Constants {
     protected ViewController view;
     protected double  width;
     protected double height;
+    protected boolean log = true;
 
     protected MainPane(ModelObservable obs, ViewController vc) {
         this(obs, vc, 800-15, 562);
@@ -40,11 +43,14 @@ public abstract class MainPane extends Pane implements Constants {
         this.height = height;
 
         getStyleClass().add(getClass().getResource("/PlanetBound/UI/GUI/Css/Stylesheet.css").toExternalForm());
+
         setLayout();
 
-        log(true);
+        log();
         // setListeners();
     }
+
+
 
     protected void setMsgLog () {
         List <String> list = modelo.getMsgLog();
@@ -70,11 +76,11 @@ public abstract class MainPane extends Pane implements Constants {
 
     }
 
-    public void log(boolean bol) {
+    public void log() {
         modelo.addPropertyChangeListener(new PropertyChangeListener() {
             @Override
             public void propertyChange (PropertyChangeEvent evt) {
-                if (bol)
+                if (log)
                     setMsgLog();
             }
         });

@@ -3,15 +3,19 @@ package PlanetBound.UI.GUI.Panes;
 import PlanetBound.UI.GUI.Buttons.DefaultButton;
 import PlanetBound.UI.GUI.ModelObservable;
 import PlanetBound.UI.GUI.ViewController;
+import PlanetBound.UI.Resources.ImageLoader;
+import PlanetBound.UI.Resources.ImgConstants;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+
 
 public class StartGamePane extends MainPane{
 
@@ -34,7 +38,20 @@ public class StartGamePane extends MainPane{
         pane = new BorderPane();
 
         //Instantiating the HBox class
-        VBox vbox = new VBox();
+        VBox txtBox = new VBox();
+        Label titulo = setTitle();
+
+        txtBox.getChildren().add(titulo);
+        txtBox.setAlignment(Pos.CENTER);
+
+        // Buttons
+        VBox vbtns = new VBox();
+        vbtns.setSpacing(25);
+        vbtns.getChildren().add(setButtons());
+        vbtns.setAlignment(Pos.CENTER_RIGHT);
+
+
+
 
         //Setting the space between the nodes of a HBox pane
         //hbox.setSpacing(10);
@@ -49,16 +66,11 @@ public class StartGamePane extends MainPane{
         hbox.setAlignment(Pos.TOP_RIGHT);
         hbox.getChildren().add(soundBtn);*/
 
-        vbox.setAlignment(Pos.CENTER);
+        pane.setTop(txtBox);
+        pane.setCenter(vbtns);
 
-        vbox.getChildren().addAll(setTitle(), setButtons());
-
-        vbox.setMinWidth(800);
-
-
-        pane.setCenter(vbox);
-
-        this.getChildren().addAll(pane);
+        ImageView backGround = new ImageView(new ImageLoader(ImgConstants.SPACE.getName()).getImagem());
+        this.getChildren().addAll(backGround, pane);
 
     }
 
@@ -97,11 +109,7 @@ public class StartGamePane extends MainPane{
         startBtn = new DefaultButton("Start", null, 200, 50, false);
         finishBtn = new DefaultButton("Finish", null, 200, 50, false);
 
-        //box.setMargin(startBtn, new Insets(300, 200, 20, 20));
-        //box.setMargin(finishBtn, new Insets(300, 20, 20, 20));
         box.setAlignment(Pos.BOTTOM_CENTER);
-        box.setBorder(new Border(new BorderStroke(Color.valueOf("#9E9E9E"),
-                BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(3))));
         box.setSpacing(300);
         box.getChildren().addAll(startBtn, finishBtn);
 

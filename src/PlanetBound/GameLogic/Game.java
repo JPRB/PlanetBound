@@ -132,6 +132,9 @@ public class Game {
         return getCargo(Enums.EResources.green);
     }
 
+    public int getArtifactResource () {
+        return getCargo(Enums.EResources.artifact);
+    }
 
     // Planet:: Methods
     public Enums.PlanetType getPlanetType () {
@@ -215,6 +218,11 @@ public class Game {
         return getEstadoID();
     }
 
+    public EstadoID convertResourceInOther (int value) {
+        setEstado(getState().convertResourceInOther(value));
+        return getEstadoID();
+    }
+
     public EstadoID doEvent (int val) {
         setEstado(getState().aplicaEvento(val));
         return getEstadoID();
@@ -223,4 +231,6 @@ public class Game {
     public EstadoID getEstadoID () {
         return estado.getEstadoID();
     }
+
+
 }

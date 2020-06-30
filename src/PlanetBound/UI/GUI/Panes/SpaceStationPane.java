@@ -98,8 +98,8 @@ public class SpaceStationPane extends MainPane {
         imgBox.setAlignment(Pos.CENTER);
 
         imgBox.getChildren().addAll(img);
-        imgBox.setBorder(new Border(new BorderStroke(Color.valueOf("red"),
-                BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(3))));
+        /*imgBox.setBorder(new Border(new BorderStroke(Color.valueOf("red"),
+                BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(3))));*/
 
         return imgBox;
     }
@@ -109,15 +109,15 @@ public class SpaceStationPane extends MainPane {
         VBox backBox = new VBox();
 
         backBtn = new CaptionButton("< Voltar", null,  25, 50);
-        backBtn.setOpacity(0.9);
-        backBtn.setColor("#a7c7e0");
         backBtn.setStyle("-fx-font-weight: bold");
 
         backBox.setAlignment(Pos.TOP_LEFT);
         backBox.setPadding(new Insets(10, 10, 10, 10));
+
         backBox.getChildren().addAll(backBtn);
+        /*
         backBox.setBorder(new Border(new BorderStroke(Color.valueOf("red"),
-                BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(3))));
+                BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(3))));*/
 
         return backBox;
     }
@@ -148,9 +148,9 @@ public class SpaceStationPane extends MainPane {
         upgradeCargoHoldBtn.setOpacity(0.9);
 
 
-        box.setAlignment(Pos.CENTER);
+        box.setAlignment(Pos.CENTER);/*
         box.setBorder(new Border(new BorderStroke(Color.valueOf("#9E9E9E"),
-                BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(3))));
+                BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(3))));*/
 
         box.setPadding(new Insets(20, 20, 50, 20));
         box.setSpacing(25);

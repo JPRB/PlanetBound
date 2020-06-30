@@ -14,8 +14,6 @@ public interface IEstados {
     // Mover para novo Planeta/Setor Ou para Planeta/Setor existente
     IEstados move ();
 
-    IEstados finish ();
-
     IEstados moveToSpaceStation ();
 
     IEstados getItemsSpaceStations (int item);
@@ -29,6 +27,8 @@ public interface IEstados {
     IEstados moveDrone(int value);
 
     IEstados convertResources (int value);
+
+    IEstados convertResourceInOther(int value);
 
     IEstados aplicaEvento (int val);
 

@@ -24,7 +24,7 @@ public class LandingCraftPane extends MainPane {
     private TextField keyEvent;
 
     private ImageView alien;
-    private ImageView resource = null;
+    private ImageView resource;
     private ImageView localToCollect;
 
     private ImageView drone = null;
@@ -34,6 +34,7 @@ public class LandingCraftPane extends MainPane {
         super(obs, vc);
 
         alien = new ImageView();
+        resource = new ImageView();
         setListeners();
     }
 
@@ -53,7 +54,7 @@ public class LandingCraftPane extends MainPane {
 
         for (int i = 0; i < row; i++) {
             for (int j = 0; j < col; j++) {
-                pane.add(new Label(), j, i);
+                pane.add(new Label(" "), j, i);
             }
         }
 
@@ -115,31 +116,34 @@ public class LandingCraftPane extends MainPane {
                         setLocalToCollect();
                     }
                 });
+
+        modelo.addPropertyChangeListener(EstadoID.PLANET_ORBIT,  new PropertyChangeListener() {
+            @Override
+            public void propertyChange (PropertyChangeEvent evt) {
+                resource.setImage(null);
+            }
+        });
     }
 
 
     private void setAlien () {
-        //if (alien.getImage() == null || modelo.getEstadoAlien()) {
+        if (modelo.getEstadoID() == EstadoID.EXPLORE_RESOURCES) {
             switch (modelo.getAlien()) {
                 case BLACK_ALIEN:
                     setImg(alien, new ImageLoader(ImgConstants.BLACK_ALIEN.getName()).getImagem());
-//                    alien = new ImageView(new ImageLoader(ImgConstants.BLACK_ALIEN.getName()).getImagem());
                     break;
                 case RED_ALIEN:
                     setImg(alien, new ImageLoader(ImgConstants.RED_ALIEN.getName()).getImagem());
-//                    alien = new ImageView(new ImageLoader(ImgConstants.RED_ALIEN.getName()).getImagem());
                     break;
                 case BLUE_ALIEN:
                     setImg(alien, new ImageLoader(ImgConstants.BLUE_ALIEN.getName()).getImagem());
-//                    alien = new ImageView(new ImageLoader(ImgConstants.BLUE_ALIEN.getName()).getImagem());
                     break;
                 case GREEN_ALIEN:
                     setImg(alien, new ImageLoader(ImgConstants.GREEN_ALIEN.getName()).getImagem());
-//                    alien = new ImageView(new ImageLoader(ImgConstants.GREEN_ALIEN.getName()).getImagem());
                     break;
-            //}
+            }
+            setAlienPos();
         }
-        setAlienPos();
     }
 
     private void setAlienPos () {
@@ -149,20 +153,24 @@ public class LandingCraftPane extends MainPane {
     }
 
     private void setResource () {
-        if (resource == null) {
+        if (resource.getImage() == null) {
             switch (modelo.getResource()) {
                 case "black":
-                    resource = new ImageView(new ImageLoader(ImgConstants.BLACK_CUBE.getName()).getImagem());
+                    setImg(resource, new ImageLoader(ImgConstants.BLACK_CUBE.getName()).getImagem());
                     break;
                 case "blue":
-                    resource = new ImageView(new ImageLoader(ImgConstants.BLUE_CUBE.getName()).getImagem());
+                    setImg(resource, new ImageLoader(ImgConstants.BLUE_CUBE.getName()).getImagem());
                     break;
                 case "green":
-                    resource = new ImageView(new ImageLoader(ImgConstants.GREEN_CUBE.getName()).getImagem());
+                    setImg(resource, new ImageLoader(ImgConstants.GREEN_CUBE.getName()).getImagem());
                     break;
                 case "red":
-                    resource = new ImageView(new ImageLoader(ImgConstants.RED_CUBE.getName()).getImagem());
+                    setImg(resource, new ImageLoader(ImgConstants.RED_CUBE.getName()).getImagem());
                     break;
+                case "artifact":
+                    setImg(resource, new ImageLoader(ImgConstants.ARTIFACT.getName()).getImagem());
+                    break;
+
             }
 
             int x = modelo.getPosResource()[0];

@@ -51,9 +51,9 @@ public class AwaitStationDecisions extends EstadosAdapter {
     private void buyDrone () {
         //red, black, green and blue
         if (getGameData().getSetor().getSpaceStation().buyDrone(getGameData().getNave()))
-            getGameData().addMsgLog("Comprou uma Drone novo!");
+            getGameData().addMsgLog("Comprou um Drone novo!");
         else
-            getGameData().addMsgLog("Não consigo comprar um drone novo!");
+            getGameData().addMsgLog("Não é possivel comprar um drone novo!");
 
     }
 
@@ -78,22 +78,28 @@ public class AwaitStationDecisions extends EstadosAdapter {
 
     private void upgradeCargoHold () {
         boolean can = false;
-        try {
-            can = getGameData()
-                    .getSetor()
-                    .getSpaceStation()
-                    .upgradeCargoHold(getGameData().getNave());
+        Nave nave = getGameData().getNave();
+        if (!nave.officersNeeded()) {
+            try {
+                can = getGameData()
+                        .getSetor()
+                        .getSpaceStation()
+                        .upgradeCargoHold(nave);
 
 
-        } catch (Exception e) {
-            getGameData().addMsgLog(e.getMessage());
+            } catch (Exception e) {
+                getGameData().addMsgLog(e.getMessage());
+            }
+
+            if (!can) {
+                getGameData().addMsgLog("Não é possivel fazer upgrade nesta estação");
+            } else {
+                getGameData().addMsgLog("Porão UPGRATED!!");
+            }
         }
+        else
+            getGameData().addMsgLog("Não tem officer para realizar esta ação.");
 
-        if (!can) {
-            getGameData().addMsgLog("Não é possivel fazer upgrade nesta estação");
-        } else {
-            getGameData().addMsgLog("Porão UPGRATED!!");
-        }
     }
 
     @Override
