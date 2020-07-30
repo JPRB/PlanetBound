@@ -1,6 +1,6 @@
 package PlanetBound.GameLogic.Dados;
 
-import PlanetBound.GameLogic.Dados.Events.Event;
+import PlanetBound.GameLogic.Dados.Events.*;
 import PlanetBound.GameLogic.Dados.Factories.FactoryNave;
 import PlanetBound.GameLogic.Dados.Nave.Nave;
 import PlanetBound.GameLogic.Dados.Setor.Setor;

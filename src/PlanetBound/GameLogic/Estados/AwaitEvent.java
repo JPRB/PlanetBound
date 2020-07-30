@@ -1,6 +1,6 @@
 package PlanetBound.GameLogic.Estados;
 
-import PlanetBound.GameLogic.Dados.Events.Event;
+import PlanetBound.GameLogic.Dados.Eventss.Event;
 import PlanetBound.GameLogic.Dados.Factories.FactoryEvent;
 import PlanetBound.GameLogic.Dados.GameData;
 import PlanetBound.GameLogic.Dados.Nave.Nave;

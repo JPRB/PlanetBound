@@ -24,7 +24,6 @@ public final class ImageLoader {
     }
 
     public String getURL() {
-        //System.out.println(getClass().getResource(url).toString());
         return url;
     }
 }

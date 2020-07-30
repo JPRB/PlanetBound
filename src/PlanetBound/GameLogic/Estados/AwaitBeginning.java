@@ -4,7 +4,7 @@ import PlanetBound.GameLogic.Dados.GameData;
 
 public class AwaitBeginning extends EstadosAdapter {
 
-    public AwaitBeginning (GameData data) {
+    public AwaitBeginning(GameData data) {
         super(data);
     }
 
@@ -12,14 +12,12 @@ public class AwaitBeginning extends EstadosAdapter {
     public IEstados start() {
 
         // Escolher a nave
-
         return new AwaitShipSelection(getGameData());
         // return new Próximo estado (this.getGamedata());
     }
 
-
     @Override
-    public EstadoID getEstadoID () {
+    public EstadoID getEstadoID() {
         return EstadoID.AWAIT_BEGINNING;
     }
 }

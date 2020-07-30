@@ -85,19 +85,15 @@ public class LandingCraftPane extends MainPane {
             switch (e.getCode()) {
                 case UP:
                     modelo.moveDrone(1);
-                    System.out.println("up");
                     break;
                 case DOWN:
                     modelo.moveDrone(4);
-                    System.out.println("DOWN");
                     break;
                 case LEFT:
                     modelo.moveDrone(3);
-                    System.out.println("LEFT");
                     break;
                 case RIGHT:
                     modelo.moveDrone(2);
-                    System.out.println("RIGHT");
                     break;
                 default:
             }

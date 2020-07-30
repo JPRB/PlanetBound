@@ -50,7 +50,7 @@ public class GraphicUI implements Constants {
 
             scene.setCursor(new ImageCursor(new ImageLoader(ImgConstants.CURSOR.getName()).getImagem()));
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            //System.out.println(e.getMessage());
         }
     }
 
@@ -83,7 +83,7 @@ public class GraphicUI implements Constants {
             mp.setStopTime(Duration.INDEFINITE);
             mp.setAutoPlay(true);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            //System.out.println(e.getMessage());
 
         }
 

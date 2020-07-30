@@ -1,6 +1,6 @@
 package PlanetBound.GameLogic.Dados.Factories;
 
-import PlanetBound.GameLogic.Dados.Events.*;
+import PlanetBound.GameLogic.Dados.Eventss.*;
 import PlanetBound.GameLogic.Dados.GameData;
 import PlanetBound.GameLogic.Utils.Util;
 

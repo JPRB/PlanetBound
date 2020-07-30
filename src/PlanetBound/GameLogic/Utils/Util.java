@@ -23,6 +23,6 @@ public final class Util {
     }
 
     public static void pError(String error) {
-        System.out.println("Ocorreu um erro" + error);
+        //System.out.println("Ocorreu um erro" + error);
     }
 }

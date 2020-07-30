@@ -19,8 +19,6 @@ public class ModelObservable {
     }
 
     public final void fireEvent (String ev) {
-        System.out.println(jogo.getEstadoID());
-        //jogo.clearMsgLog();
         change.firePropertyChange(ev, null, true);
     }
 

@@ -47,7 +47,7 @@ public class SpaceStation {
                     couldBuy = true;
                 }
             } catch (Exception e) {
-                System.out.println(e.getMessage());
+                //System.out.println(e.getMessage());
             }
         }
 
@@ -73,7 +73,6 @@ public class SpaceStation {
                     nave.addCrewMember();
                 }
             } catch (Exception e) {
-                System.out.println(e.getMessage());
             }
         }
 

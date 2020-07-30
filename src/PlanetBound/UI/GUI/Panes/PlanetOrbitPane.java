@@ -97,8 +97,6 @@ public class PlanetOrbitPane extends MainPane {
     private HBox setPlanet () {
         HBox box = new HBox();
 
-        System.out.println(modelo.getPlanetType().toString());
-
         img = setImgPlanet();
         img.setFitWidth(300);
         img.setPreserveRatio(true);
@@ -106,9 +104,6 @@ public class PlanetOrbitPane extends MainPane {
         box.getChildren().addAll(img);
 
         box.setAlignment(Pos.CENTER);
-/*
-        box.setBorder(new Border(new BorderStroke(Color.PINK,
-                BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(3))));*/
 
         return box;
     }
@@ -163,8 +158,6 @@ public class PlanetOrbitPane extends MainPane {
 
             if (evt.isPresent())
                 val = evt.get().getValue();
-
-            System.out.println(val);
 
             modelo.doEvent(val);
         });
